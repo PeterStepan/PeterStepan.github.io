@@ -8,6 +8,15 @@
         WE.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
           attribution: '© OpenStreetMap contributors'
         }).addTo(earth);
+        	
+        var marker = WE.marker([39.039219, 125.762524]).addTo(earth);
+        marker.bindPopup("<b>Ať žije KLDR</b><br>A její vůdce Kim Čong-un.<br /><span style='font-size:10px;color:#999'>Tip: Pozor na rakety</span>", {maxWidth: 150, closeButton: true}).openPopup();
+
+        var marker2 = WE.marker([30.058056, 31.228889]).addTo(earth);
+        marker2.bindPopup("<b>Cairo</b><br>Sem poletí raketa!", {maxWidth: 120, closeButton: false});
+
+        var markerCustom = WE.marker([50, -9], 'https://image.flaticon.com/icons/svg/33/33622.svg', 100, 24).addTo(earth);
+        
       }
     </script>
     <style>
