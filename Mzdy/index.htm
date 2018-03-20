@@ -1,38 +1,146 @@
 <!DOCTYPE html>
-<html>
-<body>
+<html lang="cs" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+     <title>Výpočet čisté mzdy</title>
+<style>
+.txt    {font-weight: bold;}
+.mtxt {font-size:12px;}
+.vysledek {font-size: 20px;} 
+.hvysledek {font-weight: bold; color: #F00; font-size: 25px;}
+.podtrhnuti {font-size: 23px; font-weight: bold; text-decoration: underline;}
+.datum {font-size: 15px; font-style: italic;}
+#nastaveni {
+display: none;
+background-color: #ACA;
+border: 1px white dotted;
+padding: 5px;
+}
+#historie {
+width: 460px;
+height: 200px;
+overflow: auto;
+border: 1px black dotted;
+}
+#reset {
+position: relative;
+width: 20px;
+margin-left: 90%;
+border: 1 px black;
+font-style: italic;
+text-align: right;
+cursor: pointer;
+}
+</style>
 
-<div>
-<input id="hrubamzdapole" type="text"><br>
-<input id="vlozit" type="submit" value="Spočítat" onclick="spocitat()"><br>
-<ul>
-<li>Hrubá mzda: <span id="hrubamzdavysledek"></span></li>
-<li>Superhrubá mzda: <span id="superhrubamzdavysledek"></span></li>
-<li>Cista mzda: <span id="cistamzdavysledek"></span></li>
-</ul>
+</head>
+<body>
+<h1>Výpočet čisté měsíční mzdy</h1>
+<table border="0"><form method="post" onsubmit="vypocetmzdy();return false">
+<tr><td colspan="2">
+<div class="p">
+<span class="mtxt">Hrubá měsíční mzda:</span><br>
+<input type="number" id="hruba" value="30000" maxlength="6"><span class="txt"> Kč</span></div></td>
+</tr>
+<tr><td><span class="mtxt" id="nastaveniset" onclick="nastaveni()">Nastavení ►:</span><div id="nastaveni">
+<span class="mtxt">Daň z příjmu (v roce 2018 činí <strong>15 %</strong> ze superhrubé mzdy)</span><br>
+<input type="number" id="dan" value="15"><span class="txt"> %</span><br>
+<span class="mtxt">Sleva na poplatníka (v roce 2018 činí 24 840 za rok, tj. <strong>2070</strong> měsíčně)</span><br>
+<input type="number" id="sleva" value="2070"><span class="txt"> Kč</span><br>
+<span class="mtxt">Počítat daň ze superhrubé mzdy?</span><br>
+Ano <input id="super1" type="radio" value="1" name="super" checked> Ne<input type="radio" value="0" name="super">
+<br><div id="reset" class="mtxt" onclick="reset()">Reset</div>
+</div>
+</td>
+<td></td></tr><tr><td><input type="submit" name="cudlik" value="Vypočítat"></td></tr>
+</form></table><br>
+<span class="podtrhnuti">Čistá mzda: <span class="hvysledek vysledek" id="vcistamzda">0</span> <strong>Kč</strong></span></span><br>
+Rozdíl: <span class="vysledek" id="vrozdil">-</span> Kč</span><br>
+Superhrubá mzda: <span class="vysledek" id="vsuperhrubamzda">-</span> Kč</span><br>
+Daň z příjmu: <span class="vysledek" id="vdan">-</span> Kč</span><br>
+Sociální: <span class="vysledek" id="vsocialni">-</span> Kč</span><br>
+Zdravotní: <span class="vysledek" id="vzdravotni">-</span> Kč</span><br>
+Sociální zaměstnavatel: <span class="vysledek" id="vsocialnizam">-</span> Kč</span><br>
+Zdravotní zaměstnavatel: <span class="vysledek" id="vzdravotnizam">-</span> Kč</span><br> 
+Náklady na zaměstnance: <span class="vysledek" id="vnaklady">-</span> Kč</span><br>
+<div><br>
+<i>Historie:</i><br>
+<div id="historie"></div>
+<input type="submit" name="vymazat" value="Vymazat" onclick="smazat('');">
 </div>
 
 <script>
-function spocitat() {
-var hrubamzda = parseFloat(document.getElementById("hrubamzdapole").value);
-if (150) {
-var superhrubamzda = hrubamzda*1.34;
-var soczam = hrubamzda*0.09;
-var zdravzam = hrubamzda*0.25;
-var soc = hrubamzda*0.065;
-var zdrav = hrubamzda*0.045;
-var dan = superhrubamzda*0.15;
-var poplatnik = 2070;
-var cistamzda = hrubamzda-(dan+soc+zdrav)+poplatnik;
-document.getElementById("hrubamzdavysledek").innerHTML = hrubamzda;
-document.getElementById("superhrubamzdavysledek").innerHTML = superhrubamzda;
-document.getElementById("cistamzdavysledek").innerHTML = cistamzda;
-}
-else {document.getElementById("hrubamzdavysledek").innerHTML = "Nelze vypočítat.";
-document.getElementById("superhrubamzdavysledek").innerHTML = "Nelze vypočítat.";
-document.getElementById("cistamzdavysledek").innerHTML = "Nelze vypočítat.";}
+pokus = 0;
+zavreno = 1;
+
+function smazat(obsah) {
+document.getElementById('historie').innerHTML = obsah;
+pokus=0;
 };
+
+function nastaveni() {
+if (zavreno == 1) {
+document.getElementById("nastaveni").style.display = "block";
+document.getElementById("nastaveniset").innerHTML = "Nastavení ▼:";
+zavreno = 0;
+} else {
+zavreno = 1;
+document.getElementById("nastaveni").style.display = "none";
+document.getElementById("nastaveniset").innerHTML = "Nastavení ►:";
+};
+};
+
+function reset() {
+document.getElementById("dan").value = 15;
+document.getElementById("sleva").value = 2070;
+document.getElementById("super1").checked = true; 
+};
+
+function vypocetmzdy() {
+ var hrubamzda = document.getElementById("hruba").value;
+ var zdravotnizam = hrubamzda*0.09;
+ var socialnizam = hrubamzda*0.25;
+ var socialni = hrubamzda*0.065;
+ var zdravotni = hrubamzda*0.045;
+ var dan = document.getElementById("dan").value/100;
+ var sleva = Number(document.getElementById("sleva").value);
+ let d = new Date();
+ let hodiny = d.getHours();
+ let minuty = d.getMinutes();
+ pokus = pokus+1;
+ if(minuty<10) {
+ minuty="0"+minuty;
+ }
+
+ 
+ if(document.getElementById("super1").checked) {
+ var superhrubamzda = hrubamzda*1.34;
+jesuper = "ano";
+ } else {
+  var superhrubamzda = Number(hrubamzda);
+jesuper = "ne";
+ };
+ 
+ function smazat() {
+document.getElementById('historie').innerHTML = '';
+ };
+ 
+var cistamzda = hrubamzda-(socialni+zdravotni)-(superhrubamzda*dan)+sleva;
+
+document.getElementById("vcistamzda").innerHTML = cistamzda.toLocaleString();
+document.getElementById("vrozdil").innerHTML = (hrubamzda-cistamzda).toLocaleString();
+document.getElementById("vdan").innerHTML = (dan*superhrubamzda).toLocaleString();
+document.getElementById("vsuperhrubamzda").innerHTML = superhrubamzda.toLocaleString();
+document.getElementById("vsocialni").innerHTML = socialni.toLocaleString();
+document.getElementById("vzdravotni").innerHTML = zdravotni.toLocaleString();
+document.getElementById("vsocialnizam").innerHTML = socialnizam.toLocaleString();
+document.getElementById("vzdravotnizam").innerHTML = zdravotnizam.toLocaleString();
+document.getElementById("vnaklady").innerHTML = (Number(hrubamzda)+zdravotnizam+socialnizam).toLocaleString();
+if (cistamzda > 0){
+document.getElementById("historie").innerHTML = document.getElementById("historie").innerHTML+"<span class='datum'>("+pokus+") "+hodiny+":"+minuty+" - </span>Daň: "+dan*100+" % <strong>"+cistamzda+"</strong> ("+hrubamzda+") "+" Superhrubá mzda: "+jesuper+"<br>";
+} else {document.getElementById("historie").innerHTML = document.getElementById("historie").innerHTML+"<span class='datum'>("+pokus+") "+hodiny+":"+minuty+" - </span>To už Babiš přehání, ne?<br>";}
+}
 </script>
 
+
 </body>
-</html>
