@@ -64,7 +64,7 @@ document.getElementById('historie').innerHTML = ''; //funkce pro smazání histo
 var cistamzda = hrubamzda-(socialni+zdravotni)-(superhrubamzda*dan)+sleva; //samotný výpočet čisté mzdy
 
 document.getElementById("vcistamzda").innerHTML = cistamzda.toLocaleString(); //tady se to různě vypisuje
-document.getElementById("vrozdil").innerHTML = (hrubamzda-cistamzda).toLocaleString();
+document.getElementById("vrozdil").innerHTML = (0-(hrubamzda-cistamzda)).toLocaleString();
 document.getElementById("vdan").innerHTML = (dan*superhrubamzda).toLocaleString();
 document.getElementById("vsuperhrubamzda").innerHTML = superhrubamzda.toLocaleString();
 document.getElementById("vsocialni").innerHTML = socialni.toLocaleString();
