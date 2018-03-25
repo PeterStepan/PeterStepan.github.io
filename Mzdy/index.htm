@@ -112,6 +112,11 @@ border: 1px white dotted;
 padding: 5px;
 width: 80%;
 }
+
+input[type=number] {
+font-size: 20px;
+}
+
 #historie {
 width: 80%;
 height: 200px;
@@ -142,10 +147,11 @@ margin: auto;
 
 #vpravo {
 width: 50%;
-    float: right;
+    float: left;
     padding: 15px;
 
 }
+
 
 #vlevo {
 width: 50%;
@@ -153,13 +159,38 @@ width: 50%;
     padding: 15px;
 }
 
+#paticka {
+float: left;
+width: 100%;
+margin: 50px 0px 0px 20%;
+}
+
+@media only screen and (max-width: 850px) {
+#vpravo {
+width: 100%;
+    float: left;
+    padding: 15px;
+
+}
+}
+
+@media only screen and (max-width: 850px) {
+#vlevo {
+width: 100%;
+    float: left;
+    padding: 15px;
+}
+}
+
+
 </style>
  
 </head>
 <body>
+
 <div id="telo">
-<div id="hlavninadpis"><h1>Vypočítání mzdy</h2></div>
-<div id="vlevo">
+<header role="banner"><div id="hlavninadpis"><h1>Vypočítání mzdy</h2></div></header>
+<div id="row1"><div id="vlevo"><main role="main">
 <h2>Výpočet čisté měsíční mzdy</h1>
 <form method="post" onsubmit="vypocetmzdy();return false">
 <div class="p">
@@ -191,9 +222,9 @@ Náklady na zaměstnance: <span class="vysledek" id="vnaklady">-</span> Kč</spa
 <input type="submit" name="vymazat" value="Vymazat" onclick="smazat('');">
 </div>
 </div>
+</div>
 
-
-
+<div id="row2">
 <div id="vpravo">
 <h2>Jakou mít hrubou mzdu?</h2>
 <span class="mtxt">Požadovaná čistá měsíční mzda:</span><br>
@@ -212,5 +243,7 @@ Ano <input id="super12" type="radio" value="1" name="super2" checked> Ne<input t
 <span id="vhrubamzdadve"></span>
 </div>
 </div>
-<br><i>Pozn.: Nezapočítává se solidární daň ani slevy na děti apod.</i>
+</div>
+</main>
+<footer role="contentinfo"><span class="datum" id="paticka">Pozn.: Nepočítá se se solidární daní ani slevami např. na děti</span></footer>
 </body>
