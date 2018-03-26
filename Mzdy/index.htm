@@ -33,6 +33,8 @@ document.getElementById(ssuper).checked = true; //pokud je zaškrnuto, počítá
 
 function vypocetmzdy() { //spouští první formulář po submit
  var hrubamzda = document.getElementById("hruba").value; //hruba z políčka
+ 
+ if(hrubamzda>=11000) {
  var zdravotnizam = hrubamzda*0.09; //níže se počítají různé části hrubé mzdy
  var socialnizam = hrubamzda*0.25;
  var socialni = hrubamzda*0.065;
@@ -77,10 +79,22 @@ if (cistamzda > 0){ //tady se vypisuje mzda, pokud je čistá mzda nižší než
 document.getElementById("historie").innerHTML = document.getElementById("historie").innerHTML+"<span class='datum'>("+pokus+") "+hodiny+":"+minuty+" - </span>Daň: "+dan*100+" % <strong>"+cistamzda+"</strong> ("+hrubamzda+") "+" Superhrubá mzda: "+jesuper+"<br>";
 } else {document.getElementById("historie").innerHTML = document.getElementById("historie").innerHTML+"<span class='datum'>("+pokus+") "+hodiny+":"+minuty+" - </span>To už Babiš přehání, ne?<br>";}
 }
+ else {document.getElementById("vcistamzda").innerHTML = "Zadána příliš nízká hodnota"; //když je mzda nižší než 11 000 tak se nevypočítí
+ document.getElementById("vrozdil").innerHTML = "0";
+document.getElementById("vdan").innerHTML = "0";
+document.getElementById("vsuperhrubamzda").innerHTML = "0";
+document.getElementById("vsocialni").innerHTML = "0";
+document.getElementById("vzdravotni").innerHTML = "0";
+document.getElementById("vsocialnizam").innerHTML = "0";
+document.getElementById("vzdravotnizam").innerHTML = "0";
+document.getElementById("vnaklady").innerHTML = "0";
+ 
+}
+}
 
 function vypocethrubemzdydve(obsah,obsahdve) { //vypočítává hrubou mzdu z požadované čisté; dva parametry - odkud brát a kam psát
 var cistamzda = Number(document.getElementById(obsah).value); //bereme z políčka pro zadávání
- 
+if(cistamzda>=9649) { 
 var dan = document.getElementById("dan2").value; //dan se bere z nastavení pro daň 'Daň dvě'
 
 var sleva =  document.getElementById("sleva2").value;  //sleva se bere z nastavení pro slevu 'sleva2' 
@@ -92,6 +106,7 @@ var superhruba = (document.getElementById("super12").checked) ? 1.34 : 1;
 var hrubamzdadve = (Math.round((cistamzda-sleva)/(1-(superhruba*dan/100+0.11)))).toLocaleString();
 
 document.getElementById(obsahdve).innerHTML = "Tvá hrubá mzda by musela být: <span class='podtrhnuti'>"+hrubamzdadve+"</span> Kč";
+} else {document.getElementById(obsahdve).innerHTML = "<span style='color: red'><b>Zadána příliš nízká hodnota.</b></span>";}
 }
 </script>
 <style>
