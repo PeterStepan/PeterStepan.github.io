@@ -1,0 +1,78 @@
+<!doctype html>
+
+<html lang="cs-cz">
+<head>
+  <meta charset="utf-8">
+
+  <title>Hlasování ve sněmovně</title>
+  <meta name="author" content="Petufo">
+  <link rel="stylesheet" href="https://ihned.cz/css/v2/main.css?181010">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style>
+#okno {
+  width: 100%;
+  height: 300px;
+}
+#vysledek {
+  display: none;
+  width: 100%;
+  height: 300px;
+}
+</style>
+</head>
+
+<body>
+<span>Vložte kód začínající <code style="color: green">&lt;!-- Body --></code> a končící <code style="color: green">&lt;!--/ Body --></code><br>např.: <em><a href="http://www.psp.cz/sqw/hlasy.sqw?g=68443&l=cz" target="_blank">http://www.psp.cz/sqw/hlasy.sqw?g=68443</a></em></span>
+<textarea id="okno">Vložte kód</textarea>
+<button id="cudlik" value="Upravit">
+Generovat</button>
+<p style="display: none;">Zkopírujte kód:</p>
+<textarea id="vysledek"></textarea>
+<h1 style="text-align: center; display: none; margin-top: 15px;">
+  Náhled výsledku:
+</h1>
+<p id="htmlvysledek">
+</p>
+
+  <script src="js/scripts.js">$(function() {
+  $("#okno").on("click focus", function() {
+    $("#okno").select();
+  });
+  $("#cudlik").click(function() {
+    $("#htmlvysledek").html('');
+    var original = $("#okno").val();
+    var zacatek = original.indexOf('<p class="counts">')
+    var konec = original.indexOf('</table></div><div class="clear">') + 8;
+    original = original.substring(zacatek, konec);
+    original = original.replace(/<p class="counts">/g, '<p>');
+    original = original.replace(/<span class="flag yes"> A<\/span>|<span class="flag yes">A<\/span>/g, ' <span style="color: green; background-color: #a5ffad;" title="Pro návrh">&#9989;</span>');
+    original = original.replace(/<span class="flag no">N<\/span>|<span class="flag no"> N<\/span>/g, ' <span style="color: red;" title="Proti návrhu">&#10006;</span>');
+    original = original.replace(/<span class="flag not-logged-in">0<\/span>|<span class="flag not-logged-in"> 0<\/span>/g, ' <span style="color: gray;" title="Nepřihlášen/a">&#10000;</span>');
+    original = original.replace(/<span class="flag refrained"> Z<\/span>|<span class="flag refrained">Z<\/span>/g, ' <span style="color: blue; background-color: #c4e9ff;" title="Zdržel/a se">&#9995;</span>');
+    original = original.replace(/<span class="flag excused">M<\/span>|<span class="flag excused"> M<\/span>/g, ' <span style="color: gray;" title="Omluven/a">&#9993;</span>');
+    original = original.replace(/<ul class=\"results\">/g, '<ul style="columns: 3;">');
+    original = original.replace(/class=\"results\"| class="section-title center"|<div class="clear"><\/div>|<sqw_flush>| summary="Celkový výsledek hlasování. U každé varianty je příznak, který je použit u jednotlivých poslanců níže."| class="lightblue"| class="separator"| bgcolor="#ccffcc"/g, ''); //mazací
+    original = original.replace(/TD class="first"/g, 'TD style="text-align: center;"');
+    original = original.replace(/<h2>/g, '<h2 style="text-align: center;">');
+    original = original.replace(/<p>/g, '<p style="text-align: center;">');
+    original = original.replace('table', 'table border="0" cellspacing="0" cellpadding="0" class="tabulka-bez-mrizky" align="center"')
+    original = original.replace(/<table border=1 cellpadding=2 cellspacing=0>/g, '<table class="tabulka-cervena" border="1" cellspacing="0" cellpadding="2">')
+    original = original.replace(/<th>/g, '<td class="tabulka-zahlavi">');
+    original = original.replace(/<\/th>/g, '</td>');
+    $("#htmlvysledek").append(original);
+    $('#htmlvysledek a').each(function() {
+      $(this).replaceWith($(this).text())
+    })
+    $("#vysledek").val($("#htmlvysledek").html());
+    $("#vysledek").fadeIn();
+    $("h1").fadeIn();
+    $("p").fadeIn();
+    $("#vysledek").select();
+  })
+  $("#vysledek").click(function() {
+    $("#vysledek").select();
+  });
+});
+</script>
+</body>
+</html>
