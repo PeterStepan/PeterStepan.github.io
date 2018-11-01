@@ -51,7 +51,7 @@
     original = original.replace(/<table border=1 cellpadding=2 cellspacing=0>/g, '<table class="tabulka-cervena" border="1" cellspacing="0" cellpadding="2">')
     original = original.replace(/<th>/g, '<td class="tabulka-zahlavi">');
     original = original.replace(/<\/th>/g, '</td>');
-    $("#htmlvysledek").append(original);
+    $("#htmlvysledek").append(original  + '<p style="font-style: italic">Zdroj: Poslanecká sněmovna Parlamentu České republiky</p>');
     $('#htmlvysledek a').each(function() {
       $(this).replaceWith($(this).text())
     })
