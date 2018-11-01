@@ -22,18 +22,6 @@
 </head>
 
 <body>
-<span>Vložte kód začínající <code style="color: green">&lt;!-- Body --></code> a končící <code style="color: green">&lt;!--/ Body --></code><br>např.: <em><a href="http://www.psp.cz/sqw/hlasy.sqw?g=68443&l=cz" target="_blank">http://www.psp.cz/sqw/hlasy.sqw?g=68443</a></em></span>
-<textarea id="okno">Vložte kód</textarea>
-<button id="cudlik" value="Upravit">
-Generovat</button>
-<p style="display: none;">Zkopírujte kód:</p>
-<textarea id="vysledek"></textarea>
-<h1 style="text-align: center; display: none; margin-top: 15px;">
-  Náhled výsledku:
-</h1>
-<p id="htmlvysledek">
-</p>
-
   <script>$(function() {
   $("#okno").on("click focus", function() {
     $("#okno").select();
@@ -74,5 +62,17 @@ Generovat</button>
   });
 });
 </script>
+  <span>Vložte kód začínající <code style="color: green">&lt;!-- Body --></code> a končící <code style="color: green">&lt;!--/ Body --></code><br>např.: <em><a href="http://www.psp.cz/sqw/hlasy.sqw?g=68443&l=cz" target="_blank">http://www.psp.cz/sqw/hlasy.sqw?g=68443</a></em></span>
+<textarea id="okno">Vložte kód</textarea>
+<button id="cudlik" value="Upravit">
+Generovat</button>
+<p style="display: none;">Zkopírujte kód:</p>
+<textarea id="vysledek"></textarea>
+<h1 style="text-align: center; display: none; margin-top: 15px;">
+  Náhled výsledku:
+</h1>
+<p id="htmlvysledek">
+</p>
+
 </body>
 </html>
