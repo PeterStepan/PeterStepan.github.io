@@ -49,7 +49,7 @@ Spočítat
         <div style="padding: 2px 5px 5px 5px; height: 130px;" class="pstSemTam">
           <span style="font-size: 18px; font-weight: bold; font-height: 20px">Nejvyšší možná splátka</span><br><span style="font-size: 13px;">(max. <strong>45 %</strong> čistých měsíčních příjmů)</span><br><span id="pstMaxSplatka" class="pstKc" style="font-weight: bold; font-size: 25px; line-height: 30px; vertical-align: middle;; font-height: 20px">0</span>
         </div>
-        <div style="padding: 2px 5px 5px 5px; height: 220px; font-height: 20px" class="pstSemTam">S nejvyšší možnou hypotékou a minimální ušetřenou částkou by pak nejvíce dosažitelná nemovitost stála:<br><span id="pstMaxCena" class="pstKc" style="font-weight: bold; font-size: 20px; line-height: 25px; vertical-align: middle; font-height: 20px">0</span>
+        <div style="padding: 2px 5px 5px 5px; height: 300px; font-height: 20px" class="pstSemTam">S nejvyšší možnou hypotékou a minimální ušetřenou částkou by pak nejvíce dosažitelná nemovitost stála:<br><span id="pstMaxCena" class="pstKc" style="font-weight: bold; font-size: 20px; line-height: 25px; vertical-align: middle; font-height: 20px">0</span>
           <div style="font-size: 15px;">
             S takovou hodnotou by <strong>4%</strong> daň z nabytí nemovitosti vyšla na:
           </div>
@@ -73,7 +73,7 @@ Spočítat
         <div style="padding: 2px 5px 5px 5px; height: 130px;" class="pstSemTam">
           <span style="font-size: 18px; font-weight: bold; font-height: 20px">Nejvyšší možná splátka</span><br><span style="font-size: 13px; font-height: 20px">(max. <strong>50 %</strong> čistých měsíčních příjmů)</span><br><span id="pstMaxSplatka2" class="pstKc" style="font-weight: bold; font-size: 25px; line-height: 30px; vertical-align: middle;">0</span>
         </div>
-        <div style="padding: 2px 5px 5px 5px; height: 220px; font-height: 20px" class="pstSemTam">S nejvyšší možnou hypotékou a minimální ušetřenou částkou by pak nejvíce dosažitelná nemovitost stála:<br><span id="pstMaxCena2" class="pstKc" style="font-weight: bold; font-size: 20px; line-height: 25px; vertical-align: middle;">0</span>
+        <div style="padding: 2px 5px 5px 5px; height: 300px; font-height: 20px" class="pstSemTam">S nejvyšší možnou hypotékou a minimální ušetřenou částkou by pak nejvíce dosažitelná nemovitost stála:<br><span id="pstMaxCena2" class="pstKc" style="font-weight: bold; font-size: 20px; line-height: 25px; vertical-align: middle;">0</span>
           <div style="font-size: 15px; font-height: 20px">
             S takovou hodnotou by <strong>4%</strong> daň z nabytí nemovitosti vyšla na:
           </div>
@@ -114,11 +114,11 @@ Spočítat
     <thead>
       <tr>
         <th>Město</th>
-        <th>Průměrná cena bytu</th>
-        <th class="pstNad">Nutné mít našetřeno</th>
-        <th class="pstPod">Nutné mít našetřeno</th>
-        <th class="pstNad">Chybí vám</th>
-        <th class="pstPod">Chybí vám</th>
+        <th style="text-align: center;">Průměrná cena bytu</th>
+        <th class="pstNad" style="text-align: center;">Nutné mít našetřeno</th>
+        <th class="pstPod" style="text-align: center;">Nutné mít našetřeno</th>
+        <th class="pstNad" style="text-align: center;">Chybí vám</th>
+        <th class="pstPod" style="text-align: center;">Chybí vám</th>
       </tr>
     </thead>
     <tbody>
@@ -333,80 +333,18 @@ Spočítat
    
     </tbody>
   </table><br>
-  <span>Zadejte vlastní hodnotu:</span>
+  <span>Zadat vlastní hodnotu nemovitosti:</span>
   <br>
   <input id="pstVlastniCenaTD" value="1000000" type="number" step="500000" min="100000" max="25000000">&nbsp;<button id="pstVlastniKnoflik">
   Spočítat &#8593;
   </button>
   <br><br>
+<span style="font-style: italic; font-size: 12px">Pozn.: Zdroj průměrných cen bytů: realitymix.centrum.cz, částky v posledním sloupci se zaokrouhlují na celé tisíce.</span>
   <button id="pstZavrit">
   Zavřít
   </button>
 </div>
-<br><br>
-<div id="vypocethypoteky" style="margin: auto; width: 450px; box-shadow: 0px 0px 5px rgb(5,5,5); padding: 10px; text-align: center;">
-
-
-
-  <h3>
-    Výpočet splátek hypotéky
-  </h3>
-  <div>
-
-    Částka:<br>
-    <input type="number" id="castka" value="2700000" max="100000000" step="1000000" style="height: 30px; width: 250px; font-size: 25px; text-align: center;"></div>
-  <div>
-    <span style="font-size: 13px">nebo přepočíst 80 % z ceny nemovitosti:</span><br>
-    <input type="number" id="pstValNem" value="0" min="100000" max="100000000" step="100000" style="height: 20px; width: 130px; font-size: 18px; text-align: center;">&nbsp;<button id="pstZnem">
-    &#11173;
-    </button>
-  </div>
-  <br>
-  <div>Roky:<br>
-    <input id="roky" type="number" value="30" max="100" step="5" style="width: 50px; font-size: 25px; text-align: center;"><br><br>
-    <button class="rokyb">
-2
-</button>
-    <button class="rokyb" id="rokyb">
-5
-</button>
-    <button class="rokyb">
-10
-</button>
-    <button class="rokyb">
-20
-</button>
-    <button class="rokyb">
-30
-</button>
-    <button class="rokyb">
-40
-</button>
-  </div><br>
-  <div>Úrok:<br>
-    <input id="urok" type="number" value="3" max="50" step="0.1" style="text-align: center; width: 50px;"> %</div>
-  <div class="pstSchovat" style="display: none;">
-    <div>
-      <br>Měsíční splátka: <span id="splatkat" class="pstKc" style="font-weight: bold;"></span>
-    </div>
-    <div>
-      Umořeno: <span id="splacenot" class="pstKc" style="font-weight: bold;"></span>
-    </div>
-    <div>
-      Úroky celkem: <span id="navict" class="pstKc" style="font-weight: bold;"></span>
-    </div>
-    <div>
-      Dohromady zaplatíte: <span id="dohromadyt" class="pstKc" style="font-weight: bold;"></span>
-    </div>
-  </div><br>
-  <button id="knoflik">
-Spočítat
-</button>
-  <div class="pstError" style="color: red; display: none;">
-    Chybně zadané údaje! Zadejte je prosím znovu.
-  </div>
-</div>
-<script>
+<script type="text/javascript">
 $(document).ready(function() {
 
 
@@ -432,57 +370,7 @@ $(document).ready(function() {
   function pstVzorecek(c, u, o) {
     return (c * u) * (1 + (1 / (((u + 1) ** (o) - 1))))
   }
-/**/
-  $('.rokyb').click(function() {
-    $('#roky').val(parseInt($(this).text()));
-  })
 
-  $('#pstZnem').click(function() {
-    if ($('#pstValNem').val() > 0) {
-      $('#castka').val(Math.round($('#pstValNem').val() * 0.8))
-    }
-  })
-
-  $('#knoflik').click(function() {
-    if ($('#castka').val() > 0 && $('#roky').val() > 0 && $('#urok').val() > 0) {
-
-      var castka = $('#castka').val();
-      var jistina = castka;
-
-      var roky = $('#roky').val(); //kolik let splácet
-      var urok = $('#urok').val() / 100 //jak vysoký je úrok děleno stem
-      var obdobi = roky * 12 //kolik měsíců splácet
-      var urokm = urok / 12 //úrok za měsíc
-      var uroknavic = 0; //jak vysoký je úrok v daném měsíci
-      var splatka = pstVzorecek(castka, urokm, obdobi)
-      var splaceno = 0; //kolik je už splaceno z úvěru
-      var umor = 0; //co umořím za měsíc
-      var navic = 0; //co zaplatím nad rámec úvěru
-
-      for (var i = 0; i < obdobi; i++) {
-        uroknavic = jistina * urokm
-        umor = (splatka - uroknavic)
-        jistina -= umor
-        splaceno += umor;
-        navic += uroknavic
-      }
-
-      $('#splatkat').text(splatka)
-      $('#splacenot').text(splaceno)
-      $('#navict').text(navic)
-      $('#dohromadyt').text(splaceno + navic)
-
-      pstLocale('.pstKc', 19, 25)
-
-      $('.pstSchovat').fadeIn();
-      $('.pstError').hide();
-    } else {
-      $('.pstSchovat').hide();
-      $('.pstError').fadeIn();
-    }
-  })
-
-  //tady začíná to hlavní ----------------
 
   $('input[name="pstTS"]').change(function() {
     if ($('input[name="pstTS"]').eq(0).is(':checked')) {
@@ -502,11 +390,11 @@ $(document).ready(function() {
     } else {
       $('.pstError2').hide();
       $('.pstSchovat2').fadeIn()
-      $('.pstPod').hide() //aby se resetovala tabulka
+      $('.pstPod').hide() 
       $('.pstNad').show()
       $('input[name="pstTS"]').eq(0).prop("checked", true)
 
-      //tady kontrola, že tam není vyplněna nějaká konina
+
       var pstCistyPrijem = Math.floor($('#pstCistyPrijem').val() / 1000) * 1000
       $('#pstCistyPrijem').val(pstCistyPrijem)
       var pstMaxPujcka = pstCistyPrijem * 108
@@ -528,7 +416,7 @@ $(document).ready(function() {
 
       var pstNasetreno = Math.floor($('#pstNasetreno').val() / 1000) * 1000;
       $('#pstNasetreno').val(pstNasetreno)
-      //soucasnost
+
       for (var pstMaxRoky = 1; pstMaxRoky <= 100; pstMaxRoky++) {
         pstSplatkaTest = pstVzorecek(pstMaxPujcka, pstPrumUrok, pstMaxRoky * 12)
         if (pstSplatkaTest <= pstMaxSplatka) {
@@ -538,7 +426,7 @@ $(document).ready(function() {
           $('#pstMaxRoky').text('více než 100')
         }
       }
-      //do 36
+
       for (var pstMaxRoky2 = 1; pstMaxRoky2 <= 100; pstMaxRoky2++) {
         pstSplatkaTest2 = pstVzorecek(pstMaxPujcka2, pstPrumUrok2, pstMaxRoky2 * 12)
         if (pstSplatkaTest2 <= pstMaxSplatka2) {
@@ -563,15 +451,15 @@ $(document).ready(function() {
       pstLocale('.pstKc', 0, 10)
 
       var pstCenyBytu = []
-      //vytvoří array přímo z tabulky
+
       $('#pstTabulka .pstCenaBytuT').each(function() {
-        var pstTekst = $(this).text().replace(/\D/g, '') //text ceny bytů
+        var pstTekst = $(this).text().replace(/\D/g, '') 
 
         pstCenyBytu.push(parseInt(pstTekst))
       })
 
-      $('.pstPod').hide() //pro začátek schová lidi do 36
-      $('.pstNad').show() //pro začátek schová lidi do 36
+      $('.pstPod').hide() 
+      $('.pstNad').show() 
       var pstNasporeno;
       var pstNasporeno2;
       var pstChybi;
@@ -581,13 +469,13 @@ $(document).ready(function() {
         if (index == 0) {
           return;
         }
-        //pro 36+
+
         if (0.8 * pstCenyBytu[index - 1] >= pstMaxPujcka) {
           pstNasporeno = pstCenyBytu[index - 1] - pstMaxPujcka
         } else {
           pstNasporeno = pstCenyBytu[index - 1] - 0.8 * pstCenyBytu[index - 1]
         }
-        //do 36
+
         if (0.9 * pstCenyBytu[index - 1] >= pstMaxPujcka2) {
           pstNasporeno2 = pstCenyBytu[index - 1] - pstMaxPujcka2
         } else {
@@ -595,7 +483,7 @@ $(document).ready(function() {
         }
 
 
-        //pokud co je potřeba naspořit je menší než mám, tak je to nula; ale pokud je cena bytu nižší než našetřeno, tak že si nemusí ani půjčovat
+ 
 
         if (pstNasporeno <= pstNasetreno) {
 
@@ -605,7 +493,7 @@ $(document).ready(function() {
             pstChybi = 0
           }
         } else {
-          //pokud je co mám našetřeno nižší než kolik je potřeba mít naspořeno, tak se to odečte
+
           pstChybi = Math.round((pstNasporeno - pstNasetreno)/1000)*1000
         }
 
@@ -619,7 +507,6 @@ $(document).ready(function() {
 
           }
         } else {
-          //pokud je co mám našetřeno nižší než kolik je potřeba mít naspořeno, tak se to odečte
 
           pstChybi2 = Math.round((pstNasporeno2 - pstNasetreno)/1000)*1000
         }
@@ -628,9 +515,7 @@ $(document).ready(function() {
         $('td', this).eq(3).text(pstNasporeno2)
         $('td', this).eq(4).text(pstChybi)
         $('td', this).eq(5).text(pstChybi2)
-      }) //konec each pro tabulku
-
-      //tohle z těch hnusných čísel udělá hezká
+      }) 
       $('#pstTabulka td').each(function() {
         if (isNaN($(this).text())) {
           return;
@@ -642,7 +527,6 @@ $(document).ready(function() {
 
       })
       
-      //pro obarvení políček
       $('.pstChybiT').each(function() {
       var pstDisText = $(this).text().replace(/\D/g, '')
       var pstColor;
@@ -657,8 +541,8 @@ $(document).ready(function() {
       })
       
 
-    } //konec podmínky u erroru
-  } //konec funkce spocitat
+    } 
+  } 
 
   $('#pstVlastniKnoflik').click(function() {
     var pstMapaData = [];
@@ -675,7 +559,7 @@ $(document).ready(function() {
 
   $('#pstSpocitat').click(function() {
     pstSpocitat()
-    //styl
+
     $('.pstSemTam:odd').css("background-color", "#fdd");
     $('.pstSemTam:even').css("background-color", "#eaf2ff");
 
@@ -690,7 +574,6 @@ $(document).ready(function() {
 
   });
 
-  //$('#pstTabulka td').eq(7).css('background-color','red')
 
 })
 
