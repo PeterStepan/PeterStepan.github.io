@@ -606,7 +606,7 @@ $(document).ready(function() {
           }
         } else {
           //pokud je co mám našetřeno nižší než kolik je potřeba mít naspořeno, tak se to odečte
-          pstChybi = pstNasporeno - pstNasetreno
+          pstChybi = Math.round((pstNasporeno - pstNasetreno)/1000)*1000
         }
 
         if (pstNasporeno2 <= pstNasetreno) {
@@ -621,7 +621,7 @@ $(document).ready(function() {
         } else {
           //pokud je co mám našetřeno nižší než kolik je potřeba mít naspořeno, tak se to odečte
 
-          pstChybi2 = pstNasporeno2 - pstNasetreno
+          pstChybi2 = Math.round((pstNasporeno2 - pstNasetreno)/1000)*1000
         }
 
         $('td', this).eq(2).text(pstNasporeno)
@@ -693,4 +693,5 @@ $(document).ready(function() {
   //$('#pstTabulka td').eq(7).css('background-color','red')
 
 })
+
 </script>
