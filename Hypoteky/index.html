@@ -1,5 +1,4 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
 <style>
   .container::after {
     content: "";
@@ -11,7 +10,7 @@
 
 <div class="container" style="margin: auto; width: 450px; box-shadow: 0px 0px 5px rgb(5,5,5); padding: 10px 10px 50px 10px; text-align: center;">
   <h3>
-    Na jakou nejvyšší hypotéku máte v ideálním případě nárok?
+    Kolik byste museli mít našetřeno, abyste si pořídili průměrný byt v Česku?
   </h3>
   Váš čistý měsíční příjem v korunách:
   <div>
@@ -31,94 +30,20 @@ Spočítat
     <span style="font-size: 12px; color: gray; font-style: italic">Pozn.: Částky se zaokrouhlí na celé tisíce dolů.</span>
   </div>
   <div class="pstSchovat2" style="display: none;">
-    <div id="pstJenFloat" class="container" style="margin-bottom: 10px;">
-
-
-      <div class="pstVedleSebe" style="float: left; margin: auto; width: 50%;padding:0;">
-        <div style="height: 80px;">
-          <h3 style="margin-bottom: 5px;">
-            Podle současných doporučení ČNB<br>
-            <span style="font-size: 13px">(podle návrhu lidé nad 36 let)</span>
-          </h3>
-        </div>
-        <div style="padding: 2px 5px 5px 5px; height: 130px;" class="pstSemTam"><span style="font-size: 18px; font-weight: bold; font-height: 20px">Nejvyšší možná půjčka</span><br><span style="font-size: 13px;; font-height: 20px">(<strong>9x</strong> čistý roční příjem&nbsp;a&nbsp;max. <strong style="color: #6d0000">80 %</strong> hodnoty nemovitosti)</span><br>
-          <span id="pstMaxPujcka" class="pstKc" style="font-weight: bold; font-size: 25px; line-height: 30px; vertical-align: middle;">0</span>
-        </div>
-        <div style="padding: 2px 5px 5px 5px; height: 130px;" class="pstSemTam"><span style="font-size: 18px; font-weight: bold; font-height: 20px">Nutno mít alespoň našetřeno</span><br><span style="font-size: 13px;">(<strong>20 %</strong> hodnoty nemovitosti)</span><br><span id="pstMaxNasetreno" class="pstKc" style="font-weight: bold; font-size: 25px; line-height: 30px; vertical-align: middle;">0</span>
-        </div>
-        <div style="padding: 2px 5px 5px 5px; height: 130px;" class="pstSemTam">
-          <span style="font-size: 18px; font-weight: bold; font-height: 20px">Nejvyšší možná splátka</span><br><span style="font-size: 13px;">(max. <strong>45 %</strong> čistých měsíčních příjmů)</span><br><span id="pstMaxSplatka" class="pstKc" style="font-weight: bold; font-size: 25px; line-height: 30px; vertical-align: middle;; font-height: 20px">0</span>
-        </div>
-        <div style="padding: 2px 5px 5px 5px; height: 220px; font-height: 20px" class="pstSemTam">S nejvyšší možnou hypotékou a minimální ušetřenou částkou by pak nejvíce dosažitelná nemovitost stála:<br><span id="pstMaxCena" class="pstKc" style="font-weight: bold; font-size: 20px; line-height: 25px; vertical-align: middle; font-height: 20px">0</span>
-          <div style="font-size: 15px;">
-            S takovou hodnotou by <strong>4%</strong> daň z nabytí nemovitosti vyšla na:
-          </div>
-          <span id="pstDan" class="pstKc" style="font-weight: bold; font-size: 15px; line-height: 25px; vertical-align: middle;">0</span>
-        </div>
-
-
-      </div>
-      <div class="pstVedleSebe" style="float: right; margin: auto; width: 50%; padding:0px;">
-        <div style="height: 80px;">
-          <h3 style="margin-bottom: 5px;">
-            Lidé do 36 let<br>
-            <span style="font-size: 13px">(podle návrhu ministerstva)</span>
-          </h3>
-        </div>
-        <div style="padding: 2px 5px 5px 5px; height: 130px;" class="pstSemTam"><span style="font-size: 18px; font-weight: bold; font-height: 20px">Nejvyšší možná půjčka</span><br><span style="font-size: 13px">(<strong>10x</strong> čistý roční příjem&nbsp;a&nbsp;max. <strong style="color: #6d0000">90 %</strong> hodnoty nemovitosti)</span><br>
-          <span id="pstMaxPujcka2" class="pstKc" style="font-weight: bold; font-size: 25px; line-height: 30px; vertical-align: middle;">0</span>
-        </div>
-        <div style="padding: 2px 5px 5px 5px; height: 130px;" class="pstSemTam"><span style="font-size: 18px; font-weight: bold; font-height: 20px">Nutno mít alespoň našetřeno</span><br><span style="font-size: 13px;; font-height: 20px">(<strong>10 %</strong> hodnoty nemovitosti)</span><br><span id="pstMaxNasetreno2" class="pstKc" style="font-weight: bold; font-size: 25px; line-height: 30px; vertical-align: middle;">0</span>
-        </div>
-        <div style="padding: 2px 5px 5px 5px; height: 130px;" class="pstSemTam">
-          <span style="font-size: 18px; font-weight: bold; font-height: 20px">Nejvyšší možná splátka</span><br><span style="font-size: 13px; font-height: 20px">(max. <strong>50 %</strong> čistých měsíčních příjmů)</span><br><span id="pstMaxSplatka2" class="pstKc" style="font-weight: bold; font-size: 25px; line-height: 30px; vertical-align: middle;">0</span>
-        </div>
-        <div style="padding: 2px 5px 5px 5px; height: 220px; font-height: 20px" class="pstSemTam">S nejvyšší možnou hypotékou a minimální ušetřenou částkou by pak nejvíce dosažitelná nemovitost stála:<br><span id="pstMaxCena2" class="pstKc" style="font-weight: bold; font-size: 20px; line-height: 25px; vertical-align: middle;">0</span>
-          <div style="font-size: 15px; font-height: 20px">
-            S takovou hodnotou by <strong>4%</strong> daň z nabytí nemovitosti vyšla na:
-          </div>
-          <span id="pstDan2" class="pstKc" style="font-weight: bold; font-size: 15px; line-height: 25px; vertical-align: middle;">0</span>
-        </div>
-
-
-      </div>
-    </div>
-
-    <div class="container" style="font-size: 13px; font-style: italic; text-align: center; color: #444;">
-      <strong>Pozn.</strong>: Výpočet počítá s LTV (výše hypotéky k hodnotě nemovitosti) <strong style="color: #6d0000">80 %</strong> resp. v návrhu ministerstva <strong style="color: #6d0000">90 %</strong> pro mladé, ač banky mohou až 15 % klientů nabídnout
-      LTV o deset procent vyšší, tedy <strong style="color: #6d0000">90 %</strong>, resp. pro mladé až <strong style="color: #6d0000">100 %</strong>.
-    </div>
-    <div style="font-weight: bold; width: 100%; height: 30px;"><br> V případě sazby <input type="number" id="pstPrumUrok" value="2.9" style="display: inline-block;text-align: center; width: 45px;" step="0.01" min="0.1" max="99"> % by maximální možná hypotéka s maximální možnou splátkou musela být minimálně na:<br>
-      <div class="pstVedleSebe" style="float: left; margin: auto; width: 50%; height: 50px; padding:0;">
-        <span id="pstMaxRoky" style="font-size: 30px;">0</span><br>let<br>(bez ukončení fixace)
-      </div>
-      <div class="pstVedleSebe" style="float: right; margin: auto; width: 50%; height: 50px; padding:0;">
-        <span id="pstMaxRoky2" style="font-size: 30px;">0</span><br>let<br>(bez ukončení fixace)
-      </div>
-
-
-
-    </div>
-  </div>
-
-</div>
-<br>
-<div class="pstSchovat2" style="margin: auto; width: 450px; box-shadow: 0px 0px 5px rgb(5,5,5); padding: 10px; text-align: center; text-align: center; display: none;">
-
-  <h3 style="text-align: center;">
+    <h3 style="text-align: center;">
     Kolik byste museli mít našetřeno na průměrnou cenu bytu 60 m<sup>2</sup>, pokud byste dostali maximální možnou hypotéku:
   </h3>
   <input id="pstNad" type="radio" name="pstTS" checked> současná doporučení
   <input id="pstPod" type="radio" name="pstTS"> návrh pro lidi do 36 let
-  <table id="pstTabulka" style="border: 0px">
+  <table id="pstTabulka" class="tabulka-seda" style="border: 0px">
     <thead>
       <tr>
-        <th>Město</th>
-        <th>Průměrná cena bytu</th>
-        <th class="pstNad">Nutné mít našetřeno</th>
-        <th class="pstPod">Nutné mít našetřeno</th>
-        <th class="pstNad">Chybí vám</th>
-        <th class="pstPod">Chybí vám</th>
+        <th style="text-align: center;">Město</th>
+        <th style="text-align: center;">Průměrná cena bytu</th>
+        <th class="pstNad" style="text-align: center;">Nutné mít našetřeno</th>
+        <th class="pstPod" style="text-align: center;">Nutné mít našetřeno</th>
+        <th class="pstNad" style="text-align: center;">Chybí vám</th>
+        <th class="pstPod" style="text-align: center;">Chybí vám</th>
       </tr>
     </thead>
     <tbody>
@@ -329,86 +254,105 @@ Spočítat
         <td class="pstNad pstChybiT"> </td>
         <td class="pstPod pstChybiT"> </td>
       </tr>
-  
-   
+
+
     </tbody>
   </table><br>
   <span>Zadejte vlastní hodnotu:</span>
   <br>
-  <input id="pstVlastniCenaTD" value="1000000" type="number" step="500000" min="100000" max="25000000">&nbsp;<button id="pstVlastniKnoflik">
+  <input id="pstVlastniCenaTD" value="2000000" type="number" step="500000" min="100000" max="25000000">&nbsp;<button id="pstVlastniKnoflik">
   Spočítat &#8593;
   </button>
   <br><br>
-  <span style="font-style: italic; font-size: 12px">Pozn.: Zdroj průměrných cen bytů: realitymix.centrum.cz, částky v posledním sloupci se zaokrouhlují na celé tisíce.</span><br><br>
+  <span style="font-style: italic; font-size: 12px">Pozn.: Zdroj průměrných cen bytů: realitymix.centrum.cz, částky v posledním sloupci se zaokrouhlují na celé tisíce.</span>
+  </div>
+
+</div>
+<br>
+<div class="pstSchovat2" style="margin: auto; width: 450px; box-shadow: 0px 0px 5px rgb(5,5,5); padding: 10px; text-align: center; text-align: center; display: none;">
+
+
+ <div id="pstJenFloat" class="container" style="margin-bottom: 10px;">
+<h3>
+Na jakou nejvyšší hypotéku máte v ideálním případě nárok
+</h3>
+
+      <div class="pstVedleSebe" style="float: left; margin: auto; width: 50%;padding:0;">
+        <div style="height: 80px;">
+          <h3 style="margin-bottom: 5px;">
+            Podle současných doporučení ČNB<br>
+            <span style="font-size: 13px">(podle návrhu lidé nad 36 let)</span>
+          </h3>
+        </div>
+        <div style="padding: 2px 5px 5px 5px; height: 130px;" class="pstSemTam"><span style="font-size: 18px; font-weight: bold; font-height: 20px">Nejvyšší možná půjčka</span><br><span style="font-size: 13px;; font-height: 20px">(<strong>9x</strong> čistý roční příjem&nbsp;a&nbsp;max. <strong style="color: #6d0000">80 %</strong> hodnoty nemovitosti)</span><br>
+          <span id="pstMaxPujcka" class="pstKc" style="font-weight: bold; font-size: 25px; line-height: 30px; vertical-align: middle;">0</span>
+        </div>
+        <div style="padding: 2px 5px 5px 5px; height: 130px;" class="pstSemTam"><span style="font-size: 18px; font-weight: bold; font-height: 20px">Nutno mít alespoň našetřeno</span><br><span style="font-size: 13px;">(<strong>20 %</strong> hodnoty nemovitosti)</span><br><span id="pstMaxNasetreno" class="pstKc" style="font-weight: bold; font-size: 25px; line-height: 30px; vertical-align: middle;">0</span>
+        </div>
+        <div style="padding: 2px 5px 5px 5px; height: 130px;" class="pstSemTam">
+          <span style="font-size: 18px; font-weight: bold; font-height: 20px">Nejvyšší možná splátka</span><br><span style="font-size: 13px;">(max. <strong>45 %</strong> čistých měsíčních příjmů)</span><br><span id="pstMaxSplatka" class="pstKc" style="font-weight: bold; font-size: 25px; line-height: 30px; vertical-align: middle;; font-height: 20px">0</span>
+        </div>
+        <div style="padding: 2px 5px 5px 5px; height: 220px; font-height: 20px" class="pstSemTam">S nejvyšší možnou hypotékou a minimální ušetřenou částkou by pak nejvíce dosažitelná nemovitost stála:<br><span id="pstMaxCena" class="pstKc" style="font-weight: bold; font-size: 20px; line-height: 25px; vertical-align: middle; font-height: 20px">0</span>
+          <div style="font-size: 15px;">
+            S takovou hodnotou by <strong>4%</strong> daň z nabytí nemovitosti vyšla na:
+          </div>
+          <span id="pstDan" class="pstKc" style="font-weight: bold; font-size: 15px; line-height: 25px; vertical-align: middle;">0</span>
+        </div>
+
+
+      </div>
+      <div class="pstVedleSebe" style="float: right; margin: auto; width: 50%; padding:0px;">
+        <div style="height: 80px;">
+          <h3 style="margin-bottom: 5px;">
+            Lidé do 36 let<br>
+            <span style="font-size: 13px">(podle návrhu ministerstva)</span>
+          </h3>
+        </div>
+        <div style="padding: 2px 5px 5px 5px; height: 130px;" class="pstSemTam"><span style="font-size: 18px; font-weight: bold; font-height: 20px">Nejvyšší možná půjčka</span><br><span style="font-size: 13px">(<strong>10x</strong> čistý roční příjem&nbsp;a&nbsp;max. <strong style="color: #6d0000">90 %</strong> hodnoty nemovitosti)</span><br>
+          <span id="pstMaxPujcka2" class="pstKc" style="font-weight: bold; font-size: 25px; line-height: 30px; vertical-align: middle;">0</span>
+        </div>
+        <div style="padding: 2px 5px 5px 5px; height: 130px;" class="pstSemTam"><span style="font-size: 18px; font-weight: bold; font-height: 20px">Nutno mít alespoň našetřeno</span><br><span style="font-size: 13px;; font-height: 20px">(<strong>10 %</strong> hodnoty nemovitosti)</span><br><span id="pstMaxNasetreno2" class="pstKc"
+            style="font-weight: bold; font-size: 25px; line-height: 30px; vertical-align: middle;">0</span>
+        </div>
+        <div style="padding: 2px 5px 5px 5px; height: 130px;" class="pstSemTam">
+          <span style="font-size: 18px; font-weight: bold; font-height: 20px">Nejvyšší možná splátka</span><br><span style="font-size: 13px; font-height: 20px">(max. <strong>50 %</strong> čistých měsíčních příjmů)</span><br><span id="pstMaxSplatka2" class="pstKc"
+            style="font-weight: bold; font-size: 25px; line-height: 30px; vertical-align: middle;">0</span>
+        </div>
+        <div style="padding: 2px 5px 5px 5px; height: 220px; font-height: 20px" class="pstSemTam">S nejvyšší možnou hypotékou a minimální ušetřenou částkou by pak nejvíce dosažitelná nemovitost stála:<br><span id="pstMaxCena2" class="pstKc" style="font-weight: bold; font-size: 20px; line-height: 25px; vertical-align: middle;">0</span>
+          <div style="font-size: 15px; font-height: 20px">
+            S takovou hodnotou by <strong>4%</strong> daň z nabytí nemovitosti vyšla na:
+          </div>
+          <span id="pstDan2" class="pstKc" style="font-weight: bold; font-size: 15px; line-height: 25px; vertical-align: middle;">0</span>
+        </div>
+
+
+      </div>
+    </div>
+
+    <div class="container" style="font-size: 13px; font-style: italic; text-align: center; color: #444;">
+      <strong>Pozn.</strong>: Výpočet počítá s LTV (výše hypotéky k hodnotě nemovitosti) <strong style="color: #6d0000">80 %</strong> resp. v návrhu ministerstva <strong style="color: #6d0000">90 %</strong> pro mladé, ač banky mohou až 15 % klientů nabídnout
+      LTV o deset procent vyšší, tedy <strong style="color: #6d0000">90 %</strong>, resp. pro mladé až <strong style="color: #6d0000">100 %</strong>.
+    </div>
+    <div style="font-weight: bold; width: 100%; height: 30px;"><br> V případě sazby <input type="number" id="pstPrumUrok" value="2.9" style="display: inline-block;text-align: center; width: 45px;" step="0.01" min="0.1" max="99"> % by maximální možná hypotéka s maximální možnou splátkou musela být minimálně na:<br>
+      <div class="pstVedleSebe" style="float: left; margin: auto; width: 50%; height: 50px; padding:0;">
+        <span id="pstMaxRoky" style="font-size: 30px;">0</span><br>let<br>(bez ukončení fixace)
+      </div>
+      <div class="pstVedleSebe" style="float: right; margin: auto; width: 50%; height: 50px; padding:0;">
+        <span id="pstMaxRoky2" style="font-size: 30px;">0</span><br>let<br>(bez ukončení fixace)
+      </div>
+
+
+
+    </div>
+
+ <br><br>
   <button id="pstZavrit">
   Zavřít
   </button>
 </div>
-<br><br>
-<div id="vypocethypoteky" style="margin: auto; width: 450px; box-shadow: 0px 0px 5px rgb(5,5,5); padding: 10px; text-align: center;">
 
-
-
-  <h3>
-    Výpočet splátek hypotéky
-  </h3>
-  <div>
-
-    Částka:<br>
-    <input type="number" id="castka" value="2700000" max="100000000" step="1000000" style="height: 30px; width: 250px; font-size: 25px; text-align: center;"></div>
-  <div>
-    <span style="font-size: 13px">nebo přepočíst 80 % z ceny nemovitosti:</span><br>
-    <input type="number" id="pstValNem" value="0" min="100000" max="100000000" step="100000" style="height: 20px; width: 130px; font-size: 18px; text-align: center;">&nbsp;<button id="pstZnem">
-    &#11173;
-    </button>
-  </div>
-  <br>
-  <div>Roky:<br>
-    <input id="roky" type="number" value="30" max="100" step="5" style="width: 50px; font-size: 25px; text-align: center;"><br><br>
-    <button class="rokyb">
-2
-</button>
-    <button class="rokyb" id="rokyb">
-5
-</button>
-    <button class="rokyb">
-10
-</button>
-    <button class="rokyb">
-20
-</button>
-    <button class="rokyb">
-30
-</button>
-    <button class="rokyb">
-40
-</button>
-  </div><br>
-  <div>Úrok:<br>
-    <input id="urok" type="number" value="3" max="50" step="0.1" style="text-align: center; width: 50px;"> %</div>
-  <div class="pstSchovat" style="display: none;">
-    <div>
-      <br>Měsíční splátka: <span id="splatkat" class="pstKc" style="font-weight: bold;"></span>
-    </div>
-    <div>
-      Umořeno: <span id="splacenot" class="pstKc" style="font-weight: bold;"></span>
-    </div>
-    <div>
-      Úroky celkem: <span id="navict" class="pstKc" style="font-weight: bold;"></span>
-    </div>
-    <div>
-      Dohromady zaplatíte: <span id="dohromadyt" class="pstKc" style="font-weight: bold;"></span>
-    </div>
-  </div><br>
-  <button id="knoflik">
-Spočítat
-</button>
-  <div class="pstError" style="color: red; display: none;">
-    Chybně zadané údaje! Zadejte je prosím znovu.
-  </div>
-</div>
 <script>
-  $(document).ready(function() {
+$(document).ready(function() {
 
 
   function pstLocale(co, odkud, dokud) {
@@ -433,56 +377,7 @@ Spočítat
   function pstVzorecek(c, u, o) {
     return (c * u) * (1 + (1 / (((u + 1) ** (o) - 1))))
   }
-/**/
-  $('.rokyb').click(function() {
-    $('#roky').val(parseInt($(this).text()));
-  })
-
-  $('#pstZnem').click(function() {
-    if ($('#pstValNem').val() > 0) {
-      $('#castka').val(Math.round($('#pstValNem').val() * 0.8))
-    }
-  })
-
-  $('#knoflik').click(function() {
-    if ($('#castka').val() > 0 && $('#roky').val() > 0 && $('#urok').val() > 0) {
-
-      var castka = $('#castka').val();
-      var jistina = castka;
-
-      var roky = $('#roky').val(); //kolik let splácet
-      var urok = $('#urok').val() / 100 //jak vysoký je úrok děleno stem
-      var obdobi = roky * 12 //kolik měsíců splácet
-      var urokm = urok / 12 //úrok za měsíc
-      var uroknavic = 0; //jak vysoký je úrok v daném měsíci
-      var splatka = pstVzorecek(castka, urokm, obdobi)
-      var splaceno = 0; //kolik je už splaceno z úvěru
-      var umor = 0; //co umořím za měsíc
-      var navic = 0; //co zaplatím nad rámec úvěru
-
-      for (var i = 0; i < obdobi; i++) {
-        uroknavic = jistina * urokm
-        umor = (splatka - uroknavic)
-        jistina -= umor
-        splaceno += umor;
-        navic += uroknavic
-      }
-
-      $('#splatkat').text(splatka)
-      $('#splacenot').text(splaceno)
-      $('#navict').text(navic)
-      $('#dohromadyt').text(splaceno + navic)
-
-      pstLocale('.pstKc', 19, 25)
-
-      $('.pstSchovat').fadeIn();
-      $('.pstError').hide();
-    } else {
-      $('.pstSchovat').hide();
-      $('.pstError').fadeIn();
-    }
-  })
-
+ 
   //tady začíná to hlavní ----------------
 
   $('input[name="pstTS"]').change(function() {
@@ -607,7 +502,7 @@ Spočítat
           }
         } else {
           //pokud je co mám našetřeno nižší než kolik je potřeba mít naspořeno, tak se to odečte
-          pstChybi = Math.round((pstNasporeno - pstNasetreno)/1000)*1000
+          pstChybi = Math.round((pstNasporeno - pstNasetreno) / 1000) * 1000
         }
 
         if (pstNasporeno2 <= pstNasetreno) {
@@ -622,7 +517,7 @@ Spočítat
         } else {
           //pokud je co mám našetřeno nižší než kolik je potřeba mít naspořeno, tak se to odečte
 
-          pstChybi2 = Math.round((pstNasporeno2 - pstNasetreno)/1000)*1000
+          pstChybi2 = Math.round((pstNasporeno2 - pstNasetreno) / 1000) * 1000
         }
 
         $('td', this).eq(2).text(pstNasporeno)
@@ -636,27 +531,34 @@ Spočítat
         if (isNaN($(this).text())) {
           return;
         }
-               $(this).text(Math.round($(this).text()).toLocaleString('cs-CZ', {
+        $(this).text(Math.round($(this).text()).toLocaleString('cs-CZ', {
           minimumFractionDigits: 0,
           maximumFractionDigits: 2
         }))
 
       })
-      
+
       //pro obarvení políček
       $('.pstChybiT').each(function() {
-      var pstDisText = $(this).text().replace(/\D/g, '')
-      var pstColor;
-      
-      if (pstDisText == 0) {pstColor = '#27AE60'}
-      else if (pstDisText < 100000) {pstColor = '#D5F5E3'}
-      else if (pstDisText < 50000) {pstColor = '#A9DFBF'}
-      else if (pstDisText < 25000) {pstColor = '#7DCEA0'}
-      else if (pstDisText < 10000) {pstColor = '#52BE80'}
-      else {pstColor = '#F1948A'}       
-  $(this).css('background-color',pstColor)
+        var pstDisText = $(this).text().replace(/\D/g, '')
+        var pstColor;
+
+        if (pstDisText == 0) {
+          pstColor = '#27AE60'
+        } else if (pstDisText < 100000) {
+          pstColor = '#D5F5E3'
+        } else if (pstDisText < 50000) {
+          pstColor = '#A9DFBF'
+        } else if (pstDisText < 25000) {
+          pstColor = '#7DCEA0'
+        } else if (pstDisText < 10000) {
+          pstColor = '#52BE80'
+        } else {
+          pstColor = '#F1948A'
+        }
+        $(this).css('background-color', pstColor)
       })
-      
+
 
     } //konec podmínky u erroru
   } //konec funkce spocitat
@@ -665,7 +567,7 @@ Spočítat
     var pstMapaData = [];
     $('#pstVlastniCena').text($('#pstVlastniCenaTD').val())
     pstSpocitat()
-    
+
     /*tohle nepoužívat, mělo být k mapce for (var x = 0; x < 22; x++) {
     pstMapaData.push([$('.pstMesto').eq(x).text(),$('.pstCenaBytuT').eq(x).text(),$('.pstChybiT').eq(x).text()])
     
@@ -681,9 +583,11 @@ Spočítat
     $('.pstSemTam:even').css("background-color", "#eaf2ff");
 
   })
-  $('#pstZavrit').click(function() {$('.pstSchovat2').hide()})
-  
-  
+  $('#pstZavrit').click(function() {
+    $('.pstSchovat2').hide()
+  })
+
+
   $('#pstPrumUrok').change(function() {
     pstSpocitat()
 
