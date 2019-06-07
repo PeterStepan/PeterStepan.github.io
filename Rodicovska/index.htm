@@ -1,0 +1,670 @@
+<h1>Rodičovská - dosáhnete na vyšší příspěvek?</h2>
+<style>
+  .container::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+.tabulka-seda {
+  background-color: #fff;
+  border-color: #6d5f66;
+}
+
+.tabulka-seda tr:nth-child(even) {
+  background-color: #eae9eb;
+}
+
+.tabulka-seda td {
+  border-color: #b6afb2;
+  border-top-style: none;
+  border-bottom-style: none;
+  text-align: center;
+}
+
+</style>
+
+<div class="container" style="margin: auto; width: 95%; box-shadow: 0px 0px 5px rgb(5,5,5); padding: 10px 10px 50px 10px; text-align: center; max-width:100%; min-width: 350px;">
+  <h3 style="font-size: 25px;">
+    Jak nejlépe nastavit rodičovskou, abyste získali nejvíc?
+  </h3>
+
+  <p><span style="font-size: 20px">Kolik měsíčně čerpáte:</span><br>
+    <input type="number" id="pstB" value="5000" min="50" max="40068" step="1000" style="height: 30px; width: 250px; font-size: 25px; text-align: center;"><br>
+    <input type="checkbox" id="pstPristiMesic" checked> <span style="font-size: 15px;">Výplata tento měsíc již proběhla</span>
+  </p>
+  <div id="pstError2" class="pstError" style="color: red; display: none;">
+    Chybně zadaný údaj! Měsíční čerpaná částka nemůže být vyšší než <strong>70 procent z  hrubé měsíční mzdy</strong>, resp. třicetinásobku 70 procent tzv. denního vyměřovacího základu (u vás maximum <span id="pstDVZ1" style="font-weight: bold;">X</span>).
+    Pro všechny ale platí maximální výše alespoň <strong>7 600 Kč</strong> (u vícerčat je tento limit <strong>11 400 Kč</strong>). Částka také nemůže být nižší než <strong>50 Kč</strong>.
+  </div>
+  <div style="margin-top: 50px"><span style="font-size: 20px;">Kolik máte načerpáno:</span><br>
+    <span style="font-size: 15px; color: gray;">(Kolik vám doposud již přišlo na účet)</span><br>
+    <input type="number" id="pstA" value="200000" max="220000" step="1000" style="height: 30px; width: 250px; font-size: 25px; text-align: center;"><br>
+
+  </div><span id="pstUrcitData" style="color: gray; font-size: 15px; cursor: pointer;">Určit podle data &#9658;</span>
+  <div id="pstVelky" style="display: none; background-color: #EEE; border: dotted 1px gray;">
+    <div><span style="font-size: 20px">Od kdy rodičovskou pobíráte:</span><br><span style="font-size: 15px; color: gray;">(Vyplácí se zpětně, jde tedy o měsíc, od kterého žádáte, tedy předcházející tomu, kdy jste dostali první částku na účet)</span><br> Měsíc:
+      <select id="pstOdKdyM" style="height: 25px; width: 80px; font-size: 15px; text-align: center; margin-top: 8px;">
+  <option value="1">leden</option>
+  <option value="2">únor</option>
+  <option value="3">březen</option>
+  <option value="4">duben</option>
+  <option value="5">květen</option>
+  <option value="6">červen</option>
+  <option value="7">červenec</option>
+  <option value="8">srpen</option>
+  <option value="9">září</option>
+  <option value="10">říjen</option>
+  <option value="11">listopad</option>
+  <option value="12">prosinec</option>  
+</select>&nbsp;Rok:
+      <select id="pstOdKdyR" style="height: 25px; width: 80px; font-size: 15px; text-align: center; margin-top: 8px;">
+  <option value="2015">2015</option>
+  <option value="2016">2016</option>
+  <option value="2017">2017</option>
+  <option value="2018">2018</option>
+  <option value="2019">2019</option>
+</select><br>
+      <div id="pstError7" class="pstError" style="color: red; display: none;">
+        Chybně zadaný měsíc!
+      </div>
+
+
+    </div>
+    <div>
+      nebo:
+    </div>
+    <div><span style="font-size: 20px">Kolik měsíců rodičovskou pobíráte:</span><br>
+      <span style="font-size: 15px; color: gray;">(Maximum je 43 měsíců)</span><br>
+      <input type="number" id="pstX" value="7" min="0" max="43" step="1" style="height: 30px; width: 250px; font-size: 25px; text-align: center;">
+
+      <div id="pstError6" class="pstError" style="color: red; display: none;">
+        Pozor! Počet čerpaných měsíců může být maximálně <strong>43</strong>!
+      </div>
+    </div>
+    <button id="pstPrepocitatNacerpane">
+    Vypočíst vyčerpanou částku z údajů výše
+    </button>
+  </div>
+  <div id="pstError5" class="pstError" style="color: red; display: none;">
+    Nelze vypočíst! Vyčerpaná částka musí být nižší než <span style="font-weight: bold;">220 tisíc korun</span> (<span style="font-weight: bold;">330 tisíc</span> u vícerčat). Ve vašem případě v příštím měsíci už částku pravěpodobně vyčerpáte.
+  </div>
+
+  <div style="margin-top: 50px"><span style="font-size: 20px">Hrubá měsíční mzda jednoho z rodičů v době narození dítěte:</span><br>
+    <span style="font-size: 15px; color: gray;">(Vyberte tu vyšší, slouží k výpočtu maximální měsíční výplaty)</span><br>
+    <input type="number" id="pstC" value="25000" min="10000" max="300000" step="1000" style="height: 30px; width: 250px; font-size: 25px; text-align: center;">
+  
+    <div style="margin-top: 50px">
+      <span style="font-size: 20px">Kdy bude mít dítě 4. narozeniny:</span><br>
+      <span style="font-size: 15px; color: gray;">(Nebo datum narození dalšího dítěte)</span>
+    </div>
+    <div>
+      Měsíc:
+      <select id="pstMesic" style="height: 25px; width: 80px; font-size: 15px; text-align: center; margin-top: 8px;">
+  <option value="0">leden</option>
+  <option value="1">únor</option>
+  <option value="2">březen</option>
+  <option value="3">duben</option>
+  <option value="4">květen</option>
+  <option value="5">červen</option>
+  <option value="6">červenec</option>
+  <option value="7">srpen</option>
+  <option value="8">září</option>
+  <option value="9">říjen</option>
+  <option value="10">listopad</option>
+  <option value="11">prosinec</option>  
+</select> Rok:
+      <select id="pstRok" style="height: 25px; width: 80px; font-size: 15px; text-align: center; margin-top: 8px;">
+  <!--<option value="2019">2019</option>-->
+  <option value="2020">2020</option> 
+  
+  <option value="2021">2021</option>
+  <option value="2022">2022</option>
+  <option value="2023">2023</option>
+</select>
+    </div>
+    <div id="pstError3" class="pstError" style="color: red; display: none;">
+      Dítě, na nějž rodičovský příspěvek chcete čerpat, má <span style="font-weight: bold;">4. narozeniny</span> ještě před plánovaným zavedením vyššího příspěvku. Nemáte tak na tento příspěvek nárok.
+    </div>
+  </div>
+  <div>
+    <input type="checkbox" id="pstVice"> Zaškrtněte v případě vícerčat
+  </div>
+
+  <div style=" margin-top: 30px">
+  
+  <button id="pstButton" style="height: 50px; width: 120px; background-color: red; border: 0px solid; color: white; font-weight: bold; cursor: pointer; box-shadow: 0px 0px 3px rgb(120,120,120);">
+Vypočítat
+</button></div>
+  <div id="pstErrorKONEC" class="pstError" style="color: red; display: none;">
+    Nejzazší termín, kdy bylo možné rozumně měnit nastavení rodičovské, byl v <strong>říjnu 2019</strong>, protože tabulka počítá se změnou od následujícího měsíce, je od <strong>října 2019</strong> kalkulačka <strong>mimo provoz</strong>.
+  </div>
+  <div style="margin-top: 15px;">
+    <span style="font-size: 14px; color: gray; font-style: italic"><strong>Pozn.:</strong> Žádný z Vámi zadaných údajů se nikam neukládá, výpočet probíhá jen ve Vašem prohlížeči.</span>
+  </div><br>
+
+
+
+
+  <div id="pstError4" class="pstError" style="color: red; display: none;">
+    Některý z Vámi zadaných údajů je příliš nízký.
+  </div>
+
+
+  <div id="pstSchovat" style="display: none;">
+
+
+    <h3 style="font-size: 25px;">
+      Výsledky
+    </h3>
+    <div id="pstVety">
+      Lorem ipsum dolor sit amet.
+    </div><br><br>
+    <div>
+      <h4>
+        Důležitá čísla:
+      </h4>
+      <center>
+        <table class="tabulka-seda" style="width: 75%; margin: 0px;">
+          <tr>
+            <td>Limit pro měsíční příspěvek:</td>
+            <td><span id="pstMax" style="font-weight: bold;">0</span></td>
+          </tr>
+          <tr>
+            <td>Redukovaný denní vyměřovací základ:</td>
+            <td><span id="pstDVZ" style="font-weight: bold;">0</span></td>
+          </tr>
+          <tr>
+            <td>Měsíční vyměřovací základ:</td>
+            <td><span id="pstDVZM" style="font-weight: bold;">0</span></td>
+          </tr>
+          <tr>
+            <td>Od příštího měsíce do ledna byste měli maximálně čerpat:</td>
+            <td><span id="pstDoLedna" style="font-weight: bold;">0</span></td>
+          </tr>
+          <tr>
+            <td>Od ledna byste měli maximálně čerpat:</td>
+            <td><span id="pstOdLedna" style="font-weight: bold;">0</span></td>
+          </tr>
+          <tr>
+            <td>Z navýšeného příspěvku získáte:</td>
+            <td><span id="pstRPNavic" style="font-weight: bold;">0</span></td>
+          </tr>
+          <tr>
+            <td>V souhrnu i s navýšením získáte:</td>
+            <td><span id="pstRPCelkem" style="font-weight: bold;">0</span></td>
+          </tr>
+        </table>
+      </center>
+
+
+    </div>
+
+    <br><br>
+    <h2 style="font-size: 25px;">
+      Kalendář dalšího čerpání
+    </h2>
+    Od ledna čerpat: <input id="pstNejrychleji" type="radio" class="pstZpusob" name="pstZpusob" checked> Co nejrychleji
+    <input type="radio" class="pstZpusob" name="pstZpusob">&nbsp;Co nejdéle
+    <br>
+    <input type="checkbox" id="pstZao">&nbsp;Zaokrouhlovat (orientační počty)
+    <center>
+      <table id="pstTabulka" class="tabulka-seda" style="width: 100%; margin: 5px;">
+
+        <th style="text-align: center;">Měsíc</th>
+        <th style="text-align: center;">Měsíční příspěvek</th>
+        <th style="text-align: center;">Vyplaceno</th>
+        <th style="text-align: center;">Zbývá vyčerpat</th>
+        <th style="text-align: center;">Poznámka</th>
+      </table>
+    </center>
+    <div style="text-align: left; margin-top: 10px;">
+    <p style="text-align: center; font-weight: bold;">
+    Všechny výpočety jsou orientační.
+    </p>
+      <span style="font-style: italic; color: #444; font-size: 16px"><strong>Pozn.:</strong> Rodičovský příspěvek se vyplácí zpětně, tedy například změna výše červencového příspěvku se na účtu projeví až v srpnu. V tom jak Úřad práce vyřídí změnu výše měsíčního příspěvku se jednotlivé úřady liší. Podle současných pravidel má úřad na změnu 30 dnů, obvykle to však stihne mnohem rychleji - a změna se projeví už v měsíc podání (tedy na účtu až příští měsíc). Ministerstvo práce zvažuje, že by se zvýšila minimální hodnota maximálního měsíčního příspěvku (dnes <strong>7 600 Kč</strong>), a to například na hodnotu <strong>9 200 Kč</strong> - v takovém případě by bylo možné zvýšený příspěvek vybrat rychleji, případně jeho větší část v případě, že jej rodič nemůže kvůli věku dítěte vybrat celý.</span>
+    </div>
+  </div>
+  </div>
+  <script type="text/javascript">
+  $(document).ready(function() {
+
+  var pstDVZ = 0
+  var pstVice
+  var pstRP
+  var pocitatTentoMesic = 0 //je to opačně 0 - počítá, 1 - nepočítá
+  var pstKolikatyM = 1 //čísluje tabulku
+  var pstPozn = '' //pro poznámku do tabulky
+  var pstDnes = new Date();
+  var pstMesice = ['ledna', 'února', 'března', 'dubna', 'května', 'června', 'července', 'srpna', 'září', 'října', 'listopadu', 'prosince']
+  var pstMesice2 = ['lednu', 'únoru', 'březnu', 'dubnu', 'květnu', 'červnu', 'červenci', 'srpnu', 'září', 'říjnu', 'listopadu', 'prosinci', 'lednu']
+  var pstZaokrouhluj = 0;
+
+  function pstZao(co, jak, kam) { //zaokrouhlení; jak = na kolik desetinných míst a kam je 0 - floor, 1 - round, 3 - ceil
+    if (pstZaokrouhluj == 1) {
+      var x
+      if (kam == 0) {
+        x = Math.floor(co / (10 ** jak)) * 10 ** jak
+      } else if (kam == 1) {
+        x = Math.round(co / (10 ** jak)) * 10 ** jak
+      } else if (kam == 2) {
+        x = Math.ceil(co / (10 ** jak)) * 10 ** jak
+      } else {
+        x = co
+      } //když zadáme blbě, tak se vrátí neupravené číslo
+
+      return x;
+
+    } else {
+      return co
+    }
+  }
+
+  function pstCZ(co, mena) {
+    var y
+    if (mena == 1) {
+      y = 'currency'
+    } else {
+      y = 'decimal'
+    }
+    var x = co.toLocaleString('cs-CZ', {
+      style: y,
+      currency: 'CZK',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    })
+    return x;
+  }
+
+  function pstMdif(od, dokdy) { //rozdíly mezi daty v měsících
+    return dokdy.getMonth() - od.getMonth() +
+      (12 * (dokdy.getFullYear() - od.getFullYear()))
+  }
+
+  function pstNacerpanoSpocti() { //přepočítává peníze celkem načerpané
+    $('#pstA').val($('#pstX').val() * $('#pstB').val())
+  }
+
+  function pstMesiceSpocti() { //počítá jak dlouho se pobírá RP
+    var pstOdM = $('#pstOdKdyM').val() - 1 //měsíc od kdy pobíráme
+    var pstOdR = $('#pstOdKdyR').val() //rok od kdy pobíráme
+    var pstOd = new Date(pstOdR, pstOdM, 1) //datum od kdy se bere
+
+    if ($('#pstPristiMesic').is(':checked')) {
+      pocitatTentoMesic = 0 //když je zmáčklej, je to nula
+    } else {
+      pocitatTentoMesic = 1 //když ne, tak je to jedna
+    } //jestli je zaškrtnuto políčko, tak připočíst měsíc navíc
+    var pstVypocitejMesice = pstMdif(pstOd, pstDnes) - pocitatTentoMesic;
+
+    if (pstVypocitejMesice < 0) {
+      $('#pstSchovat').hide();
+      $('#pstError7').fadeIn();
+    } else {
+      $('#pstError7').hide()
+      $('#pstX').val(pstVypocitejMesice)
+    }
+  }
+
+  $('#pstOdKdyM').on('change', function() {
+    pstMesiceSpocti()
+  })
+  $('#pstOdKdyR').on('change', function() {
+    pstMesiceSpocti()
+  })
+  $('#pstPristiMesic').on('change', function() {
+    pstMesiceSpocti()
+  })
+  $('#pstPrepocitatNacerpane').on('click', function() {
+    pstNacerpanoSpocti()
+  })
+
+
+
+  function vypocitej() { //začátek výpočtu ********************************
+    //jestli jsou vícerčata
+    pstVice = 1
+    if ($('#pstVice').is(':checked')) {
+      pstVice = 1.5
+    }
+
+    if ($('#pstZao').is(':checked')) { //jestli máme zaokrouhlovat
+      pstZaokrouhluj = 1
+    } else {
+      pstZaokrouhluj = 0
+    }
+
+    pstRP = 220000 * pstVice //rodičovský příspěvek celkem
+    var pstRPnavic = 80000 * pstVice //kolik navíc
+    var pstVycer = pstRP - $('#pstA').val() //kolik vyčerpáno
+    var pstNacer = parseInt($('#pstA').val())
+    var pstKolikM = $('#pstX').val() //jak dlouho čerpají
+    var pstKolikC = parseInt($('#pstB').val()) //kolik měsíčně čerpají
+    var pstPrijem = $('#pstC').val()
+    if (pstKolikC < 50 || pstPrijem <= 5000 || pstNacer < 0) {
+      $('#pstSchovat').hide();
+      $('#pstError4').fadeIn();
+      return;
+    }
+
+    
+
+    if (pstKolikM > 43) { //když moc měsíců - ZJISTIT JAK JE TO U VÍCERČAT
+      //$('#pstSchovat').hide();
+      $('#pstError6').fadeIn();
+      //return;
+    }
+
+    $('.pstError').hide();
+
+    pstDnes.setDate(1)
+    var pstDnesD = pstDnes.getDate() //dnešní den
+    var pstDnesM = pstDnes.getMonth() //dnešní měsíc
+    var pstDnesR = pstDnes.getFullYear() //dnešní rok
+    var pstNarM = $('#pstMesic').val() //měsíc narození
+    var pstNarR = $('#pstRok').val() //rok narození
+    var pstNar = new Date(pstNarR, pstNarM, 1); //datum narození
+    var pstNarRozdil = pstMdif(pstDnes, pstNar) //za jak dlouho dítě bude mít narozeniny
+    var pstLeden = new Date(2020, 0, 1) //datum, kdy je nejdřívější nárok na vyšší rodičovskou
+    var pstLedenRozdil = pstMdif(pstDnes, pstLeden) //za jak dlouho je leden
+    var pstLedenNarRozdil = pstMdif(pstLeden, pstNar) //rozdíl mezi lednem a narozením (vždy musí být ošetřeno, aby narození nebylo dřív a tohle se nepočítalo)
+    var pstKdyDocerpano = 0 //který měsíc dočerpáme současná pravidla
+    if (pstDnesM > 9 && pstDnesR >= 2019) {
+      $('#pstSchovat').hide();
+      $('#pstErrorKONEC').fadeIn();
+      return;
+    }
+    if (pstNarR < 2020) {
+      $('#pstSchovat').hide();
+      $('#pstError3').fadeIn();
+      return;
+    }
+
+    $('#pstSchovat').fadeIn();
+
+    $("#pstTabulka tr").slice(1).remove(); //smazat tabulku
+
+
+    var pstDVZn = Math.round(((pstPrijem * 12) / 365) * 100) / 100 //dvě desetinná místa
+    if (pstDVZn <= 1090) {
+      pstDVZ = pstDVZn * 0.7
+    } else if (pstDVZn > 1090 && pstDVZn <= 1635) {
+      pstDVZ = Math.ceil((pstDVZn - 1090) * 0.6 + 1090) * 0.7 //tady podle MPSV se to celé nezaokrouhluje
+    } else if (pstDVZn > 1635 && pstDVZn <= 3270) {
+      pstDVZ = Math.ceil((pstDVZn - 1635) * 0.3 + 1090 + 327) * 0.7 //tady podle MPSV se to celé nezaokrouhluje
+    } else {
+      pstDVZ = 1335.6 //tady podle MPSV se to celé nezaokrouhluje
+    }
+
+    var pstMax = pstZao((Math.ceil((pstDVZ * 30) * pstVice)),2,0)//zaokrouhlit nahoru a pak možnost zaokrouhlit na desítky dolů (jen volitelné)
+    if (pstMax < (7600 * pstVice) && pstPrijem > 0) { //pokud je příjem nižší než 7900,r esp. 11400 u vícerčat
+      pstMax = 7600 * pstVice
+
+    }
+
+    if (pstKolikC > pstMax) {
+      $('#pstSchovat').hide();
+      $('#pstError2').fadeIn();
+      $('#pstDVZ1').text(pstCZ(pstMax, 1))
+      return;
+    }
+
+
+
+    if (pocitatTentoMesic == 0) {//když počítáme měsíc, tak 
+      pstKolikatyM = parseInt(pstKolikM)
+      pstVycer -= pstKolikC
+      pstNacer += (pstKolikC)
+    } else {
+      pstKolikatyM = parseInt(pstKolikM) + 1;
+      //pstDnesM--
+      pstVycer -= (pstKolikC*2)
+      pstNacer += (pstKolikC*2)
+    }
+    
+    if (pstNacer >= pstRP || pstVycer <= 0) { //moc vysoké načerpáno nebo vyčerpáno vše
+      $('#pstSchovat').hide();
+      $('#pstError5').fadeIn();
+      return;
+    }
+    
+
+    var pstOdLedna = 1 //1 - vyberu celý, 0 =- nevyberu celý
+    var pstDoLedna = 0 //0 - neměnit nic 1 - snížit 3 - nejde to
+
+    var pstNemozne = 0 //1 - nelze to, 0 - vše cajk
+
+    var pstStop = 0 //pro tvoření tabulky
+    var pstDiteSTOP = 0 //pro tvoření tabulky
+    var pstPrvniZmena = pstKolikC //na kolik změnit příspěvky do ledna (defaultně je to ponechané)
+    var pstMaxZmenaDoLedna = pstPrvniZmena
+    var pstDruhaZmena = pstKolikC //na kolik změnit příspěvky od ledna (defaultně to samé)
+    var pstCastkaDoLedna = (pstVycer) / (pstLedenRozdil) //vydělíme zbývající částku počtem měsíců do ledna (včetně) - a to od příštího měsíce (teď července), proto to není plus jedna
+    var pstCastkaOdLedna = 0
+    var pstZbudeVlednu = 0 //kolik zbude v lednu
+    var pstRPNavicsLednem = 0
+    var pstVycerRPNavic = pstRPnavic //proměnná pro to, kolik teda vyčerpám z nového přídavku
+var pstDodatek = ''
+    var pstCerpejMax = 1;
+    if ($('#pstNejrychleji').is(':checked')) {
+      pstCerpejMax = 1;
+    } else {
+      pstCerpejMax = 0;
+
+    } //nastaví, jestli čerpat maximum nebo ne
+
+    //pokud je nastaveno čerpat maximum, tak se to odledna vyčerpá co nejvíc (druházměna bude pstmax)
+    //hlavní rozhodovací kus ---------------------------
+    //POZOR, VŠE SE VYPOČÍTÁVÁ PODLE MĚSÍCE NAVÍC (nemusí se k rozdílu do ledna nic připočítávat)
+
+    //PRVNÍ - jestli to vůbec do ledna jde
+    //když je vyšší nebo rovna = nic neměni
+    if (pstCastkaDoLedna >= pstKolikC) {
+      pstDoLedna = 0 //do ledna je vše v pohodě, takže neměnit = 0
+      pstPrvniZmena = pstKolikC
+      pstMaxZmenaDoLedna = pstMax
+      //*tady někde může být, že by bylo záhodno částku zvýšit, tj. když pstMax do ledna vystačí.
+    } else if (pstCastkaDoLedna < pstKolikC && pstCastkaDoLedna >= 50) {
+      //když je částka do ledna menší než kolik čerpáme a přitom vyšší než 50, tak lze příspěvky od července snížit na tuto hranici
+      pstDoLedna = 1
+      pstPrvniZmena = pstZao(Math.floor(pstCastkaDoLedna), 2, 0)
+      pstMaxZmenaDoLedna = pstPrvniZmena
+    } else {
+      //když to nejde, tak je konec
+      pstNemozne = 1
+      pstDoLedna = 3
+      pstMaxZmenaDoLedna = 0
+    }
+
+
+    //DRUHÁ - od ledna
+    if (pstDoLedna < 3) { //pokud platí, že se do ledna vůbec dostasneme, tak počítejme, kolik zbude
+      pstZbudeVlednu = pstVycer - (pstPrvniZmena * (pstLedenRozdil - 1)) //kolik zbude v lednu z dosavadního čerpání
+      pstRPNavicsLednem = pstRPnavic + pstZbudeVlednu //co tedy od ledna budeme muset čerpat
+      pstCastkaOdLedna = pstRPNavicsLednem / (pstLedenNarRozdil + 1) //částka od ledna
+      if (pstCastkaOdLedna <= pstMax && pstCastkaOdLedna > 50) { //když od ledna bude stejný nebo nižší než příspěvek, vyberu celý
+        pstOdLedna = 1 //vyberu celý
+
+        if (pstCerpejMax == 0) {
+          pstDruhaZmena = pstZao(Math.floor(pstRPNavicsLednem / (pstLedenNarRozdil + 1)), 2, 0)
+        } else {
+          pstDruhaZmena = pstMax
+        } //když nemáme čerpat rychle, tak se to dojede až do narozenin, jinak to pofrčí maximem
+        if (pstDruhaZmena < 50) {
+          pstDruhaZmena = 50
+        } //
+
+
+        pstVycerRPNavic = pstRPnavic
+      } else if (pstCastkaOdLedna >= pstMax) {
+      //když nedostanu vše
+        pstOdLedna = 0
+        pstDruhaZmena = pstMax
+        
+        
+        if ((pstZbudeVlednu / (pstLedenNarRozdil + 1)) > pstMax) {
+        //když ale mi zbude moc od předtím
+          pstVycerRPNavic = 0
+         pstOdLedna = 2 //dosáhne, ale nevybere žádný
+         
+         //nová pravidla!!!***** zjistit, jestli to nebdue radit čerpat moc
+         //tady dole - pokud čerpáte do ledna moc pomalu, tak co dodat
+         var pstRada //radí kolik mít od ledna
+         if (pstKolikC < pstCastkaDoLedna) {
+         
+         pstDodatek =' Zvažte do ledna čerpat rychleji (maximálně můžete: <strong>' + pstCZ((pstZao(pstMax,2,0)),1) + '.'} else {pstDodatek = ' Nebudete muset měnit výši poplatků.'}
+         pstPrvniZmena = pstCastkaDoLedna
+        } else {
+          pstVycerRPNavic = (pstDruhaZmena * (pstLedenNarRozdil + 1)) - pstZbudeVlednu
+         
+        } //tohle proto, aby to nepřidávalo blbost
+        //pokud nevyčerpám celý, tak kolik z něj vlastně vyčerpám? To je co nejvíc mohu vyčerpat do narozenin mínus co zbylo v lednu
+
+      } else {
+        pstNemozne = 1
+        pstOdLedna = 3
+        //tohle je asi zbytečný
+      }
+    }
+
+    /* 
+    pstOdLedna = 1 //1 - vyberu celý, 0 =- nevyberu celý, 2 - dosáhnete, ale nevyberete 3 - nejde to
+    pstDoLedna = 0 //0 - neměnit nic 1 - snížit, 2 - spíš zvýšit 3 - nejde to
+    pstNemozne = 0 //1 - nelze to, 0 - vše cajk
+    
+    */
+
+    //VĚTY do výsledků
+    $('#pstVety').text('')
+
+    if (pstOdLedna == 1) {
+      $('#pstVety').html('Na zvýšený příspěvek <strong>' + pstCZ(pstRPnavic, 1) + '</strong> dosáhnete, a to na <strong>celý</strong>. Měsíční příspěvky byste <strong>od ledna</strong> měli na stavit na úroveň alespoň <strong>' + pstCZ((Math.floor(pstRPNavicsLednem / (pstLedenNarRozdil + 1))), 1) + '</strong>. ')
+    } else if (pstOdLedna == 0) {
+      $('#pstVety').html('Na zvýšený příspěvek <strong>' + pstCZ(pstRPnavic, 1) + '</strong> dosáhnete, ale ne na <strong>celý</strong>. Získáte z něj jen <strong>' + pstCZ(Math.floor(pstVycerRPNavic / 100) * 100, 1) + '</strong> a tedy celkově <strong>' + pstCZ(Math.floor((pstVycerRPNavic + pstRP) / 100) * 100, 1) + '</strong>. Měsíční příspěvky byste <strong>od ledna</strong> měli nastavit na úroveň <strong>' + pstCZ(pstDruhaZmena, 1) + '</strong>. ')
+    } else if (pstOdLedna == 3) {
+      $('#pstVety').html('Na zvýšený příspěvek <strong>' + pstCZ(pstRPnavic, 1) + '</strong> nedosáhnete. Vyčerpali jste už příliš. ')
+    }
+    
+    else if (pstOdLedna == 2) {
+      $('#pstVety').html('Na zvýšený příspěvek <strong>' + pstCZ(pstRPnavic, 1) + '</strong> za současného čerpání dosáhnete, ale do ledna byste vyčerpali tak málo, že do 4. narozenin dítěte nestihnete <strong>vyčerpat nic</strong>. ')
+    }
+
+    if (pstDoLedna == 0) {
+      $('#pstVety').html($('#pstVety').html() + pstDodatek)
+    } else if (pstDoLedna == 1) {
+      $('#pstVety').html($('#pstVety').html() + 'Musíte ale změnit současné příspěvky, a to od <strong>' + pstMesice[pstDnesM + 1] + '</strong> na maximálně <strong>' + pstCZ(pstPrvniZmena, 1) + '</strong>')
+    } else if (pstDoLedna == 3) {
+      $('#pstVety').html($('#pstVety').html() + 'Proto nemá smysl měnit stávající podmínky.')
+    } else if (pstDoLedna == 2) {
+      $('#pstVety').html($('#pstVety').html() + 'Nemusíte měnit měsíční poplatky, ale zvažte jejich zvýšení na maximální možnou hodnotu <strong>' + pstCZ(pstZao((pstMax,1),2,0)) + '</strong>')
+    }
+
+
+    //do výsledků
+    $('#pstMax').text(pstCZ(pstMax, 1))
+    $('#pstDVZ').text(pstCZ(pstDVZ, 0))
+    $('#pstDVZM').text((pstCZ(Math.ceil(pstDVZ * 30), 0)))
+    $('#pstDoLedna').text(pstCZ(pstMaxZmenaDoLedna, 1))
+    $('#pstOdLedna').text(pstCZ(pstMax, 1))
+    $('#pstRPNavic').text(pstCZ(pstVycerRPNavic, 1))
+    $('#pstRPCelkem').text(pstCZ(pstVycerRPNavic + pstRP, 1))
+    //tím posledním si nejsem jist
+
+
+    var pstStyle = ''
+
+
+
+    function pstTvorTabulku() {
+      $('#pstTabulka').append('<tr style="' + pstStyle + '"></td><td style="text-align: center">' + (pstDnesM + 1) + '/' + pstDnesR + '</td><td style="text-align: center">' + pstCZ(pstKolikC, 0) + '</td><td style="text-align: center"> v <strong>' + pstMesice2[pstDnesM + 1] + '</strong></td><td style="text-align: center">' + pstCZ(pstVycer, 0) + '</td><td width="130" style="font-size: 12px; line-height: 17px; padding: 5px">' + pstPozn + '</td></tr>')
+    }
+
+    for (var i = 0; pstVycer > 0 && pstStop == 0; i++) { //ZAČÁTEK TABULKY <<<<<
+      if (i == 0) { //v prvím řádku ukáže současnou situaci a vytvoří tabulku poprvé
+        pstPozn = 'Současný měsíc.'
+        pstTvorTabulku();
+        pstKolikatyM++
+        pstPozn = ''
+      }
+      if (pstDnesM < 11) { //přehazuje na další měsíc, potažmo rok
+        pstDnesM++
+      } else {
+        pstDnesM = 0;
+        pstDnesR++
+      }
+
+
+      if (pstDoLedna == 0) { //když neměnit nic
+
+      } else if (pstDoLedna == 1) { //když snížit      
+        //pstVycer -= pstKolikC
+        pstKolikC = pstPrvniZmena
+        pstPozn = "Změna příspěvků na <strong>" + pstCZ(pstPrvniZmena, 1) + '</strong>'
+        pstStyle = 'background-color: #afffaa;'
+        pstDoLedna = 0
+      } else { //když to nejde
+
+      }
+
+
+      if (pstDnesM == 0 && pstDnesR == 2020) {
+        pstVycer += Math.floor(pstVycerRPNavic)
+      } //když je leden 2020, přičteme co dostanu
+
+      if (pstOdLedna < 2 && pstDnesM == 0 && pstDnesR == 2020) { //když je leden a mám měnit příspěvky, tak změníme příspěvky
+        pstKolikC = Math.floor(pstDruhaZmena) //když je nutné změnit lednové příspěvky, tak od ledna měníme příspěvek * - tady nemusí být max
+        pstStyle = 'background-color: #afffaa;'
+        pstPozn = "Změna příspěvků na <strong>" + pstCZ(pstDruhaZmena, 1) + '</strong>. K celkové částce k vyčerpání se připočetlo <strong>' + pstCZ(pstVycerRPNavic, 1) + '</strong> (tedy to, co můžete ještě čerpat).' //* nemusí být max, ale v jiném nastavení i průměr (co nejdéle)
+      }
+      
+      if (pstOdLedna == 2 && pstDnesM == 0 && pstDnesR == 2020) {
+        pstKolikC = Math.floor(pstDruhaZmena) //když je nutné změnit lednové příspěvky, tak od ledna měníme příspěvek * - tady nemusí být max
+        pstStyle = 'background-color: #afffaa;'
+        pstPozn = "Změna příspěvků na <strong>" + pstCZ(pstDruhaZmena, 1) + '</strong>.' //* nemusí být max, ale v jiném nastavení i průměr (co nejdéle)
+      }
+
+      if (pstVycer >= pstKolikC * 2) { //pokud je nevyčerpáno vyšší než příspěvek, tak se odečte
+        pstVycer -= pstKolikC
+      } else { //jinak na nulu
+        pstKolikC = parseInt(pstVycer);
+        pstVycer = 0;
+        pstStyle = 'background-color: #ff99a3'
+        pstPozn += "<br>Dočerpáno."
+      }
+
+      if (pstDnesM == pstNarM && pstDnesR == pstNarR) { //pokud dítě má 4. rok
+        pstStyle = 'background-color: #ff99a3'
+        pstPozn += "<br>Dítě dosáhlo limitního 4. roku."
+        pstStop = 1
+      }
+
+      pstTvorTabulku()
+
+      pstKolikatyM++
+      pstPozn = ''
+      pstStyle = '' //vrátíme styl zpět
+    } //KONEC TABULKY <<<<< 
+    $('#pstSchovat').fadeIn()
+  } //konec výpočtu *******************************
+
+  $('#pstButton').click(function() {
+    vypocitej()
+  })
+  $('.pstZpusob').on('change', function() {
+    vypocitej()
+  }) //když klikneme na přepínátko
+
+  $('#pstUrcitData').on('click', function() {
+    $('#pstVelky').fadeToggle()
+    $('#pstUrcitData').html('Určit podle data &#9660;') //&#9658;
+
+  })
+
+  $('#pstZao').on('click', function() { //na zaokrouhlování
+
+    vypocitej()
+  })
+
+
+})
+
+  </script>
