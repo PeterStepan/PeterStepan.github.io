@@ -231,15 +231,15 @@ Vypočítat
   var pstDVZ = 0
   var pstVice
   var pstRP
-  var pocitatTentoMesic = 0 //je to opačně 0 - počítá, 1 - nepočítá
-  var pstKolikatyM = 1 //čísluje tabulku
-  var pstPozn = '' //pro poznámku do tabulky
+  var pocitatTentoMesic = 0 
+  var pstKolikatyM = 1 
+  var pstPozn = '' 
   var pstDnes = new Date();
   var pstMesice = ['ledna', 'února', 'března', 'dubna', 'května', 'června', 'července', 'srpna', 'září', 'října', 'listopadu', 'prosince']
   var pstMesice2 = ['lednu', 'únoru', 'březnu', 'dubnu', 'květnu', 'červnu', 'červenci', 'srpnu', 'září', 'říjnu', 'listopadu', 'prosinci', 'lednu']
   var pstZaokrouhluj = 0;
 
-  function pstZao(co, jak, kam) { //zaokrouhlení; jak = na kolik desetinných míst a kam je 0 - floor, 1 - round, 3 - ceil
+  function pstZao(co, jak, kam) { 
     if (pstZaokrouhluj == 1) {
       var x
       if (kam == 0) {
@@ -250,7 +250,7 @@ Vypočítat
         x = Math.ceil(co / (10 ** jak)) * 10 ** jak
       } else {
         x = co
-      } //když zadáme blbě, tak se vrátí neupravené číslo
+      }
 
       return x;
 
@@ -275,25 +275,25 @@ Vypočítat
     return x;
   }
 
-  function pstMdif(od, dokdy) { //rozdíly mezi daty v měsících
+  function pstMdif(od, dokdy) { 
     return dokdy.getMonth() - od.getMonth() +
       (12 * (dokdy.getFullYear() - od.getFullYear()))
   }
 
-  function pstNacerpanoSpocti() { //přepočítává peníze celkem načerpané
+  function pstNacerpanoSpocti() {
     $('#pstA').val($('#pstX').val() * $('#pstB').val())
   }
 
-  function pstMesiceSpocti() { //počítá jak dlouho se pobírá RP
-    var pstOdM = $('#pstOdKdyM').val() - 1 //měsíc od kdy pobíráme
-    var pstOdR = $('#pstOdKdyR').val() //rok od kdy pobíráme
-    var pstOd = new Date(pstOdR, pstOdM, 1) //datum od kdy se bere
+  function pstMesiceSpocti() { 
+    var pstOdM = $('#pstOdKdyM').val() - 1 
+    var pstOdR = $('#pstOdKdyR').val() 
+    var pstOd = new Date(pstOdR, pstOdM, 1) 
 
     if ($('#pstPristiMesic').is(':checked')) {
-      pocitatTentoMesic = 0 //když je zmáčklej, je to nula
+      pocitatTentoMesic = 0 
     } else {
-      pocitatTentoMesic = 1 //když ne, tak je to jedna
-    } //jestli je zaškrtnuto políčko, tak připočíst měsíc navíc
+      pocitatTentoMesic = 1 
+    } 
     var pstVypocitejMesice = pstMdif(pstOd, pstDnes) - pocitatTentoMesic;
 
     if (pstVypocitejMesice < 0) {
@@ -320,25 +320,24 @@ Vypočítat
 
 
 
-  function vypocitej() { //začátek výpočtu ********************************
-    //jestli jsou vícerčata
+  function vypocitej() { 
     pstVice = 1
     if ($('#pstVice').is(':checked')) {
       pstVice = 1.5
     }
 
-    if ($('#pstZao').is(':checked')) { //jestli máme zaokrouhlovat
+    if ($('#pstZao').is(':checked')) { 
       pstZaokrouhluj = 1
     } else {
       pstZaokrouhluj = 0
     }
 
-    pstRP = 220000 * pstVice //rodičovský příspěvek celkem
-    var pstRPnavic = 80000 * pstVice //kolik navíc
-    var pstVycer = pstRP - $('#pstA').val() //kolik vyčerpáno
+    pstRP = 220000 * pstVice 
+    var pstRPnavic = 80000 * pstVice 
+    var pstVycer = pstRP - $('#pstA').val() 
     var pstNacer = parseInt($('#pstA').val())
-    var pstKolikM = $('#pstX').val() //jak dlouho čerpají
-    var pstKolikC = parseInt($('#pstB').val()) //kolik měsíčně čerpají
+    var pstKolikM = $('#pstX').val()
+    var pstKolikC = parseInt($('#pstB').val()) 
     var pstPrijem = $('#pstC').val()
     if (pstKolikC < 50 || pstPrijem <= 5000 || pstNacer < 0) {
       $('#pstSchovat').hide();
@@ -348,26 +347,24 @@ Vypočítat
 
     
 
-    if (pstKolikM > 43) { //když moc měsíců - ZJISTIT JAK JE TO U VÍCERČAT
-      //$('#pstSchovat').hide();
+    if (pstKolikM > 43) { 
       $('#pstError6').fadeIn();
-      //return;
     }
 
     $('.pstError').hide();
 
     pstDnes.setDate(1)
-    var pstDnesD = pstDnes.getDate() //dnešní den
-    var pstDnesM = pstDnes.getMonth() //dnešní měsíc
-    var pstDnesR = pstDnes.getFullYear() //dnešní rok
-    var pstNarM = $('#pstMesic').val() //měsíc narození
-    var pstNarR = $('#pstRok').val() //rok narození
-    var pstNar = new Date(pstNarR, pstNarM, 1); //datum narození
-    var pstNarRozdil = pstMdif(pstDnes, pstNar) //za jak dlouho dítě bude mít narozeniny
-    var pstLeden = new Date(2020, 0, 1) //datum, kdy je nejdřívější nárok na vyšší rodičovskou
-    var pstLedenRozdil = pstMdif(pstDnes, pstLeden) //za jak dlouho je leden
-    var pstLedenNarRozdil = pstMdif(pstLeden, pstNar) //rozdíl mezi lednem a narozením (vždy musí být ošetřeno, aby narození nebylo dřív a tohle se nepočítalo)
-    var pstKdyDocerpano = 0 //který měsíc dočerpáme současná pravidla
+    var pstDnesD = pstDnes.getDate()
+    var pstDnesM = pstDnes.getMonth() 
+    var pstDnesR = pstDnes.getFullYear()
+    var pstNarM = $('#pstMesic').val() 
+    var pstNarR = $('#pstRok').val()
+    var pstNar = new Date(pstNarR, pstNarM, 1);
+    var pstNarRozdil = pstMdif(pstDnes, pstNar)
+    var pstLeden = new Date(2020, 0, 1)
+    var pstLedenRozdil = pstMdif(pstDnes, pstLeden)
+    var pstLedenNarRozdil = pstMdif(pstLeden, pstNar)
+    var pstKdyDocerpano = 0
     if (pstDnesM > 9 && pstDnesR >= 2019) {
       $('#pstSchovat').hide();
       $('#pstErrorKONEC').fadeIn();
@@ -381,22 +378,22 @@ Vypočítat
 
     $('#pstSchovat').fadeIn();
 
-    $("#pstTabulka tr").slice(1).remove(); //smazat tabulku
+    $("#pstTabulka tr").slice(1).remove();
 
 
-    var pstDVZn = Math.round(((pstPrijem * 12) / 365) * 100) / 100 //dvě desetinná místa
+    var pstDVZn = Math.round(((pstPrijem * 12) / 365) * 100) / 100
     if (pstDVZn <= 1090) {
       pstDVZ = pstDVZn * 0.7
     } else if (pstDVZn > 1090 && pstDVZn <= 1635) {
-      pstDVZ = Math.ceil((pstDVZn - 1090) * 0.6 + 1090) * 0.7 //tady podle MPSV se to celé nezaokrouhluje
+      pstDVZ = Math.ceil((pstDVZn - 1090) * 0.6 + 1090) * 0.7
     } else if (pstDVZn > 1635 && pstDVZn <= 3270) {
-      pstDVZ = Math.ceil((pstDVZn - 1635) * 0.3 + 1090 + 327) * 0.7 //tady podle MPSV se to celé nezaokrouhluje
+      pstDVZ = Math.ceil((pstDVZn - 1635) * 0.3 + 1090 + 327) * 0.7 
     } else {
-      pstDVZ = 1335.6 //tady podle MPSV se to celé nezaokrouhluje
+      pstDVZ = 1335.6 
     }
 
-    var pstMax = pstZao((Math.ceil((pstDVZ * 30) * pstVice)),2,0)//zaokrouhlit nahoru a pak možnost zaokrouhlit na desítky dolů (jen volitelné)
-    if (pstMax < (7600 * pstVice) && pstPrijem > 0) { //pokud je příjem nižší než 7900,r esp. 11400 u vícerčat
+    var pstMax = pstZao((Math.ceil((pstDVZ * 30) * pstVice)),2,0)
+    if (pstMax < (7600 * pstVice) && pstPrijem > 0) {
       pstMax = 7600 * pstVice
 
     }
@@ -410,39 +407,39 @@ Vypočítat
 
 
 
-    if (pocitatTentoMesic == 0) {//když počítáme měsíc, tak 
+    if (pocitatTentoMesic == 0) {
       pstKolikatyM = parseInt(pstKolikM)
       pstVycer -= pstKolikC
       pstNacer += (pstKolikC)
     } else {
       pstKolikatyM = parseInt(pstKolikM) + 1;
-      //pstDnesM--
+      
       pstVycer -= (pstKolikC*2)
       pstNacer += (pstKolikC*2)
     }
     
-    if (pstNacer >= pstRP || pstVycer <= 0) { //moc vysoké načerpáno nebo vyčerpáno vše
+    if (pstNacer >= pstRP || pstVycer <= 0) { 
       $('#pstSchovat').hide();
       $('#pstError5').fadeIn();
       return;
     }
     
 
-    var pstOdLedna = 1 //1 - vyberu celý, 0 =- nevyberu celý
-    var pstDoLedna = 0 //0 - neměnit nic 1 - snížit 3 - nejde to
+    var pstOdLedna = 1 
+    var pstDoLedna = 0 
 
-    var pstNemozne = 0 //1 - nelze to, 0 - vše cajk
+    var pstNemozne = 0 
 
-    var pstStop = 0 //pro tvoření tabulky
-    var pstDiteSTOP = 0 //pro tvoření tabulky
-    var pstPrvniZmena = pstKolikC //na kolik změnit příspěvky do ledna (defaultně je to ponechané)
+    var pstStop = 0 
+    var pstDiteSTOP = 0 
+    var pstPrvniZmena = pstKolikC
     var pstMaxZmenaDoLedna = pstPrvniZmena
-    var pstDruhaZmena = pstKolikC //na kolik změnit příspěvky od ledna (defaultně to samé)
-    var pstCastkaDoLedna = (pstVycer) / (pstLedenRozdil) //vydělíme zbývající částku počtem měsíců do ledna (včetně) - a to od příštího měsíce (teď července), proto to není plus jedna
+    var pstDruhaZmena = pstKolikC 
+    var pstCastkaDoLedna = (pstVycer) / (pstLedenRozdil) 
     var pstCastkaOdLedna = 0
-    var pstZbudeVlednu = 0 //kolik zbude v lednu
+    var pstZbudeVlednu = 0
     var pstRPNavicsLednem = 0
-    var pstVycerRPNavic = pstRPnavic //proměnná pro to, kolik teda vyčerpám z nového přídavku
+    var pstVycerRPNavic = pstRPnavic 
 var pstDodatek = ''
     var pstCerpejMax = 1;
     if ($('#pstNejrychleji').is(':checked')) {
@@ -450,90 +447,73 @@ var pstDodatek = ''
     } else {
       pstCerpejMax = 0;
 
-    } //nastaví, jestli čerpat maximum nebo ne
-
-    //pokud je nastaveno čerpat maximum, tak se to odledna vyčerpá co nejvíc (druházměna bude pstmax)
-    //hlavní rozhodovací kus ---------------------------
-    //POZOR, VŠE SE VYPOČÍTÁVÁ PODLE MĚSÍCE NAVÍC (nemusí se k rozdílu do ledna nic připočítávat)
-
-    //PRVNÍ - jestli to vůbec do ledna jde
-    //když je vyšší nebo rovna = nic neměni
+    } 
+    
     if (pstCastkaDoLedna >= pstKolikC) {
-      pstDoLedna = 0 //do ledna je vše v pohodě, takže neměnit = 0
+      pstDoLedna = 0 
       pstPrvniZmena = pstKolikC
       pstMaxZmenaDoLedna = pstMax
-      //*tady někde může být, že by bylo záhodno částku zvýšit, tj. když pstMax do ledna vystačí.
+      
     } else if (pstCastkaDoLedna < pstKolikC && pstCastkaDoLedna >= 50) {
-      //když je částka do ledna menší než kolik čerpáme a přitom vyšší než 50, tak lze příspěvky od července snížit na tuto hranici
+      
       pstDoLedna = 1
       pstPrvniZmena = pstZao(Math.floor(pstCastkaDoLedna), 2, 0)
       pstMaxZmenaDoLedna = pstPrvniZmena
     } else {
-      //když to nejde, tak je konec
+
       pstNemozne = 1
       pstDoLedna = 3
       pstMaxZmenaDoLedna = 0
     }
 
 
-    //DRUHÁ - od ledna
-    if (pstDoLedna < 3) { //pokud platí, že se do ledna vůbec dostasneme, tak počítejme, kolik zbude
-      pstZbudeVlednu = pstVycer - (pstPrvniZmena * (pstLedenRozdil - 1)) //kolik zbude v lednu z dosavadního čerpání
-      pstRPNavicsLednem = pstRPnavic + pstZbudeVlednu //co tedy od ledna budeme muset čerpat
-      pstCastkaOdLedna = pstRPNavicsLednem / (pstLedenNarRozdil + 1) //částka od ledna
-      if (pstCastkaOdLedna <= pstMax && pstCastkaOdLedna > 50) { //když od ledna bude stejný nebo nižší než příspěvek, vyberu celý
-        pstOdLedna = 1 //vyberu celý
+    if (pstDoLedna < 3) {
+      pstZbudeVlednu = pstVycer - (pstPrvniZmena * (pstLedenRozdil - 1)) 
+      pstRPNavicsLednem = pstRPnavic + pstZbudeVlednu
+      pstCastkaOdLedna = pstRPNavicsLednem / (pstLedenNarRozdil + 1) 
+      if (pstCastkaOdLedna <= pstMax && pstCastkaOdLedna > 50) { 
+        pstOdLedna = 1 
 
         if (pstCerpejMax == 0) {
           pstDruhaZmena = pstZao(Math.floor(pstRPNavicsLednem / (pstLedenNarRozdil + 1)), 2, 0)
         } else {
           pstDruhaZmena = pstMax
-        } //když nemáme čerpat rychle, tak se to dojede až do narozenin, jinak to pofrčí maximem
+        } 
         if (pstDruhaZmena < 50) {
           pstDruhaZmena = 50
-        } //
+        } 
 
 
         pstVycerRPNavic = pstRPnavic
       } else if (pstCastkaOdLedna >= pstMax) {
-      //když nedostanu vše
+
         pstOdLedna = 0
         pstDruhaZmena = pstMax
         
         
         if ((pstZbudeVlednu / (pstLedenNarRozdil + 1)) > pstMax) {
-        //když ale mi zbude moc od předtím
+
           pstVycerRPNavic = 0
-         pstOdLedna = 2 //dosáhne, ale nevybere žádný
-         
-         //nová pravidla!!!***** zjistit, jestli to nebdue radit čerpat moc
-         //tady dole - pokud čerpáte do ledna moc pomalu, tak co dodat
-         var pstRada //radí kolik mít od ledna
+         pstOdLedna = 2 
+
+         var pstRada 
          if (pstKolikC < pstCastkaDoLedna) {
          
-         pstDodatek =' Zvažte do ledna čerpat rychleji (maximálně můžete: <strong>' + pstCZ((pstZao(pstMax,2,0)),1) + '.'} else {pstDodatek = ' Nebudete muset měnit výši poplatků.'}
+         pstDodatek =' Zvažte do ledna čerpat rychleji (maximálně můžete: <strong>' + pstCZ((pstZao(pstMax,2,0)),1) + '</strong>).'} else {pstDodatek = ' Nebudete muset měnit výši poplatků.'}
          pstPrvniZmena = pstCastkaDoLedna
         } else {
           pstVycerRPNavic = (pstDruhaZmena * (pstLedenNarRozdil + 1)) - pstZbudeVlednu
          
-        } //tohle proto, aby to nepřidávalo blbost
-        //pokud nevyčerpám celý, tak kolik z něj vlastně vyčerpám? To je co nejvíc mohu vyčerpat do narozenin mínus co zbylo v lednu
+        } 
 
       } else {
         pstNemozne = 1
         pstOdLedna = 3
-        //tohle je asi zbytečný
+ 
       }
     }
 
-    /* 
-    pstOdLedna = 1 //1 - vyberu celý, 0 =- nevyberu celý, 2 - dosáhnete, ale nevyberete 3 - nejde to
-    pstDoLedna = 0 //0 - neměnit nic 1 - snížit, 2 - spíš zvýšit 3 - nejde to
-    pstNemozne = 0 //1 - nelze to, 0 - vše cajk
-    
-    */
 
-    //VĚTY do výsledků
     $('#pstVety').text('')
 
     if (pstOdLedna == 1) {
@@ -578,14 +558,14 @@ var pstDodatek = ''
       $('#pstTabulka').append('<tr style="' + pstStyle + '"></td><td style="text-align: center">' + (pstDnesM + 1) + '/' + pstDnesR + '</td><td style="text-align: center">' + pstCZ(pstKolikC, 0) + '</td><td style="text-align: center"> v <strong>' + pstMesice2[pstDnesM + 1] + '</strong></td><td style="text-align: center">' + pstCZ(pstVycer, 0) + '</td><td width="130" style="font-size: 12px; line-height: 17px; padding: 5px">' + pstPozn + '</td></tr>')
     }
 
-    for (var i = 0; pstVycer > 0 && pstStop == 0; i++) { //ZAČÁTEK TABULKY <<<<<
-      if (i == 0) { //v prvím řádku ukáže současnou situaci a vytvoří tabulku poprvé
+    for (var i = 0; pstVycer > 0 && pstStop == 0; i++) { 
+      if (i == 0) { 
         pstPozn = 'Současný měsíc.'
         pstTvorTabulku();
         pstKolikatyM++
         pstPozn = ''
       }
-      if (pstDnesM < 11) { //přehazuje na další měsíc, potažmo rok
+      if (pstDnesM < 11) { 
         pstDnesM++
       } else {
         pstDnesM = 0;
@@ -593,45 +573,44 @@ var pstDodatek = ''
       }
 
 
-      if (pstDoLedna == 0) { //když neměnit nic
+      if (pstDoLedna == 0) {
 
-      } else if (pstDoLedna == 1) { //když snížit      
-        //pstVycer -= pstKolikC
+      } else if (pstDoLedna == 1) {     
         pstKolikC = pstPrvniZmena
         pstPozn = "Změna příspěvků na <strong>" + pstCZ(pstPrvniZmena, 1) + '</strong>'
         pstStyle = 'background-color: #afffaa;'
         pstDoLedna = 0
-      } else { //když to nejde
+      } else { 
 
       }
 
 
       if (pstDnesM == 0 && pstDnesR == 2020) {
         pstVycer += Math.floor(pstVycerRPNavic)
-      } //když je leden 2020, přičteme co dostanu
+      } 
 
-      if (pstOdLedna < 2 && pstDnesM == 0 && pstDnesR == 2020) { //když je leden a mám měnit příspěvky, tak změníme příspěvky
-        pstKolikC = Math.floor(pstDruhaZmena) //když je nutné změnit lednové příspěvky, tak od ledna měníme příspěvek * - tady nemusí být max
+      if (pstOdLedna < 2 && pstDnesM == 0 && pstDnesR == 2020) { 
+        pstKolikC = Math.floor(pstDruhaZmena) 
         pstStyle = 'background-color: #afffaa;'
-        pstPozn = "Změna příspěvků na <strong>" + pstCZ(pstDruhaZmena, 1) + '</strong>. K celkové částce k vyčerpání se připočetlo <strong>' + pstCZ(pstVycerRPNavic, 1) + '</strong> (tedy to, co můžete ještě čerpat).' //* nemusí být max, ale v jiném nastavení i průměr (co nejdéle)
+        pstPozn = "Změna příspěvků na <strong>" + pstCZ(pstDruhaZmena, 1) + '</strong>. K celkové částce k vyčerpání se připočetlo <strong>' + pstCZ(pstVycerRPNavic, 1) + '</strong> (tedy to, co můžete ještě čerpat).' 
       }
       
       if (pstOdLedna == 2 && pstDnesM == 0 && pstDnesR == 2020) {
-        pstKolikC = Math.floor(pstDruhaZmena) //když je nutné změnit lednové příspěvky, tak od ledna měníme příspěvek * - tady nemusí být max
+        pstKolikC = Math.floor(pstDruhaZmena) 
         pstStyle = 'background-color: #afffaa;'
-        pstPozn = "Změna příspěvků na <strong>" + pstCZ(pstDruhaZmena, 1) + '</strong>.' //* nemusí být max, ale v jiném nastavení i průměr (co nejdéle)
+        pstPozn = "Změna příspěvků na <strong>" + pstCZ(pstDruhaZmena, 1) + '</strong>.' 
       }
 
-      if (pstVycer >= pstKolikC * 2) { //pokud je nevyčerpáno vyšší než příspěvek, tak se odečte
+      if (pstVycer >= pstKolikC * 2) { 
         pstVycer -= pstKolikC
-      } else { //jinak na nulu
+      } else { 
         pstKolikC = parseInt(pstVycer);
         pstVycer = 0;
         pstStyle = 'background-color: #ff99a3'
         pstPozn += "<br>Dočerpáno."
       }
 
-      if (pstDnesM == pstNarM && pstDnesR == pstNarR) { //pokud dítě má 4. rok
+      if (pstDnesM == pstNarM && pstDnesR == pstNarR) { 
         pstStyle = 'background-color: #ff99a3'
         pstPozn += "<br>Dítě dosáhlo limitního 4. roku."
         pstStop = 1
@@ -641,30 +620,31 @@ var pstDodatek = ''
 
       pstKolikatyM++
       pstPozn = ''
-      pstStyle = '' //vrátíme styl zpět
-    } //KONEC TABULKY <<<<< 
+      pstStyle = ''
+    } 
     $('#pstSchovat').fadeIn()
-  } //konec výpočtu *******************************
+  } 
 
   $('#pstButton').click(function() {
     vypocitej()
   })
   $('.pstZpusob').on('change', function() {
     vypocitej()
-  }) //když klikneme na přepínátko
+  }) 
 
   $('#pstUrcitData').on('click', function() {
     $('#pstVelky').fadeToggle()
-    $('#pstUrcitData').html('Určit podle data &#9660;') //&#9658;
+    $('#pstUrcitData').html('Určit podle data &#9660;') 
 
   })
 
-  $('#pstZao').on('click', function() { //na zaokrouhlování
+  $('#pstZao').on('click', function() { 
 
     vypocitej()
   })
 
 
 })
+
 
   </script>
