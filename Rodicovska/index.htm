@@ -225,21 +225,20 @@ Vypočítat
     </div>
   </div>
   </div>
-  <script type="text/javascript">
-  $(document).ready(function() {
+  <script>$(document).ready(function() {
 
   var pstDVZ = 0
   var pstVice
   var pstRP
-  var pocitatTentoMesic = 0 
-  var pstKolikatyM = 1 
-  var pstPozn = '' 
+  var pocitatTentoMesic = 0
+  var pstKolikatyM = 1
+  var pstPozn = ''
   var pstDnes = new Date();
   var pstMesice = ['ledna', 'února', 'března', 'dubna', 'května', 'června', 'července', 'srpna', 'září', 'října', 'listopadu', 'prosince']
   var pstMesice2 = ['lednu', 'únoru', 'březnu', 'dubnu', 'květnu', 'červnu', 'červenci', 'srpnu', 'září', 'říjnu', 'listopadu', 'prosinci', 'lednu']
   var pstZaokrouhluj = 0;
 
-  function pstZao(co, jak, kam) { 
+  function pstZao(co, jak, kam) {
     if (pstZaokrouhluj == 1) {
       var x
       if (kam == 0) {
@@ -251,6 +250,7 @@ Vypočítat
       } else {
         x = co
       }
+
 
       return x;
 
@@ -275,25 +275,34 @@ Vypočítat
     return x;
   }
 
-  function pstMdif(od, dokdy) { 
+  function pstMdif(od, dokdy) {
+
     return dokdy.getMonth() - od.getMonth() +
       (12 * (dokdy.getFullYear() - od.getFullYear()))
   }
 
   function pstNacerpanoSpocti() {
+
     $('#pstA').val($('#pstX').val() * $('#pstB').val())
   }
 
-  function pstMesiceSpocti() { 
-    var pstOdM = $('#pstOdKdyM').val() - 1 
-    var pstOdR = $('#pstOdKdyR').val() 
-    var pstOd = new Date(pstOdR, pstOdM, 1) 
+  function pstMesiceSpocti() {
+
+    var pstOdM = $('#pstOdKdyM').val() - 1
+
+    var pstOdR = $('#pstOdKdyR').val()
+
+    var pstOd = new Date(pstOdR, pstOdM, 1)
+
 
     if ($('#pstPristiMesic').is(':checked')) {
-      pocitatTentoMesic = 0 
+      pocitatTentoMesic = 0
+
     } else {
-      pocitatTentoMesic = 1 
-    } 
+      pocitatTentoMesic = 1
+
+    }
+ 
     var pstVypocitejMesice = pstMdif(pstOd, pstDnes) - pocitatTentoMesic;
 
     if (pstVypocitejMesice < 0) {
@@ -320,24 +329,31 @@ Vypočítat
 
 
 
-  function vypocitej() { 
+  function vypocitej(selekt) {
+
     pstVice = 1
     if ($('#pstVice').is(':checked')) {
       pstVice = 1.5
     }
 
-    if ($('#pstZao').is(':checked')) { 
+    if ($('#pstZao').is(':checked')) {
+
       pstZaokrouhluj = 1
     } else {
       pstZaokrouhluj = 0
     }
 
-    pstRP = 220000 * pstVice 
-    var pstRPnavic = 80000 * pstVice 
-    var pstVycer = pstRP - $('#pstA').val() 
+    pstRP = 220000 * pstVice
+
+    var pstRPnavic = 80000 * pstVice
+
+    var pstVycer = pstRP - $('#pstA').val()
+
     var pstNacer = parseInt($('#pstA').val())
     var pstKolikM = $('#pstX').val()
-    var pstKolikC = parseInt($('#pstB').val()) 
+
+    var pstKolikC = parseInt($('#pstB').val())
+
     var pstPrijem = $('#pstC').val()
     if (pstKolikC < 50 || pstPrijem <= 5000 || pstNacer < 0) {
       $('#pstSchovat').hide();
@@ -345,26 +361,32 @@ Vypočítat
       return;
     }
 
-    
-
-    if (pstKolikM > 43) { 
-      $('#pstError6').fadeIn();
-    }
 
     $('.pstError').hide();
 
     pstDnes.setDate(1)
     var pstDnesD = pstDnes.getDate()
-    var pstDnesM = pstDnes.getMonth() 
+
+    var pstDnesM = pstDnes.getMonth()
+
     var pstDnesR = pstDnes.getFullYear()
-    var pstNarM = $('#pstMesic').val() 
+
+    var pstNarM = $('#pstMesic').val()
+
     var pstNarR = $('#pstRok').val()
+
     var pstNar = new Date(pstNarR, pstNarM, 1);
+
     var pstNarRozdil = pstMdif(pstDnes, pstNar)
+
     var pstLeden = new Date(2020, 0, 1)
+    //datum, kdy je nejdřívější nárok na vyšší rodičovskou
     var pstLedenRozdil = pstMdif(pstDnes, pstLeden)
+
     var pstLedenNarRozdil = pstMdif(pstLeden, pstNar)
+
     var pstKdyDocerpano = 0
+
     if (pstDnesM > 9 && pstDnesR >= 2019) {
       $('#pstSchovat').hide();
       $('#pstErrorKONEC').fadeIn();
@@ -382,18 +404,23 @@ Vypočítat
 
 
     var pstDVZn = Math.round(((pstPrijem * 12) / 365) * 100) / 100
+
     if (pstDVZn <= 1090) {
       pstDVZ = pstDVZn * 0.7
     } else if (pstDVZn > 1090 && pstDVZn <= 1635) {
       pstDVZ = Math.ceil((pstDVZn - 1090) * 0.6 + 1090) * 0.7
+
     } else if (pstDVZn > 1635 && pstDVZn <= 3270) {
-      pstDVZ = Math.ceil((pstDVZn - 1635) * 0.3 + 1090 + 327) * 0.7 
+      pstDVZ = Math.ceil((pstDVZn - 1635) * 0.3 + 1090 + 327) * 0.7
+
     } else {
-      pstDVZ = 1335.6 
+      pstDVZ = 1335.6
+
     }
 
-    var pstMax = pstZao((Math.ceil((pstDVZ * 30) * pstVice)),2,0)
+    var pstMax = pstZao((Math.ceil((pstDVZ * 30) * pstVice)), 2, 0)
     if (pstMax < (7600 * pstVice) && pstPrijem > 0) {
+
       pstMax = 7600 * pstVice
 
     }
@@ -408,59 +435,73 @@ Vypočítat
 
 
     if (pocitatTentoMesic == 0) {
+
       pstKolikatyM = parseInt(pstKolikM)
       pstVycer -= pstKolikC
       pstNacer += (pstKolikC)
     } else {
       pstKolikatyM = parseInt(pstKolikM) + 1;
-      
-      pstVycer -= (pstKolikC*2)
-      pstNacer += (pstKolikC*2)
+
+      pstVycer -= (pstKolikC * 2)
+      pstNacer += (pstKolikC * 2)
     }
-    
-    if (pstNacer >= pstRP || pstVycer <= 0) { 
+
+    if (pstNacer >= pstRP || pstVycer <= 0) {
+
       $('#pstSchovat').hide();
       $('#pstError5').fadeIn();
       return;
     }
-    
 
-    var pstOdLedna = 1 
-    var pstDoLedna = 0 
 
-    var pstNemozne = 0 
+    var pstOdLedna = 1
 
-    var pstStop = 0 
-    var pstDiteSTOP = 0 
+    var pstDoLedna = 0
+
+
+    var pstNemozne = 0
+
+    var pstStop = 0
+
+    var pstDiteSTOP = 0
+
     var pstPrvniZmena = pstKolikC
+
     var pstMaxZmenaDoLedna = pstPrvniZmena
-    var pstDruhaZmena = pstKolikC 
-    var pstCastkaDoLedna = (pstVycer) / (pstLedenRozdil) 
+    var pstDruhaZmena = pstKolikC
+
+    var pstCastkaDoLedna = (pstVycer) / (pstLedenRozdil)
     var pstCastkaOdLedna = 0
-    var pstZbudeVlednu = 0
+    var pstZbudeVlednu = 0 
     var pstRPNavicsLednem = 0
-    var pstVycerRPNavic = pstRPnavic 
-var pstDodatek = ''
+    var pstVycerRPNavic = pstRPnavic
+    var pstDodatek = ''
     var pstCerpejMax = 1;
     if ($('#pstNejrychleji').is(':checked')) {
       pstCerpejMax = 1;
-    } else {
+    } else if ($('#pstNejdele').is(':checked')) {
       pstCerpejMax = 0;
 
-    } 
-    
+    } else if ($('#pstOdMesice').is(':checked')) {
+      pstCerpejMax = 3
+    }
+
+    if (selekt == 0) {
+      $('.pstMesicSchovat').hide()
+    }
+
+
+
+
     if (pstCastkaDoLedna >= pstKolikC) {
-      pstDoLedna = 0 
+      pstDoLedna = 0
       pstPrvniZmena = pstKolikC
       pstMaxZmenaDoLedna = pstMax
-      
     } else if (pstCastkaDoLedna < pstKolikC && pstCastkaDoLedna >= 50) {
-      
       pstDoLedna = 1
       pstPrvniZmena = pstZao(Math.floor(pstCastkaDoLedna), 2, 0)
       pstMaxZmenaDoLedna = pstPrvniZmena
     } else {
-
       pstNemozne = 1
       pstDoLedna = 3
       pstMaxZmenaDoLedna = 0
@@ -470,18 +511,31 @@ var pstDodatek = ''
     if (pstDoLedna < 3) {
       pstZbudeVlednu = pstVycer - (pstPrvniZmena * (pstLedenRozdil - 1)) 
       pstRPNavicsLednem = pstRPnavic + pstZbudeVlednu
-      pstCastkaOdLedna = pstRPNavicsLednem / (pstLedenNarRozdil + 1) 
-      if (pstCastkaOdLedna <= pstMax && pstCastkaOdLedna > 50) { 
-        pstOdLedna = 1 
+      pstCastkaOdLedna = pstRPNavicsLednem / (pstLedenNarRozdil + 1)
+
+
+      if ((pstLedenNarRozdil > 0 && pstCastkaOdLedna < pstMax)) { 
+        $('.pstMesicSchovat').show()
+
+      }
+
+      if (pstCastkaOdLedna <= pstMax && pstCastkaOdLedna > 50) {
+
+        pstOdLedna = 1
+
 
         if (pstCerpejMax == 0) {
+
           pstDruhaZmena = pstZao(Math.floor(pstRPNavicsLednem / (pstLedenNarRozdil + 1)), 2, 0)
-        } else {
+        } else if (pstCerpejMax == 1) {
           pstDruhaZmena = pstMax
-        } 
+        } else if (pstCerpejMax == 3) { 
+          pstDruhaZmena = pstZao(Math.floor(pstRPNavicsLednem / $('#pstMesicSelekt').val()), 2, 0)
+        }
+
         if (pstDruhaZmena < 50) {
           pstDruhaZmena = 50
-        } 
+        } //
 
 
         pstVycerRPNavic = pstRPnavic
@@ -489,31 +543,63 @@ var pstDodatek = ''
 
         pstOdLedna = 0
         pstDruhaZmena = pstMax
-        
-        
+
+
         if ((pstZbudeVlednu / (pstLedenNarRozdil + 1)) > pstMax) {
-
           pstVycerRPNavic = 0
-         pstOdLedna = 2 
+          pstOdLedna = 2
 
-         var pstRada 
-         if (pstKolikC < pstCastkaDoLedna) {
-         
-         pstDodatek =' Zvažte do ledna čerpat rychleji (maximálně můžete: <strong>' + pstCZ((pstZao(pstMax,2,0)),1) + '</strong>).'} else {pstDodatek = ' Nebudete muset měnit výši poplatků.'}
-         pstPrvniZmena = pstCastkaDoLedna
+          
+          var pstRada 
+          if (pstKolikC < pstCastkaDoLedna) {
+
+            pstDodatek = ' Zvažte do ledna čerpat rychleji (maximálně můžete: <strong>' + pstCZ((pstZao(pstMax, 2, 0)), 1) + '.'
+          } else {
+            pstDodatek = ' Nebudete muset měnit výši poplatků.'
+          }
+          pstPrvniZmena = pstCastkaDoLedna
         } else {
           pstVycerRPNavic = (pstDruhaZmena * (pstLedenNarRozdil + 1)) - pstZbudeVlednu
-         
-        } 
+
+        }
 
       } else {
         pstNemozne = 1
         pstOdLedna = 3
- 
       }
     }
 
 
+    if (selekt == 0) {
+      $("#pstMesicSelekt option").each(function() {
+        $(this).remove();
+      });
+
+      if (pstLedenNarRozdil > 0) {
+        var pstMi = 1
+        var pstRi = 2020
+
+        for (var m = 0; m <= pstLedenNarRozdil; m++) {
+          if (pstMi > 12) {
+            pstMi = 1;
+            pstRi++
+          }
+
+          if ((pstRPNavicsLednem / (m + 1)) <= pstMax) {
+
+            $('#pstMesicSelekt').append('<option value="' + (m + 1) + '">' + pstMi + '/' + pstRi + '</option>');
+
+          }
+          pstMi++
+
+
+
+        }
+
+      }
+    }
+
+    
     $('#pstVety').text('')
 
     if (pstOdLedna == 1) {
@@ -522,9 +608,7 @@ var pstDodatek = ''
       $('#pstVety').html('Na zvýšený příspěvek <strong>' + pstCZ(pstRPnavic, 1) + '</strong> dosáhnete, ale ne na <strong>celý</strong>. Získáte z něj jen <strong>' + pstCZ(Math.floor(pstVycerRPNavic / 100) * 100, 1) + '</strong> a tedy celkově <strong>' + pstCZ(Math.floor((pstVycerRPNavic + pstRP) / 100) * 100, 1) + '</strong>. Měsíční příspěvky byste <strong>od ledna</strong> měli nastavit na úroveň <strong>' + pstCZ(pstDruhaZmena, 1) + '</strong>. ')
     } else if (pstOdLedna == 3) {
       $('#pstVety').html('Na zvýšený příspěvek <strong>' + pstCZ(pstRPnavic, 1) + '</strong> nedosáhnete. Vyčerpali jste už příliš. ')
-    }
-    
-    else if (pstOdLedna == 2) {
+    } else if (pstOdLedna == 2) {
       $('#pstVety').html('Na zvýšený příspěvek <strong>' + pstCZ(pstRPnavic, 1) + '</strong> za současného čerpání dosáhnete, ale do ledna byste vyčerpali tak málo, že do 4. narozenin dítěte nestihnete <strong>vyčerpat nic</strong>. ')
     }
 
@@ -535,11 +619,11 @@ var pstDodatek = ''
     } else if (pstDoLedna == 3) {
       $('#pstVety').html($('#pstVety').html() + 'Proto nemá smysl měnit stávající podmínky.')
     } else if (pstDoLedna == 2) {
-      $('#pstVety').html($('#pstVety').html() + 'Nemusíte měnit měsíční poplatky, ale zvažte jejich zvýšení na maximální možnou hodnotu <strong>' + pstCZ(pstZao((pstMax,1),2,0)) + '</strong>')
+      $('#pstVety').html($('#pstVety').html() + 'Nemusíte měnit měsíční poplatky, ale zvažte jejich zvýšení na maximální možnou hodnotu <strong>' + pstCZ(pstZao((pstMax, 1), 2, 0)) + '</strong>')
     }
 
 
-    //do výsledků
+
     $('#pstMax').text(pstCZ(pstMax, 1))
     $('#pstDVZ').text(pstCZ(pstDVZ, 0))
     $('#pstDVZM').text((pstCZ(Math.ceil(pstDVZ * 30), 0)))
@@ -547,7 +631,6 @@ var pstDodatek = ''
     $('#pstOdLedna').text(pstCZ(pstMax, 1))
     $('#pstRPNavic').text(pstCZ(pstVycerRPNavic, 1))
     $('#pstRPCelkem').text(pstCZ(pstVycerRPNavic + pstRP, 1))
-    //tím posledním si nejsem jist
 
 
     var pstStyle = ''
@@ -558,14 +641,17 @@ var pstDodatek = ''
       $('#pstTabulka').append('<tr style="' + pstStyle + '"></td><td style="text-align: center">' + (pstDnesM + 1) + '/' + pstDnesR + '</td><td style="text-align: center">' + pstCZ(pstKolikC, 0) + '</td><td style="text-align: center"> v <strong>' + pstMesice2[pstDnesM + 1] + '</strong></td><td style="text-align: center">' + pstCZ(pstVycer, 0) + '</td><td width="130" style="font-size: 12px; line-height: 17px; padding: 5px">' + pstPozn + '</td></tr>')
     }
 
-    for (var i = 0; pstVycer > 0 && pstStop == 0; i++) { 
-      if (i == 0) { 
+    for (var i = 0; pstVycer > 0 && pstStop == 0; i++) {
+
+      if (i == 0) {
+
         pstPozn = 'Současný měsíc.'
         pstTvorTabulku();
         pstKolikatyM++
         pstPozn = ''
       }
-      if (pstDnesM < 11) { 
+      if (pstDnesM < 11) {
+
         pstDnesM++
       } else {
         pstDnesM = 0;
@@ -575,42 +661,50 @@ var pstDodatek = ''
 
       if (pstDoLedna == 0) {
 
-      } else if (pstDoLedna == 1) {     
+      } else if (pstDoLedna == 1) {
+
         pstKolikC = pstPrvniZmena
         pstPozn = "Změna příspěvků na <strong>" + pstCZ(pstPrvniZmena, 1) + '</strong>'
         pstStyle = 'background-color: #afffaa;'
         pstDoLedna = 0
-      } else { 
+      } else {
+
 
       }
 
 
       if (pstDnesM == 0 && pstDnesR == 2020) {
         pstVycer += Math.floor(pstVycerRPNavic)
-      } 
+      }
 
-      if (pstOdLedna < 2 && pstDnesM == 0 && pstDnesR == 2020) { 
-        pstKolikC = Math.floor(pstDruhaZmena) 
+
+      if (pstOdLedna < 2 && pstDnesM == 0 && pstDnesR == 2020) {
+
+        pstKolikC = Math.floor(pstDruhaZmena)
+
         pstStyle = 'background-color: #afffaa;'
         pstPozn = "Změna příspěvků na <strong>" + pstCZ(pstDruhaZmena, 1) + '</strong>. K celkové částce k vyčerpání se připočetlo <strong>' + pstCZ(pstVycerRPNavic, 1) + '</strong> (tedy to, co můžete ještě čerpat).' 
-      }
-      
-      if (pstOdLedna == 2 && pstDnesM == 0 && pstDnesR == 2020) {
-        pstKolikC = Math.floor(pstDruhaZmena) 
-        pstStyle = 'background-color: #afffaa;'
-        pstPozn = "Změna příspěvků na <strong>" + pstCZ(pstDruhaZmena, 1) + '</strong>.' 
+
       }
 
-      if (pstVycer >= pstKolikC * 2) { 
+      if (pstOdLedna == 2 && pstDnesM == 0 && pstDnesR == 2020) {
+        pstKolikC = Math.floor(pstDruhaZmena)
+
+        pstStyle = 'background-color: #afffaa;'
+        pstPozn = "Změna příspěvků na <strong>" + pstCZ(pstDruhaZmena, 1) + '</strong>.'
+
+      }
+
+      if (pstVycer >= pstKolikC * 2) {
         pstVycer -= pstKolikC
-      } else { 
+      } else {
         pstKolikC = parseInt(pstVycer);
         pstVycer = 0;
         pstStyle = 'background-color: #ff99a3'
         pstPozn += "<br>Dočerpáno."
       }
 
-      if (pstDnesM == pstNarM && pstDnesR == pstNarR) { 
+      if (pstDnesM == pstNarM && pstDnesR == pstNarR) {
         pstStyle = 'background-color: #ff99a3'
         pstPozn += "<br>Dítě dosáhlo limitního 4. roku."
         pstStop = 1
@@ -626,11 +720,11 @@ var pstDodatek = ''
   } 
 
   $('#pstButton').click(function() {
-    vypocitej()
+    vypocitej(0)
   })
   $('.pstZpusob').on('change', function() {
-    vypocitej()
-  }) 
+    vypocitej(0)
+  })
 
   $('#pstUrcitData').on('click', function() {
     $('#pstVelky').fadeToggle()
@@ -638,13 +732,22 @@ var pstDodatek = ''
 
   })
 
-  $('#pstZao').on('click', function() { 
+  $('#pstZao').on('click', function() {
 
-    vypocitej()
+    vypocitej(1)
+  })
+
+  $('#pstOdMesice').on('click', function() {
+
+    vypocitej(1)
+  })
+
+  $('#pstMesicSelekt').on('change', function() {
+
+    vypocitej(1)
   })
 
 
+
 })
-
-
-  </script>
+</script>
