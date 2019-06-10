@@ -17,6 +17,9 @@
     <input type="number" id="pstB" value="5000" min="50" max="40068" step="1000" style="height: 30px; width: 250px; font-size: 25px; text-align: center;"><br>
     <input type="checkbox" id="pstPristiMesic" checked> <span style="font-size: 15px;">Výplata tento měsíc již proběhla</span>
   </p>
+  <div id="pstError6" class="pstError" style="color: red; display: none;">
+        Pozor! Patrně příští měsíc rodičovskou <strong>vyčerpáte</strong>! Pokud je poslední platba nižší než vámi zvolený příspěvek, přičte se k platbě předtím. Informujte se na svém Úřadu práce, zda nelze změnit výši příspěvků již od současného měsíce (projeví se v platbách od příštího měsíce). Nebo zkontrolujte Vámi zadané údaje.
+      </div>
   <div id="pstError2" class="pstError" style="color: red; display: none;">
     Chybně zadaný údaj! Měsíční čerpaná částka nemůže být vyšší než <strong>70 procent z  hrubé měsíční mzdy</strong>, resp. třicetinásobku 70 procent tzv. denního vyměřovacího základu (u vás maximum <span id="pstDVZ1" style="font-weight: bold;">X</span>).
     Pro všechny ale platí maximální výše alespoň <strong>7 600 Kč</strong> (u vícerčat je tento limit <strong>11 400 Kč</strong>). Částka také nemůže být nižší než <strong>50 Kč</strong>.
@@ -347,7 +350,12 @@ Vypočítat
       $('#pstError4').fadeIn();
       return;
     }
-
+    
+if (pstRP-(pstNacer+pstKolikC) < pstKolikC) {    
+   $('#pstSchovat').hide();
+   $('#pstError6').fadeIn();
+   return;
+    }
 
     $('.pstError').hide();
 
