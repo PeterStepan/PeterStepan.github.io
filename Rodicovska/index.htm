@@ -5,21 +5,6 @@
     display: table;
     clear: both;
   }
-.tabulka-seda {
-  background-color: #fff;
-  border-color: #6d5f66;
-}
-
-.tabulka-seda tr:nth-child(even) {
-  background-color: #eae9eb;
-}
-
-.tabulka-seda td {
-  border-color: #b6afb2;
-  border-top-style: none;
-  border-bottom-style: none;
-  text-align: center;
-}
 
 </style>
 
@@ -92,10 +77,10 @@
   <div style="margin-top: 50px"><span style="font-size: 20px">Hrubá měsíční mzda jednoho z rodičů v době narození dítěte:</span><br>
     <span style="font-size: 15px; color: gray;">(Vyberte tu vyšší, slouží k výpočtu maximální měsíční výplaty)</span><br>
     <input type="number" id="pstC" value="25000" min="10000" max="300000" step="1000" style="height: 30px; width: 250px; font-size: 25px; text-align: center;">
-  
+
     <div style="margin-top: 50px">
       <span style="font-size: 20px">Kdy bude mít dítě 4. narozeniny:</span><br>
-      <span style="font-size: 15px; color: gray;">(Nebo datum narození dalšího dítěte)</span>
+
     </div>
     <div>
       Měsíc:
@@ -131,8 +116,8 @@
   </div>
 
   <div style=" margin-top: 30px">
-  
-  <button id="pstButton" style="height: 50px; width: 120px; background-color: red; border: 0px solid; color: white; font-weight: bold; cursor: pointer; box-shadow: 0px 0px 3px rgb(120,120,120);">
+
+    <button id="pstButton" style="height: 50px; width: 120px; background-color: red; border: 0px solid; color: white; font-weight: bold; cursor: pointer; box-shadow: 0px 0px 3px rgb(120,120,120);">
 Vypočítat
 </button></div>
   <div id="pstErrorKONEC" class="pstError" style="color: red; display: none;">
@@ -203,8 +188,9 @@ Vypočítat
     <h2 style="font-size: 25px;">
       Kalendář dalšího čerpání
     </h2>
-    Od ledna čerpat: <input id="pstNejrychleji" type="radio" class="pstZpusob" name="pstZpusob" checked> Co nejrychleji
-    <input type="radio" class="pstZpusob" name="pstZpusob">&nbsp;Co nejdéle
+    <div class="pstMesicSchovat" style="display: none;">Od ledna čerpat: <input id="pstNejrychleji" type="radio" class="pstZpusob" name="pstZpusob" checked> Co nejrychleji
+      <input type="radio" id="pstNejdele" class="pstZpusob" name="pstZpusob">&nbsp;Co nejdéle&nbsp;<input type="radio" class="" name="pstZpusob" id="pstOdMesice"><span>&nbsp;Do určitého měsíce: </span><select id="pstMesicSelekt" style="height: 25px; width: 80px; font-size: 15px; text-align: center; margin-top: 8px;"> 
+</select></div>
     <br>
     <input type="checkbox" id="pstZao">&nbsp;Zaokrouhlovat (orientační počty)
     <center>
@@ -218,13 +204,14 @@ Vypočítat
       </table>
     </center>
     <div style="text-align: left; margin-top: 10px;">
-    <p style="text-align: center; font-weight: bold;">
-    Všechny výpočety jsou orientační.
-    </p>
+      <p style="text-align: center; font-weight: bold;">
+        Všechny výpočety jsou orientační.
+      </p>
       <span style="font-style: italic; color: #444; font-size: 16px"><strong>Pozn.:</strong> Rodičovský příspěvek se vyplácí zpětně, tedy například změna výše červencového příspěvku se na účtu projeví až v srpnu. V tom jak Úřad práce vyřídí změnu výše měsíčního příspěvku se jednotlivé úřady liší. Podle současných pravidel má úřad na změnu 30 dnů, obvykle to však stihne mnohem rychleji - a změna se projeví už v měsíc podání (tedy na účtu až příští měsíc). Ministerstvo práce zvažuje, že by se zvýšila minimální hodnota maximálního měsíčního příspěvku (dnes <strong>7 600 Kč</strong>), a to například na hodnotu <strong>9 200 Kč</strong> - v takovém případě by bylo možné zvýšený příspěvek vybrat rychleji, případně jeho větší část v případě, že jej rodič nemůže kvůli věku dítěte vybrat celý.</span>
     </div>
   </div>
-  </div>
+</div>
+
   <script>$(document).ready(function() {
 
   var pstDVZ = 0
