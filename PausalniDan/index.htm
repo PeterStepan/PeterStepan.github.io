@@ -9,7 +9,7 @@
  <script src="//ihned.cz/js/v2/vendor/jquery-3.2.1.min.js"></script>
   <div class="form-group">
     <label for="pstPrijem">Hrubý roční příjem</label>
-    <input type="number" step="1000" max="1000000" min="0" class="form-control form-control-lg input-lg" id="pstPrijem" placeholder="0 až 1 000 000">
+    <input type="number" step="1000" max="1000000" min="10000" class="input-lg form-control form-control-lg" id="pstPrijem" placeholder="10 000 až 1 000 000">
     <small class="form-text text-muted"><strong>Pozn.:</strong> Změna se projeví u příjmů do jednoho milionu korun.</small>
   </div>
   <div class="form-group">
@@ -17,6 +17,7 @@
   <div class="col-sm-6">
   <label for="pstPausal">Vyberte výdajový paušál</label>
     <select class="form-control form-control-sm" id="pstPausal">
+      <option value="0.3">30 % - z nájemného</option>
       <option value="0.4">40 % - svobodná povolání</option>
       <option value="0.6">60 % - ostatní živnosti</option>
       <option value="0.8">80 % - zemědělská a lesní výroba a řemeslné živnosti</option>
@@ -27,15 +28,15 @@
     <select class="form-control form-control-sm" id="pstDeti">
       <option value="0">0</option>
       <option value="15204">1</option>
-      <option value="19404">2</option>
-      <option value="24204">3</option>
-      <option value="24204">4</option>
-      <option value="24204">5</option>
-      <option value="24204">6</option>
-      <option value="24204">7</option>
-      <option value="24204">8</option>
-      <option value="24204">9</option>
-      <option value="24204">10</option>
+      <option value="34608">2</option>
+      <option value="58812">3</option>
+      <option value="83016">4</option>
+      <option value="107220">5</option>
+      <option value="131424">6</option>
+      <option value="155628">7</option>
+      <option value="179832">8</option>
+      <option value="204036">9</option>
+      <option value="228240">10</option>
     </select>
   </div>
   
@@ -114,18 +115,26 @@
   <h2 style="margin: 10px 0px 5px 0px;">
   Rozdíl
   </h2>
-  <div style="font-size: 25px; text-align: center;"><span id="pstRozdil" style="background-color: green; color: white; padding: 5px; margin: 5px 0px 50px 0px">
+  <div style="font-size: 25px; text-align: center; font-weight: bold;"><span id="pstRozdil" style="background-color: green; color: white; padding: 5px; margin: 5px 0px 50px 0px">
   +60 000 Kč</span>
   </div>
   <div id="pstVysledekSlovni" class="form-text text-muted" style="margin-top: 10px; font-size: 20px;">
   Dobrý den, máte se dobře? :-)
   </div>
-   <div>
+  <div>
   <small class="form-text text-muted"><strong>Pozn.:</strong> Minimální odvody pojistného se odvíjí od průměrné mzdy. Uváděná hodnota platí pro rok 2020. Uváděné daňové slevy jsou hodnoty platné v současnosti. </small>
   
   </div>
   </div>
+  <div style="font-size: 15px; text-align: center; margin-top: 20px;">
+    Paušální výdaje vs. Paušální daň<br>
+    <span style="font-size: 12px">při proměnlivé výši ročních příjmů (vodorovná osa) za výše vybraných slev</span>
+    
   </div>
+  <div id="pstChart">
+  
+  </div>
+</div>
 <script type="text/javascript">
 
 
@@ -154,7 +163,7 @@ var pstDanBez = Math.round(pstDan-pstSleva-pstDeti-pstManzelSazba)
 var pstVysledekSlovni
 
 var pstRozdil = pstVysledek-64524
-if (pstPrijem > 0)  {
+if (pstPrijem > 10000)  {
 $("#pstWarning").hide()
 $("#pstWarning").text("Výsledek: " + pstVysledek + " - " + pstPrijem+", pausal: "+pstPausal+","+pstDeti+","+pstManzel+" manzelsazba"+pstManzelSazba)
 $('#pstLevyDan').text(pstCZK(pstVysledek));
@@ -165,7 +174,53 @@ $('#pstSlevy').text(pstCZK(pstSlevy));
 $('#pstSocialni').text(pstCZK(pstSocialni));
 $('#pstZdravotni').text(pstCZK(pstZdravotni));
 
+//graf---------------
+var pstTable = [['Hrubý roční příjem',	'Paušál 30%', 'Paušál 40%',	'Paušál 60%', 'Paušál 80%',	'Paušální daň']]
+for (var i = 10000;i<=1000000;i+=10000) {
+var pstGraf1 = 0.7*i*0.15-pstSlevy+pstSocialni+pstZdravotni
+var pstGraf2 = 0.6*i*0.15-pstSlevy+pstSocialni+pstZdravotni
+var pstGraf3 = 0.4*i*0.15-pstSlevy+pstSocialni+pstZdravotni
+var pstGraf4 = 0.2*i*0.15-pstSlevy+pstSocialni+pstZdravotni
+pstTable.push([i,pstGraf1,pstGraf2,pstGraf3,pstGraf4,64524])
+}
 
+google.charts.load('current', {
+    'packages': ['corechart']
+  });
+  google.charts.setOnLoadCallback(drawChart);
+  
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable(pstTable);
+    
+    var options = {
+      tooltip: {
+        isHtml: true
+      },
+      title: '',
+      curveType: 'function',
+      hAxis: {
+          title: 'Výše ročního hrubého příjmu'
+        },
+        vAxis: {
+          title: 'Výše daně'
+        },
+      legend: {
+        position: 'top'
+      },
+      colors: ['#fcae91', '#fb6a4a', '#cb181d','#700','#000000'],
+     series: {
+            4: { lineWidth: 2,lineDashStyle: [10, 2] }
+          },
+
+    };
+
+    var chart = new google.visualization.LineChart(document.getElementById('pstChart'));
+
+    chart.draw(data, options);
+
+  }
+
+//graf---------------
 
 if (pstVysledek<=64524) {pstVysledekSlovni = "Ve vašem případě se nová paušální daň <strong>nevyplatí</strong>."
 $('#pstRozdil').css({'background-color':'red'})
@@ -182,7 +237,7 @@ if(pstVysledek<0) {$('#pstLevyDanPozn').fadeIn()} else {$('#pstLevyDanPozn').hid
 
 
 } else {//když něco zadáme blbě
-$("#pstWarning").html("<strong>Chyba</strong>: Musíte zadat hrubý příjem (do jednoho milionu korun)!")
+$("#pstWarning").html("<strong>Chyba</strong>: Musíte zadat hrubý příjem - minimálně 10 tisíc korun a maximálně jeden milion korun!")
 $("#pstWarning").fadeIn()
 $('#pstTabulky').hide()
 }
