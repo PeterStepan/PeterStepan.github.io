@@ -1,0 +1,192 @@
+<head>
+ <link rel="stylesheet" href="https://ihned.cz/css/v2/vendor/bootstrap.min.css">
+ <link rel="stylesheet" href="https://ihned.cz/css/v2/main.css?191004">
+ 
+ <div class="form-group">
+ </head>
+ <body>
+ <script src="//ihned.cz/js/v2/vendor/jquery-3.2.1.min.js"></script>
+    <label for="pstPrijem">Hrubý roční příjem</label>
+    <input type="number" step="1000" max="1000000" min="0" class="form-control form-control-lg" id="pstPrijem" placeholder="0 až 1 000 000">
+    <small class="form-text text-muted"><strong>Pozn.:</strong> Změna se projeví u příjmů do jednoho milionu korun.</small>
+  </div>
+  <div class="form-group">
+  <div class="row">
+  <div class="col-sm-6">
+  <label for="pstPausal">Vyberte výdajový paušál</label>
+    <select class="form-control form-control-sm" id="pstPausal">
+      <option value="0.4">40 % - svobodná povolání</option>
+      <option value="0.6">60 % - ostatní živnosti</option>
+      <option value="0.8">80 % - zemědělská a lesní výroba a řemeslné živnosti</option>
+    </select>
+  </div>
+  <div class="col-sm-6">
+  <label for="pstDeti">Sleva na děti (počet dětí)</label>
+    <select class="form-control form-control-sm" id="pstDeti">
+      <option value="0">0</option>
+      <option value="15204">1</option>
+      <option value="19404">2</option>
+      <option value="24204">3</option>
+      <option value="24204">4</option>
+      <option value="24204">5</option>
+      <option value="24204">6</option>
+      <option value="24204">7</option>
+      <option value="24204">8</option>
+      <option value="24204">9</option>
+      <option value="24204">10</option>
+    </select>
+  </div>
+  
+    
+    </div>
+  </div>
+  <div class="form-group form-check col-md-12">
+    <input type="checkbox" class="form-check-input" id="pstSleva" checked disabled>
+    <label class="form-check-label" for="pstSleva">Sleva na poplatníka</label>
+    <small id="pstPozn2" class="form-text text-muted">&nbsp;&nbsp;&nbsp;(Započítává se automaticky.)</small><br>
+    <input type="checkbox" class="form-check-input" id="pstManzel">
+    <label class="form-check-label" for="pstManzel">Sleva na vyživovanou manželku/manžela</label>
+  </div>
+  <button type="submit" class="btn btn-danger" id="pstSpocitat">Spočítat</button><br><small class="form-text text-muted">Data se nikam neukládají, výpočet probíhá ve Vašem prohlížeči.</small>
+  <div id="pstWarning" style="color:red; display: none;">
+  
+  </div><div id="pstTabulky" style="display: none;">
+  
+  
+  <div class="row">
+  <div id="pstLevy" class="col-sm-6 text-center" style="text-align: center;">
+  <label for="pstLevyDan" style="font-size: 17px; padding-top: 10px;">Daň dnes:</label><br>
+  <span style="font-size: 25px;" id="pstLevyDan">0 Kč</span><br>
+  <span style="font-size: 15px; color: gray; display: none;" id="pstLevyDanPozn">Daň je tedy záporná, tj. stát platí vám.</span>
+  <table class="tabulka-seda" style="width: 100%;">
+  <tr>
+    <td>Základ daně</td>
+    <td id="pstZakladDane" style="font-weight: bold;"></td>
+  </tr>
+  <tr>
+    <td>Slevy</td>
+    <td id="pstSlevy" style="font-weight: bold;"></td>
+  </tr>
+  <tr>
+    <td>Daň bez slev</td>
+    <td id="pstDan" style="font-weight: bold;"></td>
+  </tr>
+  <tr>
+    <td>Daň se slevami bez odvodů na zdrav. a soc. pojištění</td>
+    <td id="pstDanBez" style="font-weight: bold;"></td>
+  </tr>
+  <tr>
+    <td>Minimální odvody na sociální pojištění</td>
+    <td id="pstSocialni" style="font-weight: bold;"></td>
+  </tr>
+  <tr>
+    <td>Minimální odvody na zdravotní pojištění</td>
+    <td id="pstZdravotni" style="font-weight: bold;"></td>
+  </tr>
+  </table>
+  </div>
+  
+  
+  
+  
+  <div id="pstPravy" class="col-sm-6 text-center">
+   <label for="pstLevyDan" style="font-size: 17px; padding-top: 10px;">Nová paušální daň:</label><br>
+  <span style="font-size: 25px;" id="pstPravyDan">64 524 Kč</span><br>
+  <table class="tabulka-seda" style="width: 100%;">
+  <tr>
+    <td>Daň z příjmu fyzických osob</td>
+    <td style="font-weight: bold;">1 200 Kč</td>
+  </tr>
+  <tr>
+    <td>Minimální odvody na sociální pojištění</td>
+    <td style="font-weight: bold;">35 100 Kč</td>
+  </tr>
+  <tr>
+    <td>Minimální odvody na zdravotní pojištění</td>
+    <td style="font-weight: bold;">28 224 Kč</td>
+  </tr>
+  </table>
+  </div>
+  </div>
+  <div class="col-sm-12 text-center">
+  <h2 style="margin: 10px 0px 5px 0px;">
+  Rozdíl
+  </h2>
+  <div style="font-size: 25px; text-align: center;"><span id="pstRozdil" style="background-color: green; color: white; padding: 5px; margin: 5px 0px 50px 0px">
+  +60 000 Kč</span>
+  </div>
+  <div id="pstVysledekSlovni" class="form-text text-muted" style="margin-top: 10px; font-size: 20px;">
+  Dobrý den, máte se dobře? :-)
+  </div>
+  </div>
+</div>
+<script type="text/javascript">
+//přidat formátování na Kč
+//schovat tabulku než se vypočte
+//udělat pravý sloupec
+//překontrolovat - hlavně slevy jestli takhle jsou
+//NĚJAK HAPRUJE ZÁKLAD DANĚ!!!!
+
+
+
+$(function(){
+
+function pstCZK(toto) {
+return toto.toLocaleString('cs-CZ', { style: 'currency', currency: 'CZK',minimumFractionDigits: 0 })
+}
+
+
+$("#pstSpocitat").click(function() {
+var pstPrijem = $('#pstPrijem').val()
+var pstPausal = $('#pstPausal').val()
+var pstDeti = parseInt($('#pstDeti').val())
+var pstManzel = $('#pstManzel').is(":checked")
+var pstManzelSazba = pstManzel ? 24840 : 0;
+var pstZakladDane = pstPrijem*(1-pstPausal) //základ daně
+var pstDan = Math.round(pstZakladDane*0.15) //zdaněný základ 15% sazbou mínus sleva na poplatníka; pozor na zaokrouhlení
+var pstSleva = 24840 //sleva na poplatníka
+var pstSlevy = Math.round(pstDeti+pstManzelSazba+pstSleva)
+var pstSocialni = 30528
+var pstZdravotni = 28224
+var pstVysledek = Math.round(pstDan-pstSleva-pstDeti-pstManzelSazba+pstSocialni+pstZdravotni) 
+var pstDanBez = Math.round(pstDan-pstSleva-pstDeti-pstManzelSazba)
+var pstVysledekSlovni
+
+var pstRozdil = pstVysledek-64524
+if (pstPrijem > 0)  {
+$("#pstWarning").hide()
+$("#pstWarning").text("Výsledek: " + pstVysledek + " - " + pstPrijem+", pausal: "+pstPausal+","+pstDeti+","+pstManzel+" manzelsazba"+pstManzelSazba)
+$('#pstLevyDan').text(pstCZK(pstVysledek));
+$('#pstZakladDane').text(pstCZK(pstZakladDane));
+$('#pstDan').text(pstCZK(pstDan));
+$('#pstDanBez').text(pstCZK(pstDanBez));
+$('#pstSlevy').text(pstCZK(pstSlevy));
+$('#pstSocialni').text(pstCZK(pstSocialni));
+$('#pstZdravotni').text(pstCZK(pstZdravotni));
+
+
+
+if (pstVysledek<=64524) {pstVysledekSlovni = "Ve vašem případě se nová paušální daň <strong>nevyplatí</strong>."
+$('#pstRozdil').css({'background-color':'red'})
+$('#pstRozdil').text(pstCZK(pstRozdil));
+} else {pstVysledekSlovni = "Ve vašem případě se nová paušální daň <strong>vyplatí</strong>." //pozitivní číslo
+$('#pstRozdil').css({'background-color':'green'})
+$('#pstRozdil').text('+' + pstCZK(pstRozdil));
+}
+$('#pstVysledekSlovni').html(pstVysledekSlovni);
+
+$('#pstTabulky').fadeIn()
+if(pstVysledek<0) {$('#pstLevyDanPozn').fadeIn()} else {$('#pstLevyDanPozn').hide()}
+
+
+
+} else {//když něco zadáme blbě
+$("#pstWarning").html("<strong>Chyba</strong>: Musíte zadat hrubý příjem (do jednoho milionu korun)!")
+$("#pstWarning").fadeIn()
+$('#pstTabulky').hide()
+}
+})
+
+});
+</script>
+ </body>
