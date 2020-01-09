@@ -1,0 +1,21 @@
+#pspHlavni rect {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  fill: gray;
+  stroke: white;
+}
+
+svg {
+  border: 0px solid black;
+  padding: 5px;
+  width: 300px;
+  height: 170px;
+}
+
+#pspStrany {
+  width: 300px;
+  padding: 5px;
+  line-height: 25px;
+  margin: auto;
+}
