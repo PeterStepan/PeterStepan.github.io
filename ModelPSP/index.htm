@@ -2,48 +2,6 @@
 <script src="jquery-3.4.1.min.js"></script>
 <link rel="stylesheet" type="text/css" href="styl.css">
 </head>
-
-<div style="box-shadow: 0px 0px 5px 2px gray; padding: 0px; width: 100%;">
-
-  <div style="position: relative; margin: 0px; padding: 10px; text-align: center;">
-  <h2>
-Jaké by byly možnosti ve sněmovně podle volebních modelů?<br>Sestavte si vlastní koalici:
-</h2>
-    <svg id="pspHlavni" style="width: 275px; height: 170px;">
-</svg>
-    <div style="text-align: center;">
-      <span id="pspCislo" style="text-align: center;">0</span>
-      <br><br>
-
-      
-    </div>
-    <div id="pspKoaliceSeznam">
-    &nbsp; 
-    </div>
-    <div id="pspVerdikt" style="text-align: center;">Vyberte strany níže.</div><br>
-    <div><input type="radio" name="pspModel" id="pspJedna">Současná situace&nbsp;<input type="radio" name="pspModel" id="pspDva" checked>Odhad Mandáty.cz (prosinec 2019)<br><br><div id="pspPopisekModelu" style="font-weight: bold;">
-    Odhad podle Mandáty.cz:
-    </div>
-    </div>
-    
-    <div id="pspStrany" style="text-align: center;">
-      <ul style="list-style-type: none; padding: 0px; columns: 2; text-align: left; width: 300px; margin: auto;">
-        <li><input type="checkbox" id="pspAno"> <span class="pspStrana" style="background-color: #336; box-shadow: 0px 0px 1px 1px rgba(100, 100, 100, 0.5);  border: 1px solid white; line-height: 10px; display: inline-block; width: 10px;">&nbsp;</span> ANO 2011 (<span class="pspStranaCislo">84</span>)
-          <li><input type="checkbox" id="pspPirati"> <span class="pspStrana" style="background-color: #000; box-shadow: 0px 0px 1px 1px rgba(100, 100, 100, 0.5);  border: 1px solid white; line-height: 10px; display: inline-block; width: 10px;">&nbsp;</span> Pirati (<span class="pspStranaCislo">33</span>)</li>
-          <li><input type="checkbox" id="pspOds"> <span class="pspStrana" style="background-color: #0d4da4; box-shadow: 0px 0px 1px 1px rgba(100, 100, 100, 0.5);  border: 1px solid white; line-height: 10px; display: inline-block; width: 10px;">&nbsp;</span> ODS (<span class="pspStranaCislo">29</span>)</li>          
-          <li><input type="checkbox" id="pspSpd"> <span class="pspStrana" style="background-color: #632b00; box-shadow: 0px 0px 1px 1px rgba(100, 100, 100, 0.5);  border: 1px solid white; line-height: 10px; display: inline-block; width: 10px;">&nbsp;</span> SPD (<span class="pspStranaCislo">11</span>)</li>          
-          <li><input type="checkbox" id="pspKscm"> <span class="pspStrana" style="background-color: #a80101; box-shadow: 0px 0px 1px 1px rgba(100, 100, 100, 0.5);  border: 1px solid white; line-height: 10px; display: inline-block; width: 10px;">&nbsp;</span> KSČM (<span class="pspStranaCislo">15</span>)</li>
-          <li><input type="checkbox" id="pspCssd"> <span class="pspStrana" style="background-color: #f29400; box-shadow: 0px 0px 1px 1px rgba(100, 100, 100, 0.5);  border: 1px solid white; line-height: 10px; display: inline-block; width: 10px;">&nbsp;</span> ČSSD (<span class="pspStranaCislo">15</span>)</li>
-          <li><input type="checkbox" id="pspKdu"> <span class="pspStrana" style="background-color: #f9da23; box-shadow: 0px 0px 1px 1px rgba(100, 100, 100, 0.5);  border: 1px solid white; line-height: 10px; display: inline-block; width: 10px;">&nbsp;</span> KDU-ČSL (<span class="pspStranaCislo">7</span>)</li>
-          <li><input type="checkbox" id="pspTop"> <span class="pspStrana" style="background-color: #993399; box-shadow: 0px 0px 1px 1px rgba(100, 100, 100, 0.5);  border: 1px solid white; line-height: 10px; display: inline-block; width: 10px;">&nbsp;</span> TOP09 (<span class="pspStranaCislo">0</span>)</li>
-          <li><input type="checkbox" id="pspStan"> <span class="pspStrana" style="background-color: #61c7ef; box-shadow: 0px 0px 1px 1px rgba(100, 100, 100, 0.5);  border: 1px solid white; line-height: 10px; display: inline-block; width: 10px;">&nbsp;</span> STAN (<span class="pspStranaCislo">6</span>)</li>
-          <li><input type="checkbox" id="pspStan"> <span class="pspStrana" style="background-color: #aaa; box-shadow: 0px 0px 1px 1px rgba(100, 100, 100, 0.5);  border: 1px solid white; line-height: 10px; display: inline-block; width: 10px;">&nbsp;</span> Nezařazení (<span class="pspStranaCislo">0</span>)</li>
-      </ul>
-      
-    </div><p style="text-align: center;"><button id="pspKoalice">Současná koalice s KSČM</button><br><button id="pspReset">Reset</button></p>
-  </div>
-
-</div>
 <script>
   //změnit: funkci pro klikání na checkboxy tak, aby šlo použít i u změny modelů.
   
@@ -234,3 +192,45 @@ Jaké by byly možnosti ve sněmovně podle volebních modelů?<br>Sestavte si v
 
   });
 </script>
+<div style="box-shadow: 0px 0px 5px 2px gray; padding: 0px; width: 100%;">
+
+  <div style="position: relative; margin: 0px; padding: 10px; text-align: center;">
+  <h2>
+Jaké by byly možnosti ve sněmovně podle volebních modelů?<br>Sestavte si vlastní koalici:
+</h2>
+    <svg id="pspHlavni" style="width: 275px; height: 170px;">
+</svg>
+    <div style="text-align: center;">
+      <span id="pspCislo" style="text-align: center;">0</span>
+      <br><br>
+
+      
+    </div>
+    <div id="pspKoaliceSeznam">
+    &nbsp; 
+    </div>
+    <div id="pspVerdikt" style="text-align: center;">Vyberte strany níže.</div><br>
+    <div><input type="radio" name="pspModel" id="pspJedna">Současná situace&nbsp;<input type="radio" name="pspModel" id="pspDva" checked>Odhad Mandáty.cz (prosinec 2019)<br><br><div id="pspPopisekModelu" style="font-weight: bold;">
+    Odhad podle Mandáty.cz:
+    </div>
+    </div>
+    
+    <div id="pspStrany" style="text-align: center;">
+      <ul style="list-style-type: none; padding: 0px; columns: 2; text-align: left; width: 300px; margin: auto;">
+        <li><input type="checkbox" id="pspAno"> <span class="pspStrana" style="background-color: #336; box-shadow: 0px 0px 1px 1px rgba(100, 100, 100, 0.5);  border: 1px solid white; line-height: 10px; display: inline-block; width: 10px;">&nbsp;</span> ANO 2011 (<span class="pspStranaCislo">84</span>)
+          <li><input type="checkbox" id="pspPirati"> <span class="pspStrana" style="background-color: #000; box-shadow: 0px 0px 1px 1px rgba(100, 100, 100, 0.5);  border: 1px solid white; line-height: 10px; display: inline-block; width: 10px;">&nbsp;</span> Pirati (<span class="pspStranaCislo">33</span>)</li>
+          <li><input type="checkbox" id="pspOds"> <span class="pspStrana" style="background-color: #0d4da4; box-shadow: 0px 0px 1px 1px rgba(100, 100, 100, 0.5);  border: 1px solid white; line-height: 10px; display: inline-block; width: 10px;">&nbsp;</span> ODS (<span class="pspStranaCislo">29</span>)</li>          
+          <li><input type="checkbox" id="pspSpd"> <span class="pspStrana" style="background-color: #632b00; box-shadow: 0px 0px 1px 1px rgba(100, 100, 100, 0.5);  border: 1px solid white; line-height: 10px; display: inline-block; width: 10px;">&nbsp;</span> SPD (<span class="pspStranaCislo">11</span>)</li>          
+          <li><input type="checkbox" id="pspKscm"> <span class="pspStrana" style="background-color: #a80101; box-shadow: 0px 0px 1px 1px rgba(100, 100, 100, 0.5);  border: 1px solid white; line-height: 10px; display: inline-block; width: 10px;">&nbsp;</span> KSČM (<span class="pspStranaCislo">15</span>)</li>
+          <li><input type="checkbox" id="pspCssd"> <span class="pspStrana" style="background-color: #f29400; box-shadow: 0px 0px 1px 1px rgba(100, 100, 100, 0.5);  border: 1px solid white; line-height: 10px; display: inline-block; width: 10px;">&nbsp;</span> ČSSD (<span class="pspStranaCislo">15</span>)</li>
+          <li><input type="checkbox" id="pspKdu"> <span class="pspStrana" style="background-color: #f9da23; box-shadow: 0px 0px 1px 1px rgba(100, 100, 100, 0.5);  border: 1px solid white; line-height: 10px; display: inline-block; width: 10px;">&nbsp;</span> KDU-ČSL (<span class="pspStranaCislo">7</span>)</li>
+          <li><input type="checkbox" id="pspTop"> <span class="pspStrana" style="background-color: #993399; box-shadow: 0px 0px 1px 1px rgba(100, 100, 100, 0.5);  border: 1px solid white; line-height: 10px; display: inline-block; width: 10px;">&nbsp;</span> TOP09 (<span class="pspStranaCislo">0</span>)</li>
+          <li><input type="checkbox" id="pspStan"> <span class="pspStrana" style="background-color: #61c7ef; box-shadow: 0px 0px 1px 1px rgba(100, 100, 100, 0.5);  border: 1px solid white; line-height: 10px; display: inline-block; width: 10px;">&nbsp;</span> STAN (<span class="pspStranaCislo">6</span>)</li>
+          <li><input type="checkbox" id="pspStan"> <span class="pspStrana" style="background-color: #aaa; box-shadow: 0px 0px 1px 1px rgba(100, 100, 100, 0.5);  border: 1px solid white; line-height: 10px; display: inline-block; width: 10px;">&nbsp;</span> Nezařazení (<span class="pspStranaCislo">0</span>)</li>
+      </ul>
+      
+    </div><p style="text-align: center;"><button id="pspKoalice">Současná koalice s KSČM</button><br><button id="pspReset">Reset</button></p>
+  </div>
+
+</div>
+
