@@ -1,0 +1,259 @@
+<head>
+<script src="jquery-3.4.1.min.js"></script>
+
+</head>
+<style>
+#pspHlavni rect {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  fill: gray;
+  stroke: white;
+}
+
+svg {
+  border: 0px solid black;
+  padding: 5px;
+  width: 300px;
+  height: 170px;
+}
+
+#pspStrany {
+  width: 300px;
+  padding: 5px;
+  line-height: 25px;
+  margin: auto;
+}
+
+</style>
+<div style="box-shadow: 0px 0px 5px 2px gray; padding: 0px; width: 100%;">
+
+  <div style="position: relative; margin: 0px; padding: 10px; text-align: center;">
+  <h2>
+Jaké by byly možnosti ve sněmovně podle volebních modelů?<br>Sestavte si vlastní koalici:
+</h2>
+    <svg id="pspHlavni" style="width: 275px; height: 170px;">
+</svg>
+    <div style="text-align: center;">
+      <span id="pspCislo" style="text-align: center;">0</span>
+      <br><br>
+
+      
+    </div>
+    <div id="pspKoaliceSeznam">
+    &nbsp; 
+    </div>
+    <div id="pspVerdikt" style="text-align: center;">Vyberte strany níže.</div><br>
+    <div><input type="radio" name="pspModel" id="pspJedna">Současná situace&nbsp;<input type="radio" name="pspModel" id="pspDva" checked>Odhad Mandáty.cz (prosinec 2019)<br><br><div id="pspPopisekModelu" style="font-weight: bold;">
+    Odhad podle Mandáty.cz:
+    </div>
+    </div>
+    
+    <div id="pspStrany" style="text-align: center;">
+      <ul style="list-style-type: none; padding: 0px; columns: 2; text-align: left; width: 300px; margin: auto;">
+        <li><input type="checkbox" id="pspAno"> <span class="pspStrana" style="background-color: #336; box-shadow: 0px 0px 1px 1px rgba(100, 100, 100, 0.5);  border: 1px solid white; line-height: 10px; display: inline-block; width: 10px;">&nbsp;</span> ANO 2011 (<span class="pspStranaCislo">84</span>)
+          <li><input type="checkbox" id="pspPirati"> <span class="pspStrana" style="background-color: #000; box-shadow: 0px 0px 1px 1px rgba(100, 100, 100, 0.5);  border: 1px solid white; line-height: 10px; display: inline-block; width: 10px;">&nbsp;</span> Pirati (<span class="pspStranaCislo">33</span>)</li>
+          <li><input type="checkbox" id="pspOds"> <span class="pspStrana" style="background-color: #0d4da4; box-shadow: 0px 0px 1px 1px rgba(100, 100, 100, 0.5);  border: 1px solid white; line-height: 10px; display: inline-block; width: 10px;">&nbsp;</span> ODS (<span class="pspStranaCislo">29</span>)</li>          
+          <li><input type="checkbox" id="pspSpd"> <span class="pspStrana" style="background-color: #632b00; box-shadow: 0px 0px 1px 1px rgba(100, 100, 100, 0.5);  border: 1px solid white; line-height: 10px; display: inline-block; width: 10px;">&nbsp;</span> SPD (<span class="pspStranaCislo">11</span>)</li>          
+          <li><input type="checkbox" id="pspKscm"> <span class="pspStrana" style="background-color: #a80101; box-shadow: 0px 0px 1px 1px rgba(100, 100, 100, 0.5);  border: 1px solid white; line-height: 10px; display: inline-block; width: 10px;">&nbsp;</span> KSČM (<span class="pspStranaCislo">15</span>)</li>
+          <li><input type="checkbox" id="pspCssd"> <span class="pspStrana" style="background-color: #f29400; box-shadow: 0px 0px 1px 1px rgba(100, 100, 100, 0.5);  border: 1px solid white; line-height: 10px; display: inline-block; width: 10px;">&nbsp;</span> ČSSD (<span class="pspStranaCislo">15</span>)</li>
+          <li><input type="checkbox" id="pspKdu"> <span class="pspStrana" style="background-color: #f9da23; box-shadow: 0px 0px 1px 1px rgba(100, 100, 100, 0.5);  border: 1px solid white; line-height: 10px; display: inline-block; width: 10px;">&nbsp;</span> KDU-ČSL (<span class="pspStranaCislo">7</span>)</li>
+          <li><input type="checkbox" id="pspTop"> <span class="pspStrana" style="background-color: #993399; box-shadow: 0px 0px 1px 1px rgba(100, 100, 100, 0.5);  border: 1px solid white; line-height: 10px; display: inline-block; width: 10px;">&nbsp;</span> TOP09 (<span class="pspStranaCislo">0</span>)</li>
+          <li><input type="checkbox" id="pspStan"> <span class="pspStrana" style="background-color: #61c7ef; box-shadow: 0px 0px 1px 1px rgba(100, 100, 100, 0.5);  border: 1px solid white; line-height: 10px; display: inline-block; width: 10px;">&nbsp;</span> STAN (<span class="pspStranaCislo">6</span>)</li>
+          <li><input type="checkbox" id="pspStan"> <span class="pspStrana" style="background-color: #aaa; box-shadow: 0px 0px 1px 1px rgba(100, 100, 100, 0.5);  border: 1px solid white; line-height: 10px; display: inline-block; width: 10px;">&nbsp;</span> Nezařazení (<span class="pspStranaCislo">0</span>)</li>
+      </ul>
+      
+    </div><p style="text-align: center;"><button id="pspKoalice">Současná koalice s KSČM</button><br><button id="pspReset">Reset</button></p>
+  </div>
+
+</div>
+<script>
+  //změnit: funkci pro klikání na checkboxy tak, aby šlo použít i u změny modelů.
+  
+  $('document').ready(function() {
+
+  function pspisIE() {
+    ua = navigator.userAgent;
+    var is_ie = ua.indexOf("MSIE ") > -1 || ua.indexOf("Trident/") > -1;
+
+    return is_ie; 
+  }
+      if(pspisIE()) {$('#pspHlavni').hide()}
+
+    function pspVytvor(kolik, sirka, levyrohX, levyrohY, zpusob) {
+      var pspY = 0;
+      var pspX = 0;
+      var pspXX = '';
+      var pspVerdikt = '';
+      for (i = 0; i < kolik; i++) {
+        var pspPsp = $('#pspHlavni').html();
+
+        if (i % sirka == 0) { 
+          if (zpusob == 0) { 
+            pspY++
+            pspX = levyrohX;
+          }
+
+          if (zpusob == 1) { 
+            pspX++
+            pspY = levyrohY;
+          }
+          if (zpusob == 2) { 
+            pspY--
+            pspX = levyrohX;
+          }
+        }
+        if (zpusob != 1) {
+          pspXX = (levyrohY + pspY * 12)
+        } else {
+          pspXX = (levyrohY - pspY * 12)
+        }
+
+        $('#pspHlavni').html(pspPsp + '<rect x="' + (levyrohX + pspX * 12) + '" y="' + pspXX + '" width="10" height="10" style="fill: gray"></rect>');
+
+        if (zpusob != 1) {
+          pspX++
+        } else {
+          pspY++
+        }
+      }
+    }
+    pspVytvor(1, 1, 10, 0, 0)
+    pspVytvor(72, 6, 0, 0, 0)
+    pspVytvor(85, 5, 60, -13.1, 1)
+    pspVytvor(42, 6, 15.7, 8 * 12, 2)
+
+    function pspPuvodni() { 
+      $('#pspHlavni rect').slice(0, 200).css({
+        'fill': 'gray'
+      }); 
+      $('#pspCislo').text(0)
+      $('#pspKoaliceSeznam').html('&nbsp;');
+    }
+    pspPuvodni();
+
+    function pspVerdiktA(hodnota) {
+      if (hodnota > 100 && hodnota < 120) {
+        pspVerdikt = '<strong><span style="color: green">má většinu</span></strong>.'
+      } else if (hodnota >= 120) {
+        pspVerdikt = '<strong><span style="color: green">má <span style="color: darkgreen">ústavní</span> většinu</span></strong>.'
+      } else {
+        pspVerdikt = '<strong>nemá většinu</strong>.'
+      }
+      $('#pspVerdikt').html('Tato koalice ' + pspVerdikt)
+    }
+
+    function pspZmena(hodnota) { 
+      $('#pspCislo').text(hodnota)
+      pspVerdiktA(hodnota);
+
+      if (hodnota > 100 && hodnota < 120) {
+        $('#pspHlavni rect').slice(0, hodnota).css({
+          'fill': 'red'
+        });
+        $('#pspHlavni rect').slice(hodnota).css({
+          'fill': 'gray'
+        });
+      } else if (hodnota >= 120) {
+        $('#pspHlavni rect').slice(0, hodnota).css({
+          'fill': 'red'
+        });
+        $('#pspHlavni rect').slice(hodnota).css({
+          'fill': 'gray'
+        });
+      } else {
+        $('#pspHlavni rect').slice(hodnota).css({
+          'fill': 'gray'
+        });
+        $('#pspHlavni rect').slice(0, hodnota).css({
+          'fill': 'red'
+        });
+      }
+
+      $('#pspStrany input').prop('checked', false) 
+    }
+
+
+    $('#pspReset').click(function() {
+    $('#pspStrany input').prop('checked', false)
+    pspPuvodni();
+    $('#pspCislo').text(0);
+  $('#pspVerdikt').html('Vyberte strany níže.')
+    })
+
+    $('#pspKoalice').click(function() {
+    pspPuvodni()  
+    $('#pspStrany input').prop('checked', false)
+    $('#pspAno').trigger('click');
+    $('#pspCssd').trigger('click');
+    $('#pspKscm').trigger('click');     
+    })
+
+     function pspOznacZnovu(i) {//lamácky obcházíme kliknutí, pak vyřešit jinak
+    if ($('#pspStrany input').eq(i).is(':checked')) {
+    $('#pspStrany input').eq(i).trigger('click');
+      $('#pspStrany input').eq(i).trigger('click');
+    }
+    }
+
+    function pspModel(pole,model) { //pro různé modely
+  var pspDelka = $('.pspStranaCislo').length;
+  for (var i=0;i<pspDelka;i++) {
+  $('.pspStranaCislo').eq(i).text(pole[i])
+  pspOznacZnovu(i)
+  $('#pspPopisekModelu').text(model)
+  }  
+    }
+
+    $('#pspJedna').click(function() {
+  pspModel(['78','22','23','19','15','15','10','7','6','5'],'Situace prosinec 2019:')
+    })
+
+    $('#pspDva').click(function() {
+    pspModel(['84','33','29','11','15','15','7','0','6','0'],'Odhad Mandáty.cz:')
+    })
+
+    $('#pspStrany input').on('click', function() {
+    var pspCisla = $('#pspStrany ul li').text().match(/\(\d{1,3}\)/g); 
+      //POZOR, TOHLE ČÍSLO MUSÍ BÝT POČET VŠECH ZAŠKRTÁVÁTEK STRAN, PROTOŽE JINAK SE TO ODŠKRTNE I PŘI PRVNÍM KLIKNUTÍ (TEĎ JE ŠKRTÁTEK 10)
+      if ($('#pspStrany input').not(':checked').length === 10) {
+        pspPuvodni();
+        return;
+      }
+      var pspPrvniHodnota = 0;
+      var pspPosledniHodnota = 0;
+      var pspCisloVezmi = 0;
+      var pspBarvaStrany = '';
+      var pspNazevStrany = '';
+      var pspNazevStranyCely = '';
+      var pspKoaliceSeznam = '';
+      var pspPocetStran = $('#pspStrany input').length;
+      for (var i = 0; i < pspPocetStran; i++) {
+
+        if ($('#pspStrany input').eq(i).is(':checked')) {
+          pspCisloVezmi = parseInt(pspCisla[i].match(/\d{1,3}/g));
+          pspPosledniHodnota += pspCisloVezmi;
+
+          pspBarvaStrany = $('.pspStrana').eq(i).css('background-color')
+          $('#pspHlavni rect').slice(pspPrvniHodnota, pspPosledniHodnota).css('fill', pspBarvaStrany);
+          $('#pspHlavni rect').slice(pspPosledniHodnota).css({
+            'fill': 'gray'
+          });
+          pspPrvniHodnota = pspPosledniHodnota;
+          pspNazevStranyCely = $('#pspStrany ul li').eq(i).text();
+          pspNazevStrany = pspNazevStranyCely.substring(2,pspNazevStranyCely.indexOf('(')-1)
+          if (pspKoaliceSeznam == '') {
+          pspKoaliceSeznam = pspNazevStrany;
+          } else {pspKoaliceSeznam += ',' + pspNazevStrany;}
+        }
+        
+        
+        $('#pspKoaliceSeznam').text(pspKoaliceSeznam);
+      }
+      $('#pspCislo').text(pspPosledniHodnota)
+      pspVerdiktA(pspPosledniHodnota);
+      var pspStroke = '';
+    });
+
+  });
+</script>
