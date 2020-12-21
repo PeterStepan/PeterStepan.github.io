@@ -176,7 +176,7 @@ $(function() {
     var pstManzelSazba = pstManzel ? 24840 : 0;
     var pstZakladDane = pstPausalANO ? pstPrijem * (1 - pstPausal) : pstPrijem-pstNaklady //základ daně
     var pstDan = Math.round(pstZakladDane * 0.15) //zdaněný základ 15% sazbou mínus sleva na poplatníka; pozor na zaokrouhlení
-    var pstSleva = pstSlevaP ? 24840 : 0 //rok 2020
+    var pstSleva = pstSlevaP ? 27840 : 0 //rok 2021
     var pstSlevyBezDeti = (pstManzelSazba+pstSleva)>pstDan ? pstDan : pstManzelSazba+pstSleva //aby to nešlo do bonusu, kdy se to nesmí
     var pstSlevy = Math.round(pstDeti + pstSlevyBezDeti) 
     
