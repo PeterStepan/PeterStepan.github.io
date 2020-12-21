@@ -6,8 +6,9 @@
  
  </head>
  <body>
- <script src="//ihned.cz/js/v2/vendor/jquery-3.2.1.min.js"></script>
-  <div class="form-group">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <form id="pstForm" action="javascript:void(0);">
+<div class="form-group">
     <label for="pstPrijem">Hrubý roční příjem</label>
     <input type="number" step="1000" max="1000000" min="10000" class="input-lg form-control form-control-lg" id="pstPrijem" placeholder="10 000 až 1 000 000">
     <small class="form-text text-muted"><strong>Pozn.:</strong> Změna se projeví u příjmů do jednoho milionu korun.</small>
@@ -15,16 +16,31 @@
   <div class="form-group">
   <div class="row">
   <div class="col-sm-6">
+  <label for="pstPausalNast">Využíváte výdajový paušál? </label><br>
+  <input type="radio" class="form-check-input" name="pstPausalRadio" id="pstPausalANO" checked> Ano
+  <input type="radio" class="form-check-input" name="pstPausalRadio" id="pstPausalNE"> Ne
+  <br>
+  <div id="pstNakladyZadej" style="display: none;">
+  <label for="pstPausal">Zadejte vaše skutečné náklady:</label>
+  <input type="number" max="1000000" min="0" class="form-control form-control-sm" id="pstNaklady" placeholder="zadejte náklady">
+  </div>
+  <div id="pstPausalZadej"> 
   <label for="pstPausal">Vyberte výdajový paušál</label>
     <select class="form-control form-control-sm" id="pstPausal">
-      <option value="0.3">30 % - z nájemného</option>
+      <!--<option value="0.3">30 % - z nájemného</option>-->
       <option value="0.4">40 % - svobodná povolání</option>
       <option value="0.6">60 % - ostatní živnosti</option>
       <option value="0.8">80 % - zemědělská a lesní výroba a řemeslné živnosti</option>
     </select>
+    </div>
+     <br>
+     Zdravotní pojištění za rok: <input type="checkbox" class="form-check-input" id="pstZdravMin" checked> Minimální
+     <input type="number" min="28716" class="form-control form-control-sm input-sm" id="pstZdravCustom" value="28716" style="display: none;">
+      <br>Sociální pojištění za rok: <input type="checkbox" class="form-check-input" id="pstSocMin" checked> Minimální
+      <input type="number" min="31056" max="1672080" class="form-control form-control-sm input-sm" id="pstSocCustom" value="31056" style="display: none;">
   </div>
   <div class="col-sm-6">
-  <label for="pstDeti">Sleva na děti (počet dětí)</label>
+  <br><label for="pstDeti">Sleva na děti (počet dětí)</label>
     <select class="form-control form-control-sm" id="pstDeti">
       <option value="0">0</option>
       <option value="15204">1</option>
@@ -38,27 +54,32 @@
       <option value="204036">9</option>
       <option value="228240">10</option>
     </select>
+     <div class="form-group form-check col-md-12">
+    <input type="checkbox" class="form-check-input" id="pstSlevaP" checked>
+    <label class="form-check-label" for="pstSleva">Sleva na poplatníka</label><br>
+    <input type="checkbox" class="form-check-input" id="pstManzel">
+    <label class="form-check-label" for="pstManzel">Sleva na vyživovanou manželku/manžela</label>
+  </div>
+    
   </div>
   
     
     </div>
   </div>
-  <div class="form-group form-check col-md-12">
-    <input type="checkbox" class="form-check-input" id="pstSleva" checked disabled>
-    <label class="form-check-label" for="pstSleva">Sleva na poplatníka</label>
-    <small id="pstPozn2" class="form-text text-muted">&nbsp;&nbsp;&nbsp;(Započítává se automaticky.)</small><br>
-    <input type="checkbox" class="form-check-input" id="pstManzel">
-    <label class="form-check-label" for="pstManzel">Sleva na vyživovanou manželku/manžela</label>
-  </div>
+ 
   <button type="submit" class="btn btn-danger" id="pstSpocitat">Spočítat</button><br><small class="form-text text-muted">Data se nikam neukládají, výpočet probíhá ve Vašem prohlížeči.</small>
+  </form>
   <div id="pstWarning" style="color:red; display: none;">
   
-  </div><div id="pstTabulky" style="display: none;">
+  
+  </div>
+  <div id="pstWarning2" style="color:red; display: none;"><strong>Chyba: </strong> Chybně zadaná výše nákladů.</div>
+  <div id="pstTabulky" style="display: none;">
   
   
   <div class="row">
   <div id="pstLevy" class="col-sm-6 text-center" style="text-align: center;">
-  <label for="pstLevyDan" style="font-size: 17px; padding-top: 10px;">Daň dnes:</label><br>
+  <label for="pstLevyDan" style="font-size: 17px; padding-top: 10px;">Danění v současnosti:</label><br>
   <span style="font-size: 25px;" id="pstLevyDan">0 Kč</span><br>
   <span style="font-size: 15px; color: gray; display: none;" id="pstLevyDanPozn">Daň je tedy záporná, tj. stát platí vám.</span>
   <table class="tabulka-seda" style="width: 100%;">
@@ -79,11 +100,11 @@
     <td id="pstDanBez" style="font-weight: bold;"></td>
   </tr>
   <tr>
-    <td>Minimální odvody na sociální pojištění</td>
+    <td id="pstSocialniText">Odvody na sociální pojištění</td>
     <td id="pstSocialni" style="font-weight: bold;"></td>
   </tr>
   <tr>
-    <td>Minimální odvody na zdravotní pojištění</td>
+    <td id="pstZdravotniText">Odvody na zdravotní pojištění</td>
     <td id="pstZdravotni" style="font-weight: bold;"></td>
   </tr>
   </table>
@@ -94,7 +115,7 @@
   
   <div id="pstPravy" class="col-sm-6 text-center">
    <label for="pstLevyDan" style="font-size: 17px; padding-top: 10px;">Nová paušální daň:</label><br>
-  <span style="font-size: 25px;" id="pstPravyDan">64 524 Kč</span><br>
+  <span style="font-size: 25px;" id="pstPravyDan">65 628 Kč</span><br>
   <table class="tabulka-seda" style="width: 100%;">
   <tr>
     <td>Daň z příjmu fyzických osob</td>
@@ -102,11 +123,11 @@
   </tr>
   <tr>
     <td>Minimální odvody na sociální pojištění</td>
-    <td style="font-weight: bold;">35 100 Kč</td>
+    <td style="font-weight: bold;">35 712 Kč</td>
   </tr>
   <tr>
     <td>Minimální odvody na zdravotní pojištění</td>
-    <td style="font-weight: bold;">28 224 Kč</td>
+    <td style="font-weight: bold;">28 716 Kč</td>
   </tr>
   </table>
   </div>
@@ -121,128 +142,120 @@
   <div id="pstVysledekSlovni" class="form-text text-muted" style="margin-top: 10px; font-size: 20px;">
   Dobrý den, máte se dobře? :-)
   </div>
-  <div>
+  <div style="line-height: 14px">
   <small class="form-text text-muted"><strong>Pozn.:</strong> Minimální odvody pojistného se odvíjí od průměrné mzdy. Uváděná hodnota platí pro rok 2020. Uváděné daňové slevy jsou hodnoty platné v současnosti. </small>
   
   </div>
-  </div>
-  <div style="font-size: 15px; text-align: center; margin-top: 20px;">
-    Paušální výdaje vs. Paušální daň<br>
-    <span style="font-size: 12px">při proměnlivé výši ročních příjmů (vodorovná osa) za výše vybraných slev</span>
-    
-  </div>
-  <div id="pstChart">
-  
   </div>
 </div>
 <script type="text/javascript">
 
 
 
-$(function(){
+$(function() {
 
-function pstCZK(toto) {
-return toto.toLocaleString('cs-CZ', { style: 'currency', currency: 'CZK',minimumFractionDigits: 0 })
-}
-
-
-$("#pstSpocitat").click(function() {
-var pstPrijem = $('#pstPrijem').val()
-var pstPausal = $('#pstPausal').val()
-var pstDeti = parseInt($('#pstDeti').val())
-var pstManzel = $('#pstManzel').is(":checked")
-var pstManzelSazba = pstManzel ? 24840 : 0;
-var pstZakladDane = pstPrijem*(1-pstPausal) //základ daně
-var pstDan = Math.round(pstZakladDane*0.15) //zdaněný základ 15% sazbou mínus sleva na poplatníka; pozor na zaokrouhlení
-var pstSleva = 24840 //sleva na poplatníka
-var pstSlevy = Math.round(pstDeti+pstManzelSazba+pstSleva)
-var pstSocialni = 30528
-var pstZdravotni = 28224
-var pstVysledek = Math.round(pstDan-pstSleva-pstDeti-pstManzelSazba+pstSocialni+pstZdravotni) 
-var pstDanBez = Math.round(pstDan-pstSleva-pstDeti-pstManzelSazba)
-var pstVysledekSlovni
-
-var pstRozdil = pstVysledek-64524
-if (pstPrijem > 10000)  {
-$("#pstWarning").hide()
-$("#pstWarning").text("Výsledek: " + pstVysledek + " - " + pstPrijem+", pausal: "+pstPausal+","+pstDeti+","+pstManzel+" manzelsazba"+pstManzelSazba)
-$('#pstLevyDan').text(pstCZK(pstVysledek));
-$('#pstZakladDane').text(pstCZK(pstZakladDane));
-$('#pstDan').text(pstCZK(pstDan));
-$('#pstDanBez').text(pstCZK(pstDanBez));
-$('#pstSlevy').text(pstCZK(pstSlevy));
-$('#pstSocialni').text(pstCZK(pstSocialni));
-$('#pstZdravotni').text(pstCZK(pstZdravotni));
-
-//graf---------------
-var pstTable = [['Hrubý roční příjem',	'Paušál 30%', 'Paušál 40%',	'Paušál 60%', 'Paušál 80%',	'Paušální daň']]
-for (var i = 10000;i<=1000000;i+=10000) {
-var pstGraf1 = 0.7*i*0.15-pstSlevy+pstSocialni+pstZdravotni
-var pstGraf2 = 0.6*i*0.15-pstSlevy+pstSocialni+pstZdravotni
-var pstGraf3 = 0.4*i*0.15-pstSlevy+pstSocialni+pstZdravotni
-var pstGraf4 = 0.2*i*0.15-pstSlevy+pstSocialni+pstZdravotni
-pstTable.push([i,pstGraf1,pstGraf2,pstGraf3,pstGraf4,64524])
-}
-
-google.charts.load('current', {
-    'packages': ['corechart']
-  });
-  google.charts.setOnLoadCallback(drawChart);
-  
-  function drawChart() {
-    var data = google.visualization.arrayToDataTable(pstTable);
-    
-    var options = {
-      tooltip: {
-        isHtml: true
-      },
-      title: '',
-      curveType: 'function',
-      hAxis: {
-          title: 'Výše ročního hrubého příjmu'
-        },
-        vAxis: {
-          title: 'Výše daně'
-        },
-      legend: {
-        position: 'top'
-      },
-      colors: ['#fcae91', '#fb6a4a', '#cb181d','#700','#000000'],
-     series: {
-            4: { lineWidth: 2,lineDashStyle: [10, 2] }
-          },
-
-    };
-
-    var chart = new google.visualization.LineChart(document.getElementById('pstChart'));
-
-    chart.draw(data, options);
-
+  function pstCZK(toto) {
+    return toto.toLocaleString('cs-CZ', {
+      style: 'currency',
+      currency: 'CZK',
+      minimumFractionDigits: 0
+    })
   }
 
-//graf---------------
 
-if (pstVysledek<=64524) {pstVysledekSlovni = "Ve vašem případě se nová paušální daň <strong>nevyplatí</strong>."
-$('#pstRozdil').css({'background-color':'red'})
-$('#pstRozdil').text(pstCZK(pstRozdil));
-} else {pstVysledekSlovni = "Ve vašem případě se nová paušální daň <strong>vyplatí</strong>." //pozitivní číslo
-$('#pstRozdil').css({'background-color':'green'})
-$('#pstRozdil').text('+' + pstCZK(pstRozdil));
-}
-$('#pstVysledekSlovni').html(pstVysledekSlovni);
+  
+  
+  $('#pstForm').submit(function() {
+    var pstPrijem = $('#pstPrijem').val()
+    var pstPausal = $('#pstPausal').val()
+    var pstNaklady = parseInt($('#pstNaklady').val())
+    var pstDeti = parseInt($('#pstDeti').val())
+    var pstManzel = $('#pstManzel').is(':checked')
+    var pstSlevaP = $('#pstSlevaP').is(':checked')
+    var pstPausalANO = $('#pstPausalANO').is(':checked')
+    var pstManzelSazba = pstManzel ? 24840 : 0;
+    var pstZakladDane = pstPausalANO ? pstPrijem * (1 - pstPausal) : pstPrijem-pstNaklady //základ daně
+    var pstDan = Math.round(pstZakladDane * 0.15) //zdaněný základ 15% sazbou mínus sleva na poplatníka; pozor na zaokrouhlení
+    var pstSleva = pstSlevaP ? 24840 : 0 //rok 2020
+    var pstSlevyBezDeti = (pstManzelSazba+pstSleva)>pstDan ? pstDan : pstManzelSazba+pstSleva //aby to nešlo do bonusu, kdy se to nesmí
+    var pstSlevy = Math.round(pstDeti + pstSlevyBezDeti) 
+    
+    var pstSocialni = $('#pstSocMin').is(':checked') ? 31056 : parseInt($('#pstSocCustom').val());
+    var pstZdravotni = $('#pstZdravMin').is(':checked') ? 28716 : parseInt($('#pstZdravCustom').val());
+    
+    var pstVysledek = Math.round(pstDan - pstSlevy + pstSocialni + pstZdravotni)
+    var pstDanBez = Math.round(pstDan - pstSlevy)
+    var pstVysledekSlovni
 
-$('#pstTabulky').fadeIn()
-if(pstVysledek<0) {$('#pstLevyDanPozn').fadeIn()} else {$('#pstLevyDanPozn').hide()}
+    var pstRozdil = pstVysledek - 65628
+    if (pstPrijem >= 10000 && pstPrijem <= 1000000) {
+		if (pstPausalANO ==false && (isNaN(pstNaklady) || pstNaklady>=pstPrijem)) {
+    $('#pstWarning').html('<strong>Chyba</strong>: Chybně zadaná hodnota nákladů.')
+    $('#pstWarning').fadeIn()
+    $('#pstTabulky').hide()
+    return;
+    }
+    
+      $('#pstWarning').hide()
+      $('pstWarning').text("Výsledek: " + pstVysledek + " - " + pstPrijem + ", pausal: " + pstPausal + "," + pstDeti + "," + pstManzel + " manzelsazba" + pstManzelSazba)
+      $('#pstLevyDan').text(pstCZK(pstVysledek));
+      $('#pstZakladDane').text(pstCZK(pstZakladDane));
+      $('#pstDan').text(pstCZK(pstDan));
+      $('#pstDanBez').text(pstCZK(pstDanBez));
+      $('#pstSlevy').text(pstCZK(pstSlevy));
+      $('#pstSocialni').text(pstCZK(pstSocialni));
+      $('#pstZdravotni').text(pstCZK(pstZdravotni));
+
+     
+      if (pstVysledek <= 65628) {
+        pstVysledekSlovni = 'Ve vašem případě se nová paušální daň <strong>nevyplatí</strong>.'
+        $('#pstRozdil').css({
+          'background-color': 'red'
+        })
+        $('#pstRozdil').text(pstCZK(pstRozdil));
+      } else {
+        pstVysledekSlovni = 'Ve vašem případě se nová paušální daň <strong>vyplatí</strong>.' //pozitivní číslo
+        $('#pstRozdil').css({
+          'background-color': 'green'
+        })
+        $('#pstRozdil').text('+' + pstCZK(pstRozdil));
+      }
+      $('#pstVysledekSlovni').html(pstVysledekSlovni);
+
+      $('#pstTabulky').fadeIn()
+      if (pstVysledek < 0) {
+        $('#pstLevyDanPozn').fadeIn()
+      } else {
+        $('#pstLevyDanPozn').hide()
+      }
 
 
 
-} else {//když něco zadáme blbě
-$("#pstWarning").html("<strong>Chyba</strong>: Musíte zadat hrubý příjem - minimálně 10 tisíc korun a maximálně jeden milion korun!")
-$("#pstWarning").fadeIn()
-$('#pstTabulky').hide()
-}
-})
+    } else { //když něco zadáme blbě
+      $('#pstWarning').html('<strong>Chyba</strong>: Musíte zadat hrubý příjem - minimálně 10 tisíc korun a maximálně jeden milion korun!')
+      $('#pstWarning').fadeIn()
+      $('#pstTabulky').hide()
+    }
+  })
 
+  $('#pstPausalANO').click(function() {
+    $('#pstPausalZadej').show()
+    $('#pstNakladyZadej').hide()
+  })
+  $('#pstPausalNE').click(function() {
+    $('#pstPausalZadej').hide()
+    $('#pstNakladyZadej').show()
+  })
+  
+  $('#pstZdravMin').click(function() {
+    $('#pstZdravCustom').toggle()
+  })
+$('#pstSocMin').click(function() {
+    $('#pstSocCustom').toggle()
+  })
+  
+  
 });
+
 </script>
  </body>
