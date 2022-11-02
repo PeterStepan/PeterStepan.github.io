@@ -1,1 +1,137 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <main>
+    <div class="content-wrapper">
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/d3js/7.6.1/d3.min.js"></script><!--TEST-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script type="text/javascript" src="javascript.js"></script>
+<h1 class="sz">Konsolidace úvěrů</h1>
+      <p class="sz">Zjistěte, o kolik by se vám mohly snížit měsíční splátky, pokud byste spojili všechny vaše půjčky do jedné.
+      </p>
+<form id="pstForm" action="javascript:void(0);">
+    <h2>Spojení více půjček do jedné</h2>
+    <h3>Konsolidace úvěrů</h3>
+    <ol id="pstPujcky">
+        <li>
+            <div class='pstRadek'>
+                <table class="pstPujckaTab">
+                    <tr>
+                    <td>
+                        <span>Zbývající dluh: </span>
+                    </td>
+                    <td>
+                        <input type="number" min="0" class="pstDluh" placeholder="Zbývající dluh v Kč" value="50000" step="any">
+                    </td>
+                    </tr> 
+                    <tr>
+                    <td>
+                        <span> Splátka: </span>
+                    </td>
+                    <td>
+                        <input type="number" min="0" class="pstSplatka" placeholder="Splátka v Kč" value="1000" step="any">
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <span> Peroidicita: </span>
+                    </td>
+                    <td>
+                        <select class="pstPeriodicita">
+                            <option value="0.22999">týdenní</option>
+                            <option value="1" selected="selected">měsíční</option>
+                            <option value="6">půlroční</option>
+                            <option value="12">roční</option>
+                        </select>
+                    </td>
+                    </tr>
+                    </table>
+            </div>
+
+        </li>
+    </ol>
+    <div><button id="pstPridat" type="button">Přidat půjčku &#43;</button></div>
+    <div><button id="pstSpocitat" type="submit"  class="sz">Spočítat</button></div>
+    <div id="pstWarning">
+        Upozornění: Některý ze zadaných údajů je chybný. Hodnoty nesmí být nulové a splátky by neměly být vyšší než dluh. <!-- to s tím dluhem promyslet -->
+    </div>
+    <hr class="sz">
+    <div id="pstVysledek" style="display: none;">
+<h3 class="sz">Sloučená půjčka</h3>
+
+      <table class="sz">
+          <tr>
+              <td class=>Měsíční splátka</td>
+              <td><input type="range" min="100" max="50000" value="5000" step="100" id="pstNovaSplatka" style="display: none"> <span id="pstNovaSplatkaT" class="pstText">5000</span>
+                <div></td>
+          </tr>
+          <tr>
+            <td class=>Úroková sazba</td>
+            <td>
+                <input type="range" min="0.01" max="0.15" value="0.065" step="0.0025" id="pstNovaSazba"><button type="button" class="pstMini" id="pstSazbaPlus">+</button>&nbsp;<button type="button" class="pstMini" id="pstSazbaMinus">-</button>
+                <br><span id="pstNovaSazbaT" class="pstText">6,5 %</span>
+                
+            </td>
+        </tr>
+
+        <tr>
+            <td class=>Délka splácení</td>
+            <td><input type="range" min="1" max="360" value="24" step="1" id="pstNovaDelka"><button type="button" class="pstMini" id="pstDelkaPlus">+</button>&nbsp;<button type="button" class="pstMini" id="pstDelkaMinus">-</button>
+                <br><span id="pstNovaDelkaT" class="pstText">24 splátek / 2 roky</span></td>
+        </tr>
+
+        <!--<tr>
+            <td class=>RPSN</td>
+            <td><span id="pstRPSN" class="pstText"> 7,1 %</span></td>
+        </tr>-->
+        <tr>
+            <td class=>Celkem zaplatíte</td>
+            <td><span id="pstCelkemT" class="pstText">50 000</span> (jistina <span id="pstJistinaT" class="pstText">48 573</span>, úroky <span id="pstUrokyT" class="pstText">1427</span>)</td>
+        </tr>
+      </table>
+      <hr class="sz">
+<h3 class="sz">Kalendář splátek</h3>
+
+<div id="pstKalendarDiv">
+<table class="sz" id="pstKalendar">
+    <thead>
+    <tr class="table_header">
+        <td>#</td>
+        <td>Zbývá splatit</td>
+        <td>Splátka</td>
+        <td>Úrok</td>
+        <td>Úmor</td>
+    </tr>
+    </thead>
+    <tbody>
+        
+    </tbody>
+</table>
+</div>
+
+</div>
+
+
+
+</form>
+
+<div class="footer logo-byznys">
+
+    <div class="zdroj">
+        Zdroj: Vlastní výpočty
+    </div>
+</div>
+    </div>
+</body>
+<script src="index.js"></script>
+</html>
