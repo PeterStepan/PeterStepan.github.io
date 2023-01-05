@@ -9,7 +9,6 @@
     font-size: 1rem;   
 }
 
-
 #pstKalendarDiv {
     overflow: auto;
     height: 350px;
@@ -31,8 +30,8 @@
     background-color: #704141;
 }
 
-#pstPridat {
-    display: block; 
+#pstPridat,#pstSmazat {
+    /*display: block; */
     padding: 0.5rem 1rem;
     font-size: 0.65rem;
     line-height: 1rem;
@@ -45,16 +44,9 @@
     font-weight: 800;
 }
 
-.pstSmazat {
-    padding: 0.5rem 1rem;
-    font-size: 0.7rem;
-    line-height: 1rem;
-    color: #fff;
-    text-transform: uppercase;
-    background: #a05d5d;
-    border: 0;
-    font-family: Montserrat,Candara,Century Gothic,Verdana,sans-serif;
-    font-weight: 800;
+.pstNeaktivni {/*pro neaktivní knoflík*/
+    background: #666 !important;
+    cursor: not-allowed  !important;
 }
 
 .pstMini {
@@ -280,7 +272,10 @@ input[type=checkbox] {
 }
 
 /* velikost radio buttonu */
-input[type=radio] {}
+input[type=radio] {height: 1.2rem;
+    width: 50%;
+    margin: 0;
+    padding: 0;}
 
 /* základní velké tlačítko */
 button.sz {
@@ -298,7 +293,7 @@ button.sz {
     font-weight: 800;
 }
 
-button.sz:hover, #pstPridat:hover, .pstSmazat:hover, .pstMini:hover {
+button.sz:hover, #pstPridat:hover, #pstSmazat:hover, .pstMini:hover {
     text-decoration: none;
     background-color: #704141;
     cursor: pointer;
@@ -487,7 +482,7 @@ tr {
         width: 100%;
         height: 7px;
         cursor: pointer;
-        animate: 0.2s;
+        /*animate: 0.2s;*/
         box-shadow: 0px 0px 0px #000000;
         background: #704141;
         border-radius: 50px;
