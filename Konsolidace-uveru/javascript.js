@@ -1,5 +1,3 @@
-//pozor, při nějakém nastavení mi to v kalendáři u posledního úroku a úmoru v procentech psalo NaN
-
 $(document).ready(function(){
 
     
@@ -45,69 +43,18 @@ $(document).ready(function(){
         return Math.ceil(x); //zaokrouhlí se nahoru
     }
 
-    /*function pstRPSN(dluh,poplatky,splatka,delka) {
-        krok = 0.00001
-        for(x=0.000001;x<=0.17;x+=krok) {
-            soucet = 0 //vynulujeme
-            for(i=0;i<=delka;i++) {
-                if (i==0) { //první krok
-                    soucet = (dluh-poplatky)/(1)
-                    
-                } else { //ostatní kroky
-                    soucet += (-splatka)/((1+x)**(i/12))
-                    
-                }
-            }
-            if(soucet>=-5) {krok=0.00001}
-            if(soucet>=-1) {krok=0.000001}
-            if(soucet>=-0.5) {krok=0.00000001}
-            console.log("Pro X = " + x + " je součet: " + soucet)
-            if(soucet > 1000) {console.log("výpočet RPSN selhal; součet: " + soucet); $('#pstRPSN').text("-"); return;}
-            if(Math.round(soucet*100)==0) {
-                //console.log("RPSN JE: " + x);
-                x = ((Math.round(x*10000))/10000)
-                //console.log("RPSN JE 2: " + x);
-            $('#pstRPSN').text(pstPCT(x))
-            return;
-        }
-        }  
-        
-    }*/
-
-    //při změně šoupátek... s tím si ještě pohrát.
-$('#pstNovaSplatka').on('change',function() {
-    pstNovaSplatka = parseInt($('#pstNovaSplatka').val());
-    $('#pstNovaSplatkaT').text(pstCZK(pstNovaSplatka))
-
-    pstNovaDelka = pstDelkaSplaceni(pstCelyDluh,pstNovaSazba,pstNovaSplatka,12)
-    //console.log("nová délka: " + pstNovaDelka)
-    //opakuje se
-    $('#pstNovaDelka').val(pstNovaDelka);
-    var pstRoky = Math.floor(pstNovaDelka/12)
-    var pstMesice = pstNovaDelka % 12;
-    $('#pstNovaDelkaT').text(pstCIS(pstNovaDelka,"splátka","splátky","splátek") + ' / ' + pstCIS(pstRoky,"rok","roky","let") + " " + pstCIS(pstMesice,"měsíc","měsíce","měsíců"))
-    //opakuje se
-
-    
-    pstDluhUroky = pstNovaDelka*pstNovaSplatka
-
-    pstUroky = pstDluhUroky-pstCelyDluh
-    $('#pstCelkemT').text(pstCZK(pstDluhUroky));
-    $('#pstUrokyT').text(pstCZK(pstUroky));
-})
-
 $('#pstNovaSazba').on('change',function() {
     pstNovaSazba = $('#pstNovaSazba').val() //původní hodnota se stanovuje pomocí HTML
     $('#pstNovaSazbaT').text(pstPCT(pstNovaSazba))
-    //tohle je stejné!
+
     pstNovaSplatka = pstVyskaSplatky(pstCelyDluh,pstNovaSazba,pstNovaDelka,12)
     $('#pstNovaSplatka').val(pstNovaSplatka);
     $('#pstNovaSplatkaT').text(pstCZK(pstNovaSplatka));
-    //tohle je stejné!
+    $('#pstNovaSplatkaT2').text(pstCZK(pstNovaSplatka));
+
+
     pstDluhUroky = pstNovaDelka*pstNovaSplatka
     pstUroky = pstDluhUroky-pstCelyDluh
-    $('#pstCelkemT').text(pstCZK(pstDluhUroky));
-    $('#pstUrokyT').text(pstCZK(pstUroky));
     pstKalendaruj()
 })
 
@@ -121,22 +68,22 @@ $('#pstNovaDelka').on('change',function() {
     pstNovaSplatka = pstVyskaSplatky(pstCelyDluh,pstNovaSazba,pstNovaDelka,12)
     $('#pstNovaSplatka').val(pstNovaSplatka);
     $('#pstNovaSplatkaT').text(pstCZK(pstNovaSplatka));
+    $('#pstNovaSplatkaT2').text(pstCZK(pstNovaSplatka));
     //tohle je stejné!
     pstDluhUroky = pstNovaDelka*pstNovaSplatka
     pstUroky = pstDluhUroky-pstCelyDluh
-    $('#pstCelkemT').text(pstCZK(pstDluhUroky));
-    $('#pstUrokyT').text(pstCZK(pstUroky));
+
     pstKalendaruj()
 })
 
 
 
 $('#pstSazbaPlus').on('click',function() {
-    $('#pstNovaSazba').val(String(parseFloat($('#pstNovaSazba').val())+0.0025)).trigger('change')
+    $('#pstNovaSazba').val(String(parseFloat($('#pstNovaSazba').val())+0.0001)).trigger('change')
     pstKalendaruj()
 })
 $('#pstSazbaMinus').on('click',function() {
-    $('#pstNovaSazba').val(String(parseFloat($('#pstNovaSazba').val())-0.0025)).trigger('change')
+    $('#pstNovaSazba').val(String(parseFloat($('#pstNovaSazba').val())-0.0001)).trigger('change')
     pstKalendaruj()
 })
 
@@ -154,12 +101,45 @@ $('#pstDelkaMinus').on('click',function() {
 
     //přidává nový řádek v prvním menu
 $("#pstPridat").click(function(){
-    $("#pstPujcky").append("<li><div class='pstRadek'><table class='pstPujckaTab'><tr><td><span>Zbývající dluh: </span></td><td><input type='number' min='0' class='pstDluh' placeholder='Zbývající dluh v Kč' step='any'></td></tr><tr><td><span><br>Splátka: </span></td><td><input type='number' min='0' class='pstSplatka' placeholder='Splátka v Kč' step='any'></td></tr><tr><td><span><br>Peroidicita: </span></td><td><select class='pstPeriodicita'><option value='0.22999'>týdenní</option><option value='1' selected='selected'>měsíční</option><option value='6'>půlroční</option><option value='12'>roční</option></select>&nbsp;&nbsp;<button class='pstSmazat' type='button'>X</button></td></tr></table></div></li>");
+    pstPocetRadku = $('.pstRadek').length
+    $("#pstPujcky").append("<li><div class='pstRadek pstNormalRadek'><table class='pstPujckaTab'><tr></tr><tr><td><span>Zbývající dluh: </span></td><td><input type='number' min='0' class='pstDluh' placeholder='Zbývající dluh v Kč' step='any'></td></tr><tr class='pstKartaOdkryto'><td><span><br>Splátka: </span></td><td><input type='number' min='0' class='pstSplatka' placeholder='Splátka v Kč' step='any'></td></tr><tr class='pstKartaOdkryto'><td><span><br>Peroidicita: </span></td><td><select class='pstPeriodicita'><option value='0.22999'>týdenní</option><option value='1' selected='selected'>měsíční</option><option value='6'>půlroční</option><option value='12'>roční</option></select></td></tr><tr style='display: none;' class='pstKartaSkryto'><td><span> Úroková sazba: </span></td><td><input type='number' min='0' class='pstSazbaKarta' placeholder='sazba v %' value='29' step='any'></td></tr><tr><td><span>Kreditní karta / debet: </span></td><td><input type='checkbox' class='pstKarta'></td></tr><tr style='display: none;' class='pstKartaSkryto'><td><span> Typ: </span></td><td><input type='radio' class='pstRadio'  name='xxx" + pstPocetRadku + "' value='20' checked>Kreditní karta <input type='radio' name='xxx" + pstPocetRadku + "' class='pstRadio' value='12'>Debet</td></tr></table></div></li>");
+    $('#pstSmazat').removeClass('pstNeaktivni')
 });
 
     //maže půjčky v prvním menu
-$('#pstPujcky').on('click', '.pstSmazat', function() {
+/*$('#pstPujcky').on('click', '.pstSmazat', function() {
     $(this).closest('li').remove();
+});*/
+
+//maže poslední řádek
+$('#pstSmazat').on('click', function() {
+    
+    if ($('#pstPujcky li').length > 1) {
+    $('#pstPujcky li').last().remove()}
+    if ($('#pstPujcky li').length == 1) {
+        $('#pstSmazat').addClass('pstNeaktivni')
+    } 
+    
+});
+
+//checkbox v půjčkách, mění class, aby se to mohlo počítat jinak
+
+var pstPocetRadku;
+$('#pstPujcky').on('click', '.pstKarta', function() { //tohle jinak nefungovalo
+    pstSelekt = $(this).closest('div');
+
+if(this.checked) {
+    pstSelekt.removeClass('pstNormalRadek').addClass('pstKartaRadek')
+    pstSelekt.find('.pstKartaSkryto').show()
+    pstSelekt.find('.pstKartaOdkryto').hide()
+ 
+
+} else {
+    pstSelekt.removeClass('pstKartaRadek').addClass('pstNormalRadek')
+    pstSelekt.find('.pstKartaSkryto').hide()
+    pstSelekt.find('.pstKartaOdkryto').show()
+
+}
 });
 
     //HLAVNÍ VÝPOČET ---------------------------------------------------------------------------
@@ -171,9 +151,9 @@ $('#pstForm').submit(function() {
     pstStaraDelka = []; //pole pro výpočet délky dluhů - vybereme pak tu nejvyšší
     pstUroky = 0; //Úroky celkového dluhu
     pstPoplatky = 0;
-        $('.pstRadek').each(function(index) {
+    
+        $('.pstNormalRadek').each(function(index) { //pro normální úvěry
         var pstCelyDluhX = parseFloat($(this).find('input').eq(0).val()); //dluh
-        
         
         if ($.isNumeric(pstCelyDluhX)) {pstCelyDluh += pstCelyDluhX; pstStaraDelka.push(pstCelyDluhX)} else {$(this).find('input').eq(0).val(0);pstStaraDelka.push(0)}
         
@@ -183,21 +163,45 @@ $('#pstForm').submit(function() {
         $(this).find('input').eq(1).val(String(parseFloat(pstStareSplatkyX)))
         pstStareSplatkyX = Math.ceil(pstStareSplatkyX/pstPeriodicita);
         if ($.isNumeric(pstStareSplatkyX)) {pstStareSplatky += pstStareSplatkyX; pstStaraDelka[index]=pstStaraDelka[index]/pstStareSplatkyX} else {$(this).find('input').eq(1).val(0); pstStaraDelka[index]=0}
-        //console.log(index + ": " + "Celý dluh: " + pstCelyDluhX + " Splátka: " + pstStareSplatkyX + " Periodicita: " + pstPeriodicita)
     });
+
+    $('.pstKartaRadek').each(function(index) { //pro karty a debet
+        var pstObdobi = parseInt($(this).find('input:radio.pstRadio:checked').val());
+        var pstDluh = parseFloat($(this).find('input').eq(0).val()); //dluh bez sazby u karty
+        var pstSazba = (parseFloat($(this).find('input').eq(2).val()))/100; //sazba u karty    
+        pstDluhKarta = pstVyskaSplatky(pstDluh,pstSazba,pstObdobi,12)
+        pstCelyDluhX = pstDluhKarta*pstObdobi
+        if ($.isNumeric(pstCelyDluhX)) {pstCelyDluh += pstCelyDluhX; pstStaraDelka.push(pstCelyDluhX)} else {$(this).find('input').eq(0).val(0);pstStaraDelka.push(0)}
+        console.log("Období: " + pstObdobi + " Dluh bez sazeb: " + pstDluh + " Sazba: " + pstSazba + " splátka: " + pstDluhKarta + " Celkem dluh karta: " + pstCelyDluhX)
+        
+        
+        /*var pstCelyDluhX = parseFloat($(this).find('input').eq(0).val()); //dluh
+        
+        if ($.isNumeric(pstCelyDluhX)) {pstCelyDluh += pstCelyDluhX; pstStaraDelka.push(pstCelyDluhX)} else {$(this).find('input').eq(0).val(0);pstStaraDelka.push(0)}
+        
+        $(this).find('input').eq(0).val(String(parseFloat(pstCelyDluhX)))
+        var pstStareSplatkyX = parseFloat($(this).find('input').eq(1).val());//splatka
+        var pstPeriodicita = parseFloat($(this).find(':selected').val()); //periodicita
+        $(this).find('input').eq(1).val(String(parseFloat(pstStareSplatkyX)))
+        pstStareSplatkyX = Math.ceil(pstStareSplatkyX/pstPeriodicita);
+        if ($.isNumeric(pstStareSplatkyX)) {pstStareSplatky += pstStareSplatkyX; pstStaraDelka[index]=pstStaraDelka[index]/pstStareSplatkyX} else {$(this).find('input').eq(1).val(0); pstStaraDelka[index]=0}*/
+    });
+
 
 
     
 
     //pokud člověk zadá blbiny
-    if (pstCelyDluh <= 0 || pstStareSplatky <= 0 || pstCelyDluh < pstStareSplatky) {
+    
+
+    if (pstCelyDluh <= 0/* || pstStareSplatky <= 0 || pstCelyDluh < pstStareSplatky*/) {
         pstStop();
         console.log(pstCelyDluh + " = Celý dluh; " + pstStareSplatky + " = Staré splátky ")
         return; //ukonči další počítání
     } else {
         pstGo();
-
     }
+    pstGo();
 
     
     pstStaraDelka = Math.max(...pstStaraDelka) //takhle by se mělo najít nejvyšší pole
@@ -211,53 +215,49 @@ $('#pstForm').submit(function() {
     $('#pstNovaSplatka').val(pstNovaSplatka);
     
     $('#pstNovaSplatkaT').text(pstCZK(pstNovaSplatka));
-    
-    
-
-    
+    $('#pstNovaSplatkaT2').text(pstCZK(pstNovaSplatka));
     
     pstKalendaruj()
-    
-
-
-    
-    
-
 });
 
+//pro checkBox
+    
+
 function pstKalendaruj() {
-    //pstRPSN(pstCelyDluh,pstPoplatky,pstNovaSplatka,pstNovaDelka)
     $('#pstKalendar tbody').empty();
     var pstUmorCelkem = 0;
     var pstUrokCelkem = 0;
-    $('#pstKalendar tbody').append('<tr><td>0.</td><td class="pstZbytek">' + pstCZK(pstCelyDluh) + '</td><td class="pstSplatka">-</td><td class="pstUrok">-</td><td class="pstUmor">-</td></tr>');
+    var pstSplatkaKalendar = pstNovaSplatka //aby to nerozhazovalo celej výpočet, vezmeme si splátku pro sebe
+    $('#pstKalendar tbody').append('<tr><td>0.</td><td class="pstSplatka">-</td><td class="pstUrok">-</td><td class="pstUmor">-</td><td class="pstZbytek">' + pstCZK(pstCelyDluh) + '</td></tr>');
     var pstZbyva = pstCelyDluh
     for(i=1;i<=pstNovaDelka;i++) {
         pstUrok = pstZbyva //načteme "starý"
-        pstZbyva = Math.ceil(pstZbyva*(1+pstNovaSazba/12))
+        pstZbyva = pstZbyva*(1+pstNovaSazba/12)
         pstUrok = pstZbyva-pstUrok
         
 
-        if (pstZbyva<pstNovaSplatka) {
-            pstNovaSplatka = pstZbyva; 
+        if (pstZbyva<pstSplatkaKalendar) {//v posledním kole
+            pstSplatkaKalendar = pstZbyva;
             
             pstZbyva=0;
 
             
-        } else {pstZbyva = pstZbyva - pstNovaSplatka;}
-        pstUrokP = (pstUrok/pstNovaSplatka) //tohle až níž, protože se může změnit splátka v posledním kole
+        } else {pstZbyva = pstZbyva - pstSplatkaKalendar;}
+        //kontroluju tady
+        pstUrokP = (pstUrok/pstSplatkaKalendar)
         pstUrokCelkem += pstUrok
-        pstUmor = pstNovaSplatka-pstUrok
-        pstUmorP = (pstUmor/pstNovaSplatka)
+        pstUmor = pstSplatkaKalendar-pstUrok
+        pstUmorP = (pstUmor/pstSplatkaKalendar)
         pstUmorCelkem +=pstUmor
-        $('#pstKalendar').append('<tr><td>' + i + '.' + '</td><td class="pstZbytek">' + pstCZK(pstZbyva) + '</td><td>' + pstCZK(pstNovaSplatka) + '</td><td class="pstUrok">' + pstCZK(pstUrok) + ' (' + pstPCT(pstUrokP) + ')' + '</td><td class="pstUmor">' + pstCZK(pstUmor) + ' (' + pstPCT(pstUmorP) + ')' + '</td></tr>')
+        $('#pstKalendar').append('<tr><td>' + i + '.' + '</td><td>' + pstCZK(pstSplatkaKalendar) + '</td><td class="pstUrok">' + pstCZK(pstUrok) + ' (' + pstPCT(pstUrokP) + ')' + '</td><td class="pstUmor">' + pstCZK(pstUmor) + ' (' + pstPCT(pstUmorP) + ')' + '</td><td class="pstZbytek">' + pstCZK(pstZbyva) + '</td> </tr>')
 
     }
-    pstDluhUroky =  pstUrokCelkem+pstUmorCelkem //Z nějakého důvodu nevychází! 
+    pstDluhUroky =  pstUrokCelkem+pstUmorCelkem  
     
     $('#pstJistinaT').text(pstCZK(pstCelyDluh));
     $('#pstCelkemT').text(pstCZK(pstDluhUroky));
     $('#pstUrokyT').text(pstCZK(pstUrokCelkem));   
+
     
 
    
