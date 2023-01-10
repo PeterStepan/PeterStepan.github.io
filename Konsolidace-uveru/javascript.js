@@ -43,6 +43,30 @@ $(document).ready(function(){
         return Math.ceil(x); //zaokrouhlí se nahoru
     }
 
+    //čudlítka
+$('#pstNovaSplatka').on('change',function() {
+        pstNovaSplatka = $('#pstNovaSplatka').val()
+        
+        pstNovaDelka = Math.ceil(pstCelyDluh/pstNovaSplatka)
+        if(pstNovaDelka == 1) {
+            pstNovaSplatka = pstVyskaSplatky(pstCelyDluh,pstNovaSazba,1,12)
+            $('#pstNovaSplatka').val(pstNovaSplatka)
+        }
+        $('#pstNovaSplatkaT').text(pstCZK(pstNovaSplatka))
+        $('#pstNovaDelka').val(pstNovaDelka) //.trigger('change')
+
+
+
+        var pstRoky = Math.floor(pstNovaDelka/12)
+        var pstMesice = pstNovaDelka % 12;
+    
+        $('#pstNovaDelkaT').text(pstCIS(pstNovaDelka,"splátka","splátky","splátek") + ' / ' + pstCIS(pstRoky,"rok","roky","let") + " " + pstCIS(pstMesice,"měsíc","měsíce","měsíců"))
+        pstNovaSplatka
+
+
+        pstKalendaruj()
+})
+
 $('#pstNovaSazba').on('change',function() {
     pstNovaSazba = $('#pstNovaSazba').val() //původní hodnota se stanovuje pomocí HTML
     $('#pstNovaSazbaT').text(pstPCT(pstNovaSazba))
@@ -97,19 +121,24 @@ $('#pstDelkaMinus').on('click',function() {
     pstKalendaruj()
 })
 
+$('#pstSplatkaPlus').on('click',function() {
+    $('#pstNovaSplatka').val(String(parseFloat($('#pstNovaSplatka').val())+100)).trigger('change')
+    pstKalendaruj()
+})
+
+$('#pstSplatkaMinus').on('click',function() {
+    $('#pstNovaSplatka').val(String(parseFloat($('#pstNovaSplatka').val())-100)).trigger('change')
+    pstKalendaruj()
+})
+
     //...konec změny šoupátek
 
     //přidává nový řádek v prvním menu
 $("#pstPridat").click(function(){
     pstPocetRadku = $('.pstRadek').length
-    $("#pstPujcky").append("<li><div class='pstRadek pstNormalRadek'><table class='pstPujckaTab'><tr></tr><tr><td><span>Zbývající dluh: </span></td><td><input type='number' min='0' class='pstDluh' placeholder='Zbývající dluh v Kč' step='any'></td></tr><tr class='pstKartaOdkryto'><td><span><br>Splátka: </span></td><td><input type='number' min='0' class='pstSplatka' placeholder='Splátka v Kč' step='any'></td></tr><tr class='pstKartaOdkryto'><td><span><br>Peroidicita: </span></td><td><select class='pstPeriodicita'><option value='0.22999'>týdenní</option><option value='1' selected='selected'>měsíční</option><option value='6'>půlroční</option><option value='12'>roční</option></select></td></tr><tr style='display: none;' class='pstKartaSkryto'><td><span> Úroková sazba: </span></td><td><input type='number' min='0' class='pstSazbaKarta' placeholder='sazba v %' value='29' step='any'></td></tr><tr><td><span>Kreditní karta / debet: </span></td><td><input type='checkbox' class='pstKarta'></td></tr><tr style='display: none;' class='pstKartaSkryto'><td><span> Typ: </span></td><td><input type='radio' class='pstRadio'  name='xxx" + pstPocetRadku + "' value='20' checked>Kreditní karta <input type='radio' name='xxx" + pstPocetRadku + "' class='pstRadio' value='12'>Debet</td></tr></table></div></li>");
+    $("#pstPujcky").append("<li><div class='pstRadek pstNormalRadek'><table class='pstPujckaTab'><tr></tr><tr><td><span>Zbývající dluh: </span></td><td><input type='number' min='0' class='pstDluh' placeholder='Zbývající dluh v Kč' step='any'></td></tr><tr class='pstKartaOdkryto'><td><span><br>Splátka: </span></td><td><input type='number' min='0' class='pstSplatka' placeholder='Splátka v Kč' step='any'></td></tr><tr class='' style='display: none;'><td><span><br>Peroidicita: </span></td><td><select class='pstPeriodicita'><option value='0.22999'>týdenní</option><option value='1' selected='selected'>měsíční</option><option value='6'>půlroční</option><option value='12'>roční</option></select></td></tr><tr><td><span>Kreditní karta / kontokorent: </span></td><td><input type='checkbox' class='pstKarta'></td></tr><tr style='display: none;' class='pstKartaSkryto'><td><span> Typ: </span></td><td><input type='radio' class='pstRadio'  name='xxx" + pstPocetRadku + "' value='20' style='width: 10px;' checked>Kreditní karta <input type='radio' name='xxx" + pstPocetRadku + "' class='pstRadio' value='12' style='width: 10px;'>Kontokorent</td></tr><tr style='display: none;' class='pstKartaSkryto'><td><span> Úroková sazba: </span></td><td><input type='radio' name='yyy" + pstPocetRadku + "' class='pstJeSazba' value='1' style='width: 10px;' checked>Sazba&nbsp;&nbsp; <input type='radio' name='yyy" + pstPocetRadku + "' class='pstJeSazba' value='0' style='width: 10px;'>Měsíční splátka<br><input type='number' min='0' class='pstSazbaKarta' placeholder='hodnota' value='' step='any'></td></tr></table></div></li>");
     $('#pstSmazat').removeClass('pstNeaktivni')
 });
-
-    //maže půjčky v prvním menu
-/*$('#pstPujcky').on('click', '.pstSmazat', function() {
-    $(this).closest('li').remove();
-});*/
 
 //maže poslední řádek
 $('#pstSmazat').on('click', function() {
@@ -122,11 +151,10 @@ $('#pstSmazat').on('click', function() {
     
 });
 
-//checkbox v půjčkách, mění class, aby se to mohlo počítat jinak
+
 
 var pstPocetRadku;
-$('#pstPujcky').on('click', '.pstKarta', function() { //tohle jinak nefungovalo
-    pstSelekt = $(this).closest('div');
+$('#pstPujcky').on('click', '.pstKarta', function() { 
 
 if(this.checked) {
     pstSelekt.removeClass('pstNormalRadek').addClass('pstKartaRadek')
@@ -144,13 +172,16 @@ if(this.checked) {
 
     //HLAVNÍ VÝPOČET ---------------------------------------------------------------------------
 $('#pstForm').submit(function() {
-    
+    pstCelyDluhKarta = 0
     pstCelyDluh = 0; //součet všech dluhů
     pstDluhUroky = 0; //dluh s úroky
     pstStareSplatky = 0; //součet starých splátek
+    pstStareSplatkyKarta = 0;
     pstStaraDelka = []; //pole pro výpočet délky dluhů - vybereme pak tu nejvyšší
     pstUroky = 0; //Úroky celkového dluhu
     pstPoplatky = 0;
+
+    
     
         $('.pstNormalRadek').each(function(index) { //pro normální úvěry
         var pstCelyDluhX = parseFloat($(this).find('input').eq(0).val()); //dluh
@@ -162,44 +193,45 @@ $('#pstForm').submit(function() {
         var pstPeriodicita = parseFloat($(this).find(':selected').val()); //periodicita
         $(this).find('input').eq(1).val(String(parseFloat(pstStareSplatkyX)))
         pstStareSplatkyX = Math.ceil(pstStareSplatkyX/pstPeriodicita);
+
         if ($.isNumeric(pstStareSplatkyX)) {pstStareSplatky += pstStareSplatkyX; pstStaraDelka[index]=pstStaraDelka[index]/pstStareSplatkyX} else {$(this).find('input').eq(1).val(0); pstStaraDelka[index]=0}
     });
 
     $('.pstKartaRadek').each(function(index) { //pro karty a debet
-        var pstObdobi = parseInt($(this).find('input:radio.pstRadio:checked').val());
-        var pstDluh = parseFloat($(this).find('input').eq(0).val()); //dluh bez sazby u karty
-        var pstSazba = (parseFloat($(this).find('input').eq(2).val()))/100; //sazba u karty    
-        pstDluhKarta = pstVyskaSplatky(pstDluh,pstSazba,pstObdobi,12)
-        pstCelyDluhX = pstDluhKarta*pstObdobi
-        if ($.isNumeric(pstCelyDluhX)) {pstCelyDluh += pstCelyDluhX; pstStaraDelka.push(pstCelyDluhX)} else {$(this).find('input').eq(0).val(0);pstStaraDelka.push(0)}
-        console.log("Období: " + pstObdobi + " Dluh bez sazeb: " + pstDluh + " Sazba: " + pstSazba + " splátka: " + pstDluhKarta + " Celkem dluh karta: " + pstCelyDluhX)
-        
-        
-        /*var pstCelyDluhX = parseFloat($(this).find('input').eq(0).val()); //dluh
-        
-        if ($.isNumeric(pstCelyDluhX)) {pstCelyDluh += pstCelyDluhX; pstStaraDelka.push(pstCelyDluhX)} else {$(this).find('input').eq(0).val(0);pstStaraDelka.push(0)}
-        
-        $(this).find('input').eq(0).val(String(parseFloat(pstCelyDluhX)))
-        var pstStareSplatkyX = parseFloat($(this).find('input').eq(1).val());//splatka
-        var pstPeriodicita = parseFloat($(this).find(':selected').val()); //periodicita
-        $(this).find('input').eq(1).val(String(parseFloat(pstStareSplatkyX)))
-        pstStareSplatkyX = Math.ceil(pstStareSplatkyX/pstPeriodicita);
-        if ($.isNumeric(pstStareSplatkyX)) {pstStareSplatky += pstStareSplatkyX; pstStaraDelka[index]=pstStaraDelka[index]/pstStareSplatkyX} else {$(this).find('input').eq(1).val(0); pstStaraDelka[index]=0}*/
-    });
+        var pstObdobi = parseInt($(this).find('input:radio.pstRadio:checked').val()); //u kontokrentu a kreditky se liší období, po kterou se "splácí"
+        var pstCelyDluhX = parseFloat($(this).find('input').eq(0).val()); //dluh bez sazby u karty
 
+        
+        if ($(this).find('input:radio.pstJeSazba:checked').val() == 0) {//když je to splátka a ne sazba
+             pstStareSplatkyX = parseFloat($(this).find('input').eq(7).val())
 
-
+        } else {
+            var pstSazba = (parseFloat($(this).find('input').eq(7).val())); //sazba u karty
+            var pstStareSplatkyX = pstVyskaSplatky(pstCelyDluhX,pstSazba,pstObdobi,12)
     
+        }
 
-    //pokud člověk zadá blbiny
-    
+        pstCelyDluhX = pstCelyDluhX
 
-    if (pstCelyDluh <= 0/* || pstStareSplatky <= 0 || pstCelyDluh < pstStareSplatky*/) {
+        if ($.isNumeric(pstCelyDluhX)) {pstCelyDluh += pstCelyDluhX; pstCelyDluhKarta += pstCelyDluhX; pstStaraDelka.push(pstCelyDluhX)} else {$(this).find('input').eq(0).val(0);pstStaraDelka.push(0)}
+
+        if ($.isNumeric(pstStareSplatkyX)) {pstStareSplatky += pstStareSplatkyX; pstStareSplatkyKarta += pstStareSplatkyX} else {$(this).find('input').eq(7).val(0); }
+
+        //console.log("Období: " + pstObdobi + " Dluh bez sazeb: " + pstCelyDluhX + " Sazba: " + pstSazba + " Je splátka: " + $(this).find('input:radio.pstJeSazba:checked').val() + " Celkem dluh karta: " + pstCelyDluhX + " Celkem splátky: " + pstStareSplatkyX)
+        
+    });  
+    //nastavení max:
+    $('#pstNovaSplatka').attr({
+        'max' : pstCelyDluh-100,               
+     });
+
+    if (pstCelyDluh <= 0 /*|| pstStareSplatky <= 0 || pstCelyDluh < pstStareSplatky*/) {
         pstStop();
-        console.log(pstCelyDluh + " = Celý dluh; " + pstStareSplatky + " = Staré splátky ")
-        return; //ukonči další počítání
+
+        return;
     } else {
         pstGo();
+
     }
     pstGo();
 
@@ -257,6 +289,12 @@ function pstKalendaruj() {
     $('#pstJistinaT').text(pstCZK(pstCelyDluh));
     $('#pstCelkemT').text(pstCZK(pstDluhUroky));
     $('#pstUrokyT').text(pstCZK(pstUrokCelkem));   
+    $('#pstUverT').text(pstCZK(pstCelyDluh-pstCelyDluhKarta));  
+    $('#pstKartaT').text(pstCZK(pstCelyDluhKarta)); 
+    $('#pstStareSplatkyT').text(pstCZK(pstStareSplatky)); 
+    $('#pstStareSplatkyUverT').text(pstCZK(pstStareSplatky-pstStareSplatkyKarta)); 
+    $('#pstStareSplatkyKartaT').text(pstCZK(pstStareSplatkyKarta)); 
+ 
 
     
 
