@@ -155,7 +155,8 @@ $('#pstSmazat').on('click', function() {
 
 var pstPocetRadku;
 $('#pstPujcky').on('click', '.pstKarta', function() { 
-
+pstSelekt = $(this).closest('div');
+    
 if(this.checked) {
     pstSelekt.removeClass('pstNormalRadek').addClass('pstKartaRadek')
     pstSelekt.find('.pstKartaSkryto').show()
