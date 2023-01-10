@@ -30,18 +30,19 @@
                         <span>Zbývající dluh: </span>
                     </td>
                     <td>
-                        <input type="number" min="0" class="pstDluh" placeholder="Zbývající dluh v Kč" value="50000" step="any">
+                        <input type="number" min="0" class="pstDluh" placeholder="Zbývající dluh v Kč" value="" step="any">
                     </td>
                     </tr> 
+                    
                     <tr  class="pstKartaOdkryto">
                     <td>
                         <span> Splátka: </span>
                     </td>
                     <td>
-                        <input type="number" min="0" class="pstSplatka" placeholder="Splátka v Kč" value="1000" step="any">
+                        <input type="number" min="0" class="pstSplatka" placeholder="Splátka v Kč" value="" step="any">
                     </td>
                     </tr>
-                    <tr class="pstKartaOdkryto">
+                    <tr class="" style="display: none;">
                     <td>
                         <span> Peroidicita: </span>
                     </td>
@@ -54,17 +55,12 @@
                         </select>
                     </td>
                     </tr>
-                    <tr style="display: none;" class="pstKartaSkryto">
-                        <td>
-                            <span> Úroková sazba: </span>
-                        </td>
-                        <td>
-                            <input type="number" min="0" class="pstSazbaKarta" placeholder="sazba v %" value="29" step="any">
-                        </td>
-                        </tr>
+                    
+
+
                         <tr>
                             <td>
-                                <span>Kreditní karta / debet: </span>
+                                <span>Kreditní karta / kontokorent: </span>
                             </td>
                             <td>
                                 <input type="checkbox" class="pstKarta">
@@ -75,9 +71,19 @@
                                     <span> Typ: </span>
                                 </td>
                                 <td>
-                                    <input type="radio" name="xxx0" class="pstKreditniKarta pstRadio" value="20" checked>Kreditní karta <input class="pstRadio" type="radio" name="xxx0" value="12">Debet
+                                    <input type="radio" name="xxx0" class="pstKreditniKarta pstRadio" value="20"  style="width: 10px;" checked>Kreditní karta <input class="pstRadio" type="radio" name="xxx0" value="12" style="width: 10px;">Kontokorent
                                 </td>
                                 </tr>
+                                <tr style="display: none;" class="pstKartaSkryto">
+                                    <td>
+                                        <span> Sazba, nebo splátky: </span>
+                                    </td>
+                                    <td>
+                                        <input type="radio" name="yyy0" class="pstJeSazba" value="1" style="width: 10px;" checked>Sazba
+                                        &nbsp;&nbsp; <input type="radio" name="yyy0" class="pstJeSazba" value="0" style="width: 10px;">Měsíční splátka<br>
+                                        <input type="number" min="0" class="pstSazbaKarta" placeholder="hodnota" value="" step="any">
+                                    </td>
+                                    </tr>
                     </table>
             </div>
 
@@ -95,7 +101,8 @@
       <table class="sz">
           <tr>
               <td class=>Měsíční splátka</td>
-              <td><input type="range" min="100" max="50000" value="5000" step="100" id="pstNovaSplatka" style="display: none"> <span id="pstNovaSplatkaT" class="pstText">5000</span>
+              <td><input type="range" min="100" max="50000" value="5000" step="100" id="pstNovaSplatka"><button type="button" class="pstMini" id="pstSplatkaPlus">+</button>&nbsp;<button type="button" class="pstMini" id="pstSplatkaMinus">-</button>
+                <br><span id="pstNovaSplatkaT" class="pstText">5000</span> 
                 <div></td>
           </tr>
           <tr>
@@ -131,15 +138,28 @@
                 <td id="pstJistinaT">0 Kč</td>
             </tr>
             <tr>
-                <td>Měsíční splátka kreditní karty a povoleného debetu</td>
-                <td>-</td>
+                <td>- z toho za úvěry:</td>
+                <td id="pstUverT">0 Kč</td>
             </tr>
             <tr>
-                <td>Měsíční splátky úvěrů</td>
-                <td>-</td>
+                <td>- z toho za karty a kontokorent</td>
+                <td id="pstKartaT">0 Kč</td>
             </tr>
             <tr>
-                <td>Měsíční splátky celkem</td>
+                <td>Dosavadní měsíční náklady</td>
+                <td id="pstStareSplatkyT">0 Kč</td>
+            </tr>
+            <tr>
+                <td>- z toho za úvěry:</td>
+                <td id="pstStareSplatkyUverT">0 Kč</td>
+            </tr>
+            <tr>
+                <td>- z toho za karty a kontokorent</td>
+                <td id="pstStareSplatkyKartaT">0 Kč</td>
+            </tr>
+
+            <tr>
+                <td>Nová spojená měsíční splátka</td>
                 <td id="pstNovaSplatkaT2">0 Kč</td>
             </tr>
             <tr>
@@ -152,10 +172,11 @@
             </tr>
         </tbody>
     </table>
-    <hr class="sz">
-<h3 class="sz">Kalendář splátek</h3>
 
-<div id="pstKalendarDiv">
+<!--    <hr class="sz">
+<h3 class="sz">Kalendář splátek</h3>-->
+
+<div id="pstKalendarDiv" style="display: none;">
 <table class="sz" id="pstKalendar">
     <thead>
     <tr class="table_header">
